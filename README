@@ -1,0 +1,8 @@
+Setting up the repository
+	. Decompress an xbsv version from xbsv_backup to where bluedbm is located, so that the two directories are in the same parent directory
+
+when copying over a new version of xbsv
+	. Copy ddr3 related files
+		. Copy and flatten ddr3_v1_7 from BLUESPECDIR/board_support/bluenoc/xilinx/VC707/verilog/ddr3_v1_7/
+		. Copy DDR3_synthesis_constraints from BLUESPECDIR/board_support/bluenoc/xilinx/VC707/ to xbsv/constraints/vc707_ddr3.xdc
+		. Edit vc707_ddr3.xdc such that the contraint names fit pins_* instead of DDR3_*
