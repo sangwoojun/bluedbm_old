@@ -1,7 +1,12 @@
 emultest: BLUEDBM_PLATFORMDIR=../src/bluedbm_platform/test_platform/
+emultest: BLUEDBM_FLASHDIR=../src/hardware_controller/flash/emulated/
+emultest: BLUEDBM_DRAMDIR=../src/hardware_controller/dram/unaligned_naive
+
 emultest: BSVFILES = Interface.bsv Top.bsv 
 emultest: BSVFILES_ALL = $(BSVFILES) $(BLUEDBM_PLATFORMDIR)/BlueDBMPlatform.bsv \
-	$(BLUEDBM_PLATFORMDIR)/PlatformInterfaces.bsv
+	$(BLUEDBM_PLATFORMDIR)/PlatformInterfaces.bsv \
+	$(BLUEDBM_FLASHDIR)/EmulatedFlash.bsv \
+	$(BLUEDBM_DRAMDIR)/DRAMController.bsv
 emultest: XBSVFLAGS=--verilog ../../../xbsv/xilinx/ddr3_v1_7/ --constraint ../../xbsv/xilinx/constraints/vc707_ddr3.xdc --clib rt
 emultest: CPPFILES_ALL = $(CPPFILES) $(BLUEDBM_PLATFORMDIR)/platform.cpp
 
