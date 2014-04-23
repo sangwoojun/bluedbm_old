@@ -1,6 +1,8 @@
-flashemul: BLUEDBM_PLATFORMDIR=../src/bluedbm_platform/test_platform/
-flashemul: BSVFILES = Interface.bsv Top.bsv 
-flashemul: BSVFILES_ALL = $(BSVFILES) $(BLUEDBM_PLATFORMDIR)/BlueDBMPlatform.bsv 
-flashemul: XBSVFLAGS=--verilog ../../../xbsv/xilinx/ddr3_v1_7/ --constraint ../../xbsv/xilinx/constraints/vc707_ddr3.xdc --clib rt
+emultest: BLUEDBM_PLATFORMDIR=../src/bluedbm_platform/test_platform/
+emultest: BSVFILES = Interface.bsv Top.bsv 
+emultest: BSVFILES_ALL = $(BSVFILES) $(BLUEDBM_PLATFORMDIR)/BlueDBMPlatform.bsv \
+	$(BLUEDBM_PLATFORMDIR)/PlatformInterfaces.bsv
+emultest: XBSVFLAGS=--verilog ../../../xbsv/xilinx/ddr3_v1_7/ --constraint ../../xbsv/xilinx/constraints/vc707_ddr3.xdc --clib rt
+emultest: CPPFILES_ALL = $(CPPFILES) $(BLUEDBM_PLATFORMDIR)/platform.cpp
 
 

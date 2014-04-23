@@ -1,2 +1,7 @@
 *.swp
 *.swo
+*.sched
+parser.out
+parsetab.py
+
+flashemul/vc707/

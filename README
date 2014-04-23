@@ -1,8 +1,39 @@
-Setting up the repository
-	. Decompress an xbsv version from xbsv_backup to where bluedbm is located, so that the two directories are in the same parent directory
+1. Setting up the environment 
+	(1) Decompress an xbsv version from xbsv_backup to where bluedbm is located,
+	so that the two directories are in the same parent directory 
+	(2) Building can be done in the respective framework directory, for example,
+	flashemul.  For example, building the [flashemul] framework with [emultest]
+	configuration can be done like the following:
+		cd flashemul;
+		make emultest;
+		cd vc707;
+		make;
 
-when copying over a new version of xbsv
-	. Copy ddr3 related files
-		. Copy and flatten ddr3_v1_7 from BLUESPECDIR/board_support/bluenoc/xilinx/VC707/verilog/ddr3_v1_7/
-		. Copy DDR3_synthesis_constraints from BLUESPECDIR/board_support/bluenoc/xilinx/VC707/ to xbsv/constraints/vc707_ddr3.xdc
-		. Edit vc707_ddr3.xdc such that the contraint names fit pins_* instead of DDR3_*
+2. Code structure
+	Only some special directories can exist on the top level; [src], [config],
+	[xbsv_backups] and various framework directories, in which you will run
+	make. All other directories which contain code, etc must exist inside [src].
+
+	In config, there are multiple Makefiles, including Makefile.list which is
+	included by the Makefiles inside each framework Makefile to configure the
+	files and arguments used to build. For example, the configuration inside
+	Makefile.emultest can be used by running
+		make emultest;
+
+	Ideally, code should be modularized enough so that any configuration can be
+	used in any framework. Please keep this in mind when you write code.
+
+	Also, please mind the directory structure inside [src] when writing new
+	code. Different, interchangeable modules and code should be stored together
+	inside the same directory, in their respective directories.
+
+
+3. when copying over a new version of xbsv 
+	(1) Copy ddr3 related files 
+	(2) Copy and flatten ddr3_v1_7 from
+	BLUESPECDIR/board_support/bluenoc/xilinx/VC707/verilog/ddr3_v1_7/ 
+	(3) Copy DDR3_synthesis_constraints from
+	BLUESPECDIR/board_support/bluenoc/xilinx/VC707/ to
+	xbsv/constraints/vc707_ddr3.xdc . Edit vc707_ddr3.xdc such that the
+	contraint names fit pins_* instead of DDR3_*
+

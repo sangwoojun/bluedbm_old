@@ -1,14 +1,19 @@
 import FIFO::*;
+import Clocks::*;
+
+import PlatformInterfaces::*;
 import Interface::*;
 import DRAMController::*;
 
 import PageCache::*;
+import EmulatedFlash::*;
 
 interface BlueDBMPlatformIfc;
 	method Action readPage(Bit#(64) pageIdx);
+	interface PlatformRequest request;
 endinterface
 
-module mkBlueDBMPlatform#(FlashIfc flash, BlueDBMHostIfc host, DRAMControllerIfc dram)
+module mkBlueDBMPlatform#(FlashControllerIfc flash, BlueDBMHostIfc host, DRAMControllerIfc dram)
 	(BlueDBMPlatformIfc);
 	
 	/*
@@ -31,9 +36,24 @@ module mkBlueDBMPlatform#(FlashIfc flash, BlueDBMHostIfc host, DRAMControllerIfc
 	endrule
 	*/
 
-	Reg#(Bit#(64)) dramTestCounter <- mkReg(0);
-	rule writeMem;
+	Clock clk <- exposeCurrentClock;
+	Reset rst_n <- exposeCurrentReset;
+	Clock ddr_clk = dram.ddr_clk;
+	Reset ddr_rst_n = dram.ddr_rst_n;
+
+	FlashInterfaceIfc flashInterface <- mkEmulatedFlash(dram, flash);
+	
+	SyncFIFOIfc#(Bit#(512)) dumpQ <- mkSyncFIFOToCC(2, ddr_clk, ddr_rst_n);
+	SyncFIFOIfc#(Bit#(64)) srcQ <- mkSyncFIFOFromCC(2, ddr_clk);
+	Reg#(Bit#(64)) dramTestCounter <- mkReg(0, clocked_by ddr_clk, reset_by ddr_rst_n);
+	rule getrr;
 		Bit#(64) d <- host.getRawWord;
+		srcQ.enq(d);
+	endrule
+	rule writeMem ;
+		//Bit#(64) d <- host.getRawWord;
+		Bit#(64) d = srcQ.first;
+		srcQ.deq;
 
 		Bit#(512) wd = extend({
 			dramTestCounter,
@@ -52,11 +72,12 @@ module mkBlueDBMPlatform#(FlashIfc flash, BlueDBMHostIfc host, DRAMControllerIfc
 		dram.readReq((dramTestCounter-128)*64, 64);
 		dramTestCounter <= dramTestCounter + 1;
 	endrule
-	FIFO#(Bit#(512)) dumpQ <- mkSizedFIFO(4);
+	/*
 	rule getRead ;
 		let dr <- dram.read;
 		dumpQ.enq(dr);
 	endrule
+	*/
 
 	Reg#(Bit#(512)) rdata <- mkReg(0);
 	Reg#(Bit#(32)) rcount <- mkReg(0);
@@ -82,7 +103,13 @@ module mkBlueDBMPlatform#(FlashIfc flash, BlueDBMHostIfc host, DRAMControllerIfc
 	rule getCommand;
 		let cmd <- host.getCommand;
 		if ( cmd.cmd == Cmd_ReadPage ) begin
-			pageCache.readPage(cmd.pageIdx, truncate(cmd.tag));
+			//pageCache.readPage(cmd.pageIdx, truncate(cmd.tag));
+			let idx=cmd.pageIdx;
+			let page = idx[7:0];
+			let block = extend((idx>>8)[13:0]);
+			let chip = extend((idx>>(8+14))[1:0]);
+			let bus = truncate(idx>>(8+14+2));
+			flashInterface.readPage(bus,chip,block,page,truncate(cmd.tag));
 		/*
 			flash.command(BlueDBMCommand {
 				cmd:Cmd_ReadPage,
@@ -90,20 +117,27 @@ module mkBlueDBMPlatform#(FlashIfc flash, BlueDBMHostIfc host, DRAMControllerIfc
 			});
 			*/
 
-			//host.writeBackPage(cmd.tag);
+			host.writeBackPage(cmd.tag);
 		end else 
 		if ( cmd.cmd == Cmd_WritePage ) begin
 			host.readPage(truncate(cmd.tag));
-			pageCache.writePage(cmd.pageIdx, truncate(cmd.tag));
+//			pageCache.writePage(cmd.pageIdx, truncate(cmd.tag));
+			let idx=cmd.pageIdx;
+			let page = idx[7:0];
+			let block = extend((idx>>8)[13:0]);
+			let chip = extend((idx>>(8+14))[1:0]);
+			let bus = truncate(idx>>(8+14+2));
+			flashInterface.writePage(bus,chip,block,page,truncate(cmd.tag));
 		end
 	endrule
 
 	rule flushRead;
 		//let q <- flash.readWord;
-		let q <- pageCache.readWord;
+		//let q <- pageCache.readWord;
+		let q <- flashInterface.readWord;
 		// do processing
 		// flash.returnPage
-		host.writeWord(tpl_1(q), tpl_2(q));
+		host.writeWord(tpl_1(q), extend(tpl_2(q)));
 	endrule
 
 	Reg#(Bit#(64)) counter <- mkReg(0);
@@ -111,9 +145,16 @@ module mkBlueDBMPlatform#(FlashIfc flash, BlueDBMHostIfc host, DRAMControllerIfc
 		let q <- host.readWord;
 		//pageCache.writeWord(counter, tpl_2(q));
 		counter <= counter + 1;
-		pageCache.writeWord(tpl_1(q), tpl_2(q));
+		//pageCache.writeWord(tpl_1(q), tpl_2(q));
+		Bit#(8) tag = extend(tpl_2(q)[5:0]);
+		flashInterface.writeWord(tpl_1(q), tag);
 	endrule
 
 	method Action readPage(Bit#(64) pageIdx);
 	endmethod
+
+	interface PlatformRequest request;
+		method Action rawWordRequest(Bit#(64) data);
+		endmethod
+	endinterface
 endmodule

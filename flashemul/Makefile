@@ -1,9 +1,9 @@
 include ../config/Makefile.list
 
-S2H = InterfaceRequest DmaConfig
-H2S = InterfaceIndication DmaIndication
-BSVFILES = Interface.bsv Top.bsv 
-CPPFILES=sw_interface.cpp rawWordManager.cpp
+S2H = InterfaceRequest DmaConfig PlatformRequest
+H2S = InterfaceIndication DmaIndication PlatformIndication
+BSVFILES = Interface.bsv Top.bsv
+CPPFILES=main.cpp rawWordManager.cpp
 Dma = DmaF
 PINS = Std
 
@@ -19,6 +19,6 @@ $(projectnames):
 	$(XBSVDIR)/genxpsprojfrombsv -B$(BOARD) -p $(BOARD) -x $(MKTOP) \
 	$(foreach s2h, $(S2H), -s2h $(s2h)) \
 	$(foreach h2s, $(H2S), -h2s $(h2s)) \
-	$(foreach f, $(CPPFILES), -s $f) \
+	$(foreach f, $(CPPFILES_ALL), -s $f) \
 	-t $(TOP).bsv $(XBSVFLAGS) $(BSVFILES_ALL)
 

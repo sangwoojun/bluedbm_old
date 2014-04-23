@@ -13,6 +13,8 @@ interface DRAMControllerIfc;
 
 	method ActionValue#(Bit#(512)) read;
 	method Action readReq(Bit#(64) addr, Bit#(7) bytes);
+	interface Clock ddr_clk;
+	interface Reset ddr_rst_n;
 endinterface
 
 module mkDRAMController#(DDR3_User_VC707 user) (DRAMControllerIfc);
@@ -27,7 +29,7 @@ module mkDRAMController#(DDR3_User_VC707 user) (DRAMControllerIfc);
 	FIFO#(Bit#(8)) readReqOrderQ <- mkSizedFIFO(32);
 	FIFO#(Bit#(8)) writeReqOrderQ <- mkSizedFIFO(32);
 	
-	SyncFIFOIfc#(Tuple3#(Bit#(64), Bit#(512), Bit#(64))) dramCDataInQ <- mkSyncFIFOFromCC(2, ddr3_clk);
+	SyncFIFOIfc#(Tuple3#(Bit#(64), Bit#(512), Bit#(64))) dramCDataInQ <- mkSyncFIFO(32, clk, rst_n, ddr3_clk);
 	rule driverWrie;// (writeReqOrderQ.first == procReqIdx) ;
 		dramCDataInQ.deq;
 		let d = dramCDataInQ.first;
@@ -39,17 +41,21 @@ module mkDRAMController#(DDR3_User_VC707 user) (DRAMControllerIfc);
 	//FIXME dramCDataInQ and dramCDataOutQ might cause RAW hazard unless force ordered
 	//probably will not happen, so left like this for now. FIXME!!
 	
-	SyncFIFOIfc#(Bit#(512)) dramCDataOutQ <- mkSyncFIFOToCC(2, ddr3_clk, ddr3_rstn);
+	SyncFIFOIfc#(Bit#(512)) dramCDataOutQ <- mkSyncFIFO(32, ddr3_clk, ddr3_rstn, clk);
 	FIFO#(Bit#(512)) dataOutQ <- mkFIFO();
 
 	Reg#(Bit#(512)) writeBuffer <- mkReg(0);
 	Reg#(Bit#(64)) writeMask <- mkReg(0);
 	Reg#(Bit#(64)) writeIdx <- mkReg(0);
 	
-	SyncFIFOIfc#(Bit#(64)) dramCReadReqQ <- mkSyncFIFOFromCC(2, ddr3_clk);
-	FIFO#(Tuple2#(Bit#(64), Bit#(7))) readReqQ <- mkSizedFIFO(4);
+	SyncFIFOIfc#(Bit#(64)) dramCReadReqQ <- mkSyncFIFO(32, clk, rst_n, ddr3_clk);
+	FIFO#(Tuple2#(Bit#(64), Bit#(7))) readReqQ <- mkSizedFIFO(32);
 	//FIFO#(Bit#(64)) readInFlightQ <- mkFIFO(clocked_by ddr3_clk, reset_by ddr3_rstn);
-	FIFOF#(Bit#(64)) readOffsetQ <- mkSizedFIFOF(8);
+	FIFOF#(Bit#(64)) readOffsetQ <- mkSizedFIFOF(32);
+	Reg#(Bit#(64)) lastReadIdx <- mkReg(~0);
+	FIFOF#(Bool) readNewQ <- mkSizedFIFOF(32);
+
+	Reg#(Bit#(1)) readRowNext <- mkReg(0);
 	rule driveRead (readReqOrderQ.first == procReqIdx );
 		let ii = readReqQ.first;
 		Bit#(64) addr = tpl_1(ii);
@@ -68,7 +74,19 @@ module mkDRAMController#(DDR3_User_VC707 user) (DRAMControllerIfc);
 		Bit#(64) fmask = mask <<offset;
 		Bit#(512) fdata = writeBuffer>>(offset*8);
 
-		if ( writeMask > 0 && rowidx == writeIdx ) begin
+		if ( readRowNext == 1 ) begin
+			readNewQ.enq(True);
+			readOffsetQ.enq(truncate(offset));
+
+			readRowNext <= 0;
+			
+			dramCReadReqQ.enq(truncate((rowidx+1)<<3));
+			
+			procReqIdx <= procReqIdx + 1;
+			readReqOrderQ.deq;
+			readReqQ.deq;
+		end
+		else if ( writeMask > 0 && rowidx == writeIdx ) begin
 			if ( ( (fmask & writeMask) == fmask )
 				&& ( extend(bytes) + offset <= 64 )) begin
 
@@ -84,14 +102,22 @@ module mkDRAMController#(DDR3_User_VC707 user) (DRAMControllerIfc);
 				writeMask <= 0;
 			end
 		end else begin
-			readReqQ.deq;
 			//dramCReadReqQ.deq;
 			//user.request(truncate(rowidx<<3), 0, 0);
-			dramCReadReqQ.enq(truncate(rowidx<<3));
 			readOffsetQ.enq(truncate(offset));
+			if ( lastReadIdx == rowidx ) begin
+				readNewQ.enq(False);
 				
-			procReqIdx <= procReqIdx + 1;
-			readReqOrderQ.deq;
+				procReqIdx <= procReqIdx + 1;
+				readReqOrderQ.deq;
+				readReqQ.deq;
+			end
+			else begin // if readRowNext == 0
+				readNewQ.enq(True);
+				lastReadIdx <= rowidx;
+				readRowNext <= 1;
+				dramCReadReqQ.enq(truncate(rowidx<<3));
+			end
 		end
 	endrule
 	rule driverReadC; // (readReqOrderQ.first == procReqIdx);
@@ -107,10 +133,32 @@ module mkDRAMController#(DDR3_User_VC707 user) (DRAMControllerIfc);
 		Bit#(512) res <- user.read_data;
 		dramCDataOutQ.enq(res);
 	endrule
+	Reg#(Bit#(TMul#(512,2))) readCache <- mkReg(0);
+	Reg#(Bit#(1)) readRowNextC <- mkReg(0);
 	rule recvRead2 ;
-		dramCDataOutQ.deq;
+		Bit#(512) data = dramCDataOutQ.first;
+		if ( readNewQ.first == True ) begin
+			Bit#(512) bmask = ~0;
+			
+			if ( readRowNextC == 0 ) begin
+				//readCache <= (readCache&(extend(bmask)<<512)) | {bmask,data};
+				readCache <= zeroExtend(data);
+				readRowNextC <= 1;
+			end else begin
+				let fdat = readCache + (zeroExtend(data)<<512);
+				//let fdat = (readCache&extend(bmask)) | {data,bmask};
+				readCache <= fdat;
+				readRowNextC <= 0;
+				
+				dataOutQ.enq(truncate(fdat>>(readOffsetQ.first*8)));
+			end
+			dramCDataOutQ.deq;
+		end else begin
+			dataOutQ.enq(truncate(readCache>>(readOffsetQ.first*8)));
+		end
+
 		readOffsetQ.deq;
-		dataOutQ.enq(dramCDataOutQ.first>>(readOffsetQ.first*8));
+		readNewQ.deq;
 	endrule
 
 	
@@ -195,6 +243,8 @@ module mkDRAMController#(DDR3_User_VC707 user) (DRAMControllerIfc);
 		//return dramCDataOutQ.first;
 		return dataOutQ.first;
 	endmethod
+	interface ddr_clk = clk;
+	interface ddr_rst_n = rst_n;
 endmodule
 
 endpackage: DRAMController

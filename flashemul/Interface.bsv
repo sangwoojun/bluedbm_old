@@ -31,6 +31,9 @@ import Dma::*;
 import MemreadEngine::*;
 import MemwriteEngine::*;
 
+import PlatformInterfaces::*;
+//import BlueDBMPlatform::*;
+
 //////////////////////////////////////////////
 
 typedef enum {Cmd_ReadPage, Cmd_WritePage, Cmd_EraseBlock} BlueDBMCmdType deriving (Bits, Eq);
@@ -39,20 +42,22 @@ typedef struct {
 	BlueDBMCmdType cmd;
 	Bit#(8) tag;
 } BlueDBMCommand deriving (Bits, Eq);
-interface FlashIfc; //BlueDBM access flash
+interface FlashControllerIfc; //BlueDBM access flash
 	method Action command(BlueDBMCommand cmd);
 	method ActionValue#(Tuple2#(Bit#(64),Bit#(32))) readWord;
 endinterface
 interface BlueDBMHostIfc;
 	method ActionValue#(BlueDBMCommand) getCommand;
 
-	method Action writeBackPage(Bit#(32) tag); 
+	method Action writeBackPage(Bit#(8) tag); 
 	method Action writeWord(Bit#(64) data, Bit#(32) tag);
 	method Action readPage(Bit#(8) tag);
 	method ActionValue#(Tuple2#(Bit#(64), Bit#(8))) readWord;
 	
 	method ActionValue#(Bit#(64)) getRawWord();
 	method Action putRawWord(Bit#(64) word);
+
+	interface PlatformIndication indication;
 endinterface
 ///////////////////////////////////////////
 
@@ -65,7 +70,7 @@ endinterface
 
 interface Interface;
 	interface InterfaceRequest request;
-	interface FlashIfc flash;
+	interface FlashControllerIfc flash;
 	interface BlueDBMHostIfc host;
 endinterface
 
@@ -77,9 +82,13 @@ interface InterfaceIndication;
    method Action writeRawWord(Bit#(64) data);
 endinterface
 
-module mkInterfaceRequest#(InterfaceIndication indication,
+module mkInterfaceRequest#(
+			InterfaceIndication indication,
+			PlatformIndication platformIndication,
 			DmaReadServer#(64) dma_read_server,
 			DmaWriteServer#(64) dma_write_server)(Interface);
+
+	Integer pageSize = 8192;
 
 	let readFifoBuf <- mkSizedBRAMFIFO(2048);
 	let readFifo <- mkSizedFIFOF(256);
@@ -133,11 +142,11 @@ module mkInterfaceRequest#(InterfaceIndication indication,
 		writeFlushTag <= nextTag;
 		writeFlushCounter <= 16;
 		Bit#(DmaOffsetSize) offset = writeBufferOffset[nextTag];
-		Bit#(DmaOffsetSize) absoffset = offset + 4096*extend(nextTag);
+		Bit#(DmaOffsetSize) absoffset = offset + fromInteger(pageSize)*extend(nextTag);
 		//indication.hexdump(0,nextTag);
 		
 		we.start(hostDmaHandle, absoffset, 32*4, 32*4); //FIXME <- expecting 16 * 64bit bursts.
-		if ( offset + 16*8 >= 4096 ) begin
+		if ( offset + 16*8 >= fromInteger(pageSize) ) begin
 			writeBufferOffset[nextTag] <= 0;
 			indication.pageReadDone(extend(nextTag));
 		end
@@ -185,7 +194,7 @@ module mkInterfaceRequest#(InterfaceIndication indication,
 	endmethod
 	endinterface
 	
-	interface FlashIfc flash;
+	interface FlashControllerIfc flash;
 		method Action command(BlueDBMCommand cmd);
 			if ( cmd.cmd == Cmd_ReadPage ) begin
 				//readPageQ.enq(tuple2(cmd.pageIdx, cmd.tag));
@@ -203,7 +212,7 @@ module mkInterfaceRequest#(InterfaceIndication indication,
 		bluedbmCommand.deq;
 		return bluedbmCommand.first;
 	endmethod
-	method Action writeBackPage(Bit#(32) tag); 
+	method Action writeBackPage(Bit#(8) tag); 
 		//writeBackPageQ.enq(tag); //Not needed because buffer is alr ready
 	endmethod
 	method Action writeWord(Bit#(64) data, Bit#(32) tag);
@@ -219,9 +228,9 @@ module mkInterfaceRequest#(InterfaceIndication indication,
 		end
 	endmethod
 	method Action readPage(Bit#(8) tag);
-		Bit#(DmaOffsetSize) absoffset = 4096*extend(tag);
+		Bit#(DmaOffsetSize) absoffset = fromInteger(pageSize)*extend(tag);
 		if ( tag < 64 ) begin
-			re.start(hostDmaHandle, absoffset, 4096, 16*4);
+			re.start(hostDmaHandle, absoffset, fromInteger(pageSize), 16*4);
 			writeTagQ.enq(truncate(bluedbmCommand.first.tag));
 		end else begin
 			indication.hexdump(32'hdead, extend(tag));
@@ -230,7 +239,7 @@ module mkInterfaceRequest#(InterfaceIndication indication,
 	method ActionValue#(Tuple2#(Bit#(64), Bit#(8))) readWord;
 		readFifoBuf.deq;
 		let tag = writeTagQ.first;
-		if ( curWriteCount + 1 >= 4096/8 ) begin
+		if ( curWriteCount + 1 >= fromInteger(pageSize)/8 ) begin
 			writeTagQ.deq;
 			curWriteCount <= 0;
 			indication.pageWriteDone(extend(tag));
@@ -248,5 +257,7 @@ module mkInterfaceRequest#(InterfaceIndication indication,
 		indication.writeRawWord(word);
 		//indication.hexdump(word[63:32], word[31:0]);
 	endmethod
+
+	interface PlatformIndication indication = platformIndication;
 	endinterface
 endmodule

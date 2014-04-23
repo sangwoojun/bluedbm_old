@@ -35,11 +35,12 @@
 #include "InterfaceRequestProxy.h"
 
 #include "rawWordManager.h"
+#include "../src/bluedbm_platform/test_platform/platform.hpp"
 
 #define MAX_TAG_COUNT 64
 #define TAG_COUNT 64
 #define WRITE_TAG_COUNT 1
-#define PAGE_SIZE 4096
+#define PAGE_SIZE 8192
 
 pthread_mutex_t readTagMutex;
 pthread_cond_t readTagCond;
@@ -52,12 +53,15 @@ unsigned int *hostBuffer;
 
 int readTagCount[TAG_COUNT];
 
+unsigned int pageReadTotal;
+unsigned int pageWriteTotal;
+
 int writePage(unsigned long long pageIdx) {
 	pthread_mutex_lock(&readTagMutex);
 	while (true) {
 		for ( int i = 0; i < WRITE_TAG_COUNT; i++ ) {
 			if ( readTagStatus[i] == 0 ) {
-				readTagStatus[i] = 1024*4;
+				readTagStatus[i] = PAGE_SIZE;
 				//printf( "sending read %llx %d\n", pageIdx, i );
 				device->writePage(pageIdx,i);
 				pthread_mutex_unlock(&readTagMutex);
@@ -74,7 +78,7 @@ int readPage(unsigned long long pageIdx) {
 	while (true) {
 		for ( int i = 0; i < TAG_COUNT; i++ ) {
 			if ( readTagStatus[i] == 0 ) {
-				readTagStatus[i] = 1024*4;
+				readTagStatus[i] = PAGE_SIZE;
 				//printf( "sending read %llx %d\n", pageIdx, i );
 				device->readPage(pageIdx,i);
 				pthread_mutex_unlock(&readTagMutex);
@@ -88,8 +92,6 @@ int readPage(unsigned long long pageIdx) {
 
 RawWordManager* rawWordManager;
 
-unsigned int pageReadTotal;
-unsigned int pageWriteTotal;
 int maxTagUsed;
 class InterfaceIndication : public InterfaceIndicationWrapper
 {
@@ -115,7 +117,7 @@ public:
 		pthread_mutex_lock(&readTagMutex);
 		//fprintf(stderr, "Memread::writeDone(%lx)\n", tag);
 		if ( readTagStatus[tag] == 0 ) {
-			printf( "!!!%d \n", tag );
+			fprintf(stderr, "Received nonrequested page tag:%d \n", tag );
 		}
 		readTagStatus[tag] = 0;
 		pthread_mutex_unlock(&readTagMutex);
@@ -160,13 +162,14 @@ void waitTagFlush(int reqs, int resps) {
 	pthread_mutex_unlock(&readTagMutex);
 	printf( "wait done!\n" );
 }
-
+/*
 double timespec_diff_sec( timespec start, timespec end ) {
 	double t = end.tv_sec - start.tv_sec;
 	t += ((double)(end.tv_nsec - start.tv_nsec)/1000000000L);
 	return t;
 }
 
+*/
 
 // we can use the data synchronization barrier instead of flushing the 
 // cache only because the ps7 is configured to run in buffered-write mode
@@ -192,6 +195,8 @@ int main(int argc, const char **argv)
   deviceIndication = new InterfaceIndication(IfcNames_InterfaceIndication);
   dmaIndication = new DmaIndication(dma, IfcNames_DmaIndication);
 
+	platformIndicationSetup();
+
 	fprintf(stderr, "Main::allocating memory...\n");
 
 	dma->alloc(PAGE_SIZE*MAX_TAG_COUNT, &hostBufferAlloc);
@@ -209,10 +214,13 @@ int main(int argc, const char **argv)
 
 	unsigned int ref_hostBufferAlloc = dma->reference(hostBufferAlloc);
 
+	printf( "dma->reference done\n" ); fflush(stdout);
 	sleep(1);
 	dma->addrRequest(ref_hostBufferAlloc, 1*sizeof(unsigned int));
+	printf( "dma->addrRequest done\n" ); fflush(stdout);
 	sleep(1);
 	device->setDmaHandle(ref_hostBufferAlloc);
+	printf( "device->setDmaHandle done\n" ); fflush(stdout);
 
 	pthread_mutex_init(&readTagMutex, NULL);
 	pthread_cond_init(&readTagCond, NULL);
@@ -221,96 +229,12 @@ int main(int argc, const char **argv)
 	pageReadTotal = 0;
 	pageWriteTotal = 0;
 	maxTagUsed = 0;
-	printf( "Main started server\n" );
+	printf( "Main started server\n" ); fflush(stdout);
 	start_timer(0);
+	//portalTrace_start();
+	platform();
+	//portalTrace_stop();
 
-	for ( int i = 0; i < 1024*64; i++ ) {
-		hostBuffer[i] = i;
-	}
-	//dma->dCacheFlushInval(hostBufferAlloc, hostBuffer);
-	int writeReqSent = 0;
-	portalTrace_start();
-
-	for ( int i = 0; i < 16; i++ ) {
-		int widx = writePage(i);
-		//printf( "Write idx:%d %d\n", widx, i );
-		writeReqSent++;
-	}
-	portalTrace_stop();
-	waitTagFlush(writeReqSent, pageWriteTotal);
-
-	printf( "\t\t**Write done\n" );
-	//sleep(2);
-	//dma->dCacheFlushInval(hostBufferAlloc, hostBuffer);
-	
-	for ( int i = 0; i < 64; i++ ) { 
-		device->readRawWord(i*64);
-		usleep(10000);
-	//	device->rawWord(i*64+16);
-	}
-	for ( int i = 0; i < 63; i++ ) { 
-		device->readRawWord(i*64+(64-24));
-		usleep(10000);
-	//	device->rawWord(i*64+16);
-	}
-	device->readRawWord(0);
-	/*
-	sleep(1);
-	
-	for ( int i = 0; i < 128; i++ ) { 
-		usleep(10);
-		device->rawWord(i*64);
-	//	device->rawWord(i*64+16);
-	}
-	*/
-
-
-	timespec start, now;
-
-	clock_gettime(CLOCK_REALTIME, & start);
-
-	int readReqSent = 0;
-	for ( int i = 0; i < 1024*256; i++ ) {
-	  readPage(i);
-	  readReqSent ++;
-	  //if ( i % 1024 == 0) 
-	  //	printf( "--%d\n", i);
-	}
-	waitTagFlush(readReqSent, pageReadTotal);
-	clock_gettime(CLOCK_REALTIME, & now);
-	printf( "Total pages read: %d (%d)\n", pageReadTotal, maxTagUsed );
-	printf( "elapsed : %f\n", timespec_diff_sec(start,now) );
-
-	
-	/*
-	for ( int i = 0; i < TAG_COUNT; i++ ) {
-		printf( "%2d - %8d - %8d: %x\n", i, readTagCount[i], readTagStatus[i], hostBuffer[i*1024] );
-	}
-	*/
-	printf( "---\n\n" );
-	for ( int i = 0; i < TAG_COUNT; i++ ) {
-		int ival = hostBuffer[i*1024];
-		for ( int j = 0; j < 1024; j++ ) {
-			int idx = i*1024 + j;
-			int rval = hostBuffer[idx];
-			if ( ival != rval ) {
-				printf( "!!! %d  != %d (%d)\n", ival, rval, idx );
-			}
-			ival++;
-		}
-	}
-	/*
-	for ( int i = 0; i < TAG_COUNT*1024; i++ ) {
-		printf( "%2d - %8d: %x\n", i/1024, i, hostBuffer[i] );
-	}
-	*/
-  
-  //fprintf(stderr, "Main::starting mempcy numWords:%d\n", numWords);
-  //device->startCopy(ref_dstAlloc, ref_srcAlloc, numWords, burstLen, iterCnt);
-  
-  
-  
-  
   uint64_t cycles = lap_timer(0);
   uint64_t read_beats = dma->show_mem_stats(ChannelType_Write);
   uint64_t write_beats = dma->show_mem_stats(ChannelType_Write);
