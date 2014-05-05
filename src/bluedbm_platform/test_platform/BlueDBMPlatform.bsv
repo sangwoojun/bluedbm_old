@@ -1,19 +1,21 @@
 import FIFO::*;
 import Clocks::*;
+import Vector::*;
 
 import PlatformInterfaces::*;
 import Interface::*;
-import DRAMController::*;
 
+import DRAMController::*;
 import PageCache::*;
 import EmulatedFlash::*;
+import AuroraImportVC707::*;
 
 interface BlueDBMPlatformIfc;
 	method Action readPage(Bit#(64) pageIdx);
 	interface PlatformRequest request;
 endinterface
 
-module mkBlueDBMPlatform#(FlashControllerIfc flash, BlueDBMHostIfc host, DRAMControllerIfc dram)
+module mkBlueDBMPlatform#(FlashControllerIfc flash, BlueDBMHostIfc host, DRAMControllerIfc dram, Vector#(AuroraPorts, AuroraIfc) auroras)
 	(BlueDBMPlatformIfc);
 	
 	/*
@@ -35,6 +37,66 @@ module mkBlueDBMPlatform#(FlashControllerIfc flash, BlueDBMHostIfc host, DRAMCon
 		end
 	endrule
 	*/
+
+	Clock aurora_clk = auroras[0].clk;
+	Reset aurora_rst = auroras[0].rst;
+
+	AuroraIfc aurora = auroras[0];
+
+	//Reg#(Bit#(8)) txThr <- mkReg(0);
+
+	SyncFIFOIfc#(Bit#(64)) auroraTx <- mkSyncFIFOFromCC(16, aurora_clk);
+	Reg#(Bit#(16)) txCount <- mkReg(0);
+	/*
+	rule agsgsfd(txThr > 0);
+		txThr <= txThr - 1;
+	endrule
+	*/
+
+	rule sendAuroraTx (txCount < 2048 && host.started /*&& txThr == 0*/);
+		txCount <= txCount + 1;
+
+		//txThr <= 128;
+
+		auroraTx.enq(zeroExtend(txCount));
+	endrule
+
+
+	//FIFO#(Bool) auroraTQ <- mkSizedFIFO(32, clocked_by aurora_clk, reset_by aurora_rst);
+	rule driveAuroraTx;
+		auroraTx.deq;
+		aurora.send(auroraTx.first);
+		//auroraTQ.enq(True);
+	endrule
+
+	FIFO#(Bit#(64)) auroraRxQ <- mkSizedFIFO(32, clocked_by aurora_clk, reset_by aurora_rst);
+	SyncFIFOIfc#(Bit#(64)) auroraRx <- mkSyncFIFOToCC(32, aurora_clk, aurora_rst);
+	Reg#(Bit#(64)) auroraRxCount <- mkReg(0, clocked_by aurora_clk, reset_by aurora_rst);
+	
+//	(* mutually_exclusive = "driveAuroraTx, driveAuroraRx" *)
+	rule driveAuroraRx;
+		Bit#(64) data <- aurora.receive;
+		auroraRxQ.enq(data);
+		//auroraTQ.deq;
+	endrule
+	rule driveAuroraRx2;// ( auroraRxCount < 16);
+		let data = auroraRxQ.first;
+		auroraRxQ.deq;
+
+		if ( auroraRxCount != data || data > 2040 ) begin
+			auroraRx.enq({auroraRxCount[31:0],data[31:0]});
+			auroraRxCount <= data+1;
+		end
+		else begin
+			auroraRxCount <= auroraRxCount + 1;
+		end
+	endrule
+	rule recvAuroraRx;
+		auroraRx.deq;
+
+		host.putRawWord(auroraRx.first);
+	endrule
+
 
 	Clock clk <- exposeCurrentClock;
 	Reset rst_n <- exposeCurrentReset;

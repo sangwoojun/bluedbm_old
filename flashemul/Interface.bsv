@@ -56,6 +56,7 @@ interface BlueDBMHostIfc;
 	
 	method ActionValue#(Bit#(64)) getRawWord();
 	method Action putRawWord(Bit#(64) word);
+	method Bool started;
 
 	interface PlatformIndication indication;
 endinterface
@@ -253,9 +254,16 @@ module mkInterfaceRequest#(
 		rawWordInQ.deq;
 		return rawWordInQ.first;
 	endmethod
-	method Action putRawWord(Bit#(64) word);
+	method Action putRawWord(Bit#(64) word) if ( hostDmaHandle > 0 );
 		indication.writeRawWord(word);
 		//indication.hexdump(word[63:32], word[31:0]);
+	endmethod
+
+	method Bool started;
+		let ret = False;
+		if ( hostDmaHandle > 0 ) ret = True; //TODO replace with proper start request
+		
+		return ret;
 	endmethod
 
 	interface PlatformIndication indication = platformIndication;

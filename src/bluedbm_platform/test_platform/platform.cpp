@@ -35,7 +35,7 @@ void platform() {
 		hostBuffer[i] = i;
 	}
 	int writeReqSent = 0;
-	for ( int i = 0; i < 1024; i++ ) {
+	for ( int i = 0; i < 1024*2; i++ ) {
 		fflush(stdout);
 		int widx = writePage(i);
 		//int widx = writePage(i);
@@ -70,7 +70,7 @@ void platform() {
 			int idx = i*1024 + j;
 			int rval = hostBuffer[idx];
 			if ( ival != rval ) {
-				printf( "!!! %d  != %d (%d)\n", ival, rval, idx );
+				printf( "!!! %d  != %d (%d:%d)\n", ival, rval, idx, i );
 			}
 			ival++;
 		}

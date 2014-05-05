@@ -32,7 +32,12 @@ import Top               :: *;
 import AxiSlaveEngine    :: *;
 import AxiMasterEngine   :: *;
 
-typedef (function Module#(PortalTop#(40, dsz, ipins)) mkPortalTop(Clock clk, Reset rst)) MkPortalTop#(numeric type dsz, type ipins);
+import AuroraImportVC707 :: *;
+
+typedef (function Module#(PortalTop#(40, dsz, ipins)) mkPortalTop(Clock clk, Reset rst, 
+			  Vector#(AuroraPorts, Clock) gtx_clk_p,
+			  Vector#(AuroraPorts, Clock) gtx_clk_n
+		)) MkPortalTop#(numeric type dsz, type ipins);
 
 `ifdef Artix7
 typedef 4 PcieLanes;
@@ -54,6 +59,8 @@ endinterface
 module [Module] mkPcieTopFromPortal #(Clock pci_sys_clk_p, Clock pci_sys_clk_n,
 				      Clock sys_clk_p,     Clock sys_clk_n,
 				      Reset pci_sys_reset_n,
+					  Vector#(AuroraPorts, Clock) gtx_clk_p,
+					  Vector#(AuroraPorts, Clock) gtx_clk_n,
 				      MkPortalTop#(dsz, ipins) mkPortalTop)
    (PcieTop#(ipins))
    provisos (Mul#(TDiv#(dsz, 32), 32, dsz),
@@ -71,7 +78,7 @@ module [Module] mkPcieTopFromPortal #(Clock pci_sys_clk_p, Clock pci_sys_clk_n,
    
    // instantiate user portals
    //Clock sys_clk <- mkClockIBUFDS(sys_clk_p, sys_clk_n);
-   let portalTop <- mkPortalTop(x7pcie.clock200, pci_sys_reset_n, clocked_by x7pcie.clock125, reset_by x7pcie.portalReset);
+   let portalTop <- mkPortalTop(x7pcie.clock200, pci_sys_reset_n, gtx_clk_p, gtx_clk_n, clocked_by x7pcie.clock125, reset_by x7pcie.portalReset);
    AxiSlaveEngine#(dsz) axiSlaveEngine <- mkAxiSlaveEngine(x7pcie.pciId(), clocked_by x7pcie.clock125, reset_by x7pcie.reset125);
    AxiMasterEngine axiMasterEngine <- mkAxiMasterEngine(x7pcie.pciId(), clocked_by x7pcie.clock125, reset_by x7pcie.reset125);
 

@@ -34,9 +34,20 @@ import DefaultValue    :: *;
 import XilinxVC707DDR3::*;
 import Xilinx       :: *;
 
+import AuroraImportVC707::*;
+
+
 typedef enum {InterfaceIndication, InterfaceRequest, DmaIndication, DmaConfig, PlatformIndication, PlatformRequest} IfcNames deriving (Eq,Bits);
 
-module mkPortalTop#(Clock sys_clk, Reset pci_sys_reset_n) (PortalTop#(addrWidth, 64, DDR3_Pins_VC707)) 
+interface BlueDBMTopPins;
+	interface DDR3_Pins_VC707 ddr3;
+	interface Aurora_Pins_VC707 aurora;
+endinterface
+
+module mkPortalTop#(Clock sys_clk, Reset pci_sys_reset_n, 
+		  Vector#(AuroraPorts, Clock) gtx_clk_p,
+		  Vector#(AuroraPorts, Clock) gtx_clk_n
+		) (PortalTop#(addrWidth, 64, BlueDBMTopPins)) 
 
    provisos(Add#(addrWidth, a__, 52),
 	    Add#(b__, addrWidth, 64),
@@ -94,8 +105,19 @@ module mkPortalTop#(Clock sys_clk, Reset pci_sys_reset_n) (PortalTop#(addrWidth,
    
    ///////////////////////////// DDR3 end
 
+	Clock cur_clk <- exposeCurrentClock;
+	Reset cur_rst_n <- exposeCurrentReset;
+
+	//////////////////////////// Aurora Start
+	Vector#(AuroraPorts, AuroraIfc) auroras;
+	Aurora_V7 auroraImport <- mkAuroraImport(gtx_clk_p[0], gtx_clk_n[0], cur_clk, cur_rst_n);
+	AuroraIfc aurora0 <- mkAurora(auroraImport);
+	auroras[0] = aurora0;
+
+	//////////////////////////// Aurora End
+
 	
-	BlueDBMPlatformIfc bluedbm <- mkBlueDBMPlatform(interfaceRequest.flash, interfaceRequest.host, dramController);
+	BlueDBMPlatformIfc bluedbm <- mkBlueDBMPlatform(interfaceRequest.flash, interfaceRequest.host, dramController, auroras);
    
    PlatformRequestWrapper platformRequestWrapper <- mkPlatformRequestWrapper(PlatformRequest, bluedbm.request);
    
@@ -116,7 +138,11 @@ module mkPortalTop#(Clock sys_clk, Reset pci_sys_reset_n) (PortalTop#(addrWidth,
    interface m_axi = dma.m_axi;
    interface leds = default_leds;
 
-   interface DDR3_Pins_VC707 pins = ddr3_ctrl.ddr3;
+   //interface DDR3_Pins_VC707 pins = ddr3_ctrl.ddr3;
+   interface BlueDBMTopPins pins;
+	   interface DDR3_Pins_VC707 ddr3 = ddr3_ctrl.ddr3;
+	   interface Aurora_Pins_VC707 aurora = auroraImport.aurora;
+   endinterface
 
 endmodule
 

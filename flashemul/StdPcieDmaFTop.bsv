@@ -29,10 +29,14 @@ import Top               :: *;
 import PcieTopDbm           :: *;
 
 import XilinxVC707DDR3 :: *;
+import AuroraImportVC707:: *;
 
 (* synthesize *)
-module mkSynthesizeablePortalTop#(Clock clk, Reset rst) (PortalTop#(40, 64, DDR3_Pins_VC707));
-   let top <- mkPortalTop(clk, rst);
+module mkSynthesizeablePortalTop#(Clock clk, Reset rst, 
+			  Vector#(AuroraPorts, Clock) gtx_clk_p,
+			  Vector#(AuroraPorts, Clock) gtx_clk_n
+		) (PortalTop#(40, 64, BlueDBMTopPins));
+   let top <- mkPortalTop(clk, rst, gtx_clk_p, gtx_clk_n);
    interface ctrl = top.ctrl;
    interface m_axi = top.m_axi;
    interface interrupt = top.interrupt;
@@ -42,10 +46,17 @@ endmodule
 
 module mkPcieTop #(Clock pci_sys_clk_p, Clock pci_sys_clk_n,
    Clock sys_clk_p,     Clock sys_clk_n,
-   Reset pci_sys_reset_n)
-   (PcieTop#(DDR3_Pins_VC707));
+   Reset pci_sys_reset_n,
+   Clock gtx_clk_0_p, Clock gtx_clk_0_n
+   )
+   (PcieTop#(BlueDBMTopPins));
 
-   let top <- mkPcieTopFromPortal(pci_sys_clk_p, pci_sys_clk_n, sys_clk_p, sys_clk_n, pci_sys_reset_n,
+   Vector#(AuroraPorts,Clock) gtx_clk_p;
+   gtx_clk_p[0] = gtx_clk_0_p;
+   Vector#(AuroraPorts,Clock) gtx_clk_n;
+   gtx_clk_n[0] = gtx_clk_0_n;
+
+   let top <- mkPcieTopFromPortal(pci_sys_clk_p, pci_sys_clk_n, sys_clk_p, sys_clk_n, pci_sys_reset_n, gtx_clk_p, gtx_clk_n,
 				  mkSynthesizeablePortalTop);
    return top;
 endmodule: mkPcieTop

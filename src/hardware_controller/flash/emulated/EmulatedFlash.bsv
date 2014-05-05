@@ -35,23 +35,44 @@ module mkEmulatedFlash#(DRAMControllerIfc dram, FlashControllerIfc flash) (Flash
 
 		readReqQ.deq;
 	endrule
-	FIFO#(Bit#(8)) readTagQ <- mkSizedFIFO(2, clocked_by dram_clk, reset_by dram_rst_n);
+	FIFO#(Bit#(8)) readTagQ <- mkSizedFIFO(32, clocked_by dram_clk, reset_by dram_rst_n);
 	rule driveRead (curReadCount > 0);
-		curReadCount <= curReadCount - 8;
-		curReadAddr <= curReadAddr + 8;
+		curReadCount <= curReadCount - 64;
+		curReadAddr <= curReadAddr + 64;
 		readTagQ.enq(curReadTag);
 
-		dram.readReq(curReadAddr, 8);
+		dram.readReq(curReadAddr, 64);
 	endrule
 
-	SyncFIFOIfc#(Tuple2#(Bit#(64),Bit#(8))) readResQ <- mkSyncFIFOToCC(64, dram_clk, dram_rst_n);
+	SyncFIFOIfc#(Tuple2#(Bit#(512),Bit#(8))) readResQ <- mkSyncFIFOToCC(16, dram_clk, dram_rst_n);
 	rule recvRead;
 		let dr <- dram.read;
-		Bit#(64) rr = truncate(dr);
+		Bit#(512) rr = dr;
 		readResQ.enq(tuple2(rr, readTagQ.first));
 		readTagQ.deq;
 	endrule
-	
+	Reg#(Bit#(512)) readSerializeBuf <- mkReg(0);
+	Reg#(Bit#(8)) readSerializeIdx <- mkReg(0);
+	Reg#(Bit#(8)) readSerializeTag <- mkReg(0);
+	rule serializeReadStart ( readSerializeIdx == 0 );
+		Bit#(512) dat = tpl_1(readResQ.first);
+		Bit#(8) tag = tpl_2(readResQ.first);
+
+		readResQ.deq;
+		readSerializeIdx <= 8; // 64/8
+		readSerializeTag <= tag;
+		readSerializeBuf <= dat;
+	endrule
+
+	FIFO#(Tuple2#(Bit#(64), Bit#(8))) serializedReadResQ <- mkSizedFIFO(8);
+
+	rule serializeRead ( readSerializeIdx > 0 );
+		Bit#(64) data = truncate(readSerializeBuf);
+		readSerializeBuf <= readSerializeBuf>>64;
+		readSerializeIdx <= readSerializeIdx - 1;
+		serializedReadResQ.enq(tuple2(data, readSerializeTag));
+	endrule
+
 	Vector#(64, Reg#(Bit#(64))) writeOff <- replicateM(mkReg(0), clocked_by dram_clk, reset_by dram_rst_n);
 	SyncFIFOIfc#(Tuple2#(Bit#(64),Bit#(8))) writeDataQ <- mkSyncFIFOFromCC(32, dram_clk);
 	rule startWrite;
@@ -100,8 +121,10 @@ module mkEmulatedFlash#(DRAMControllerIfc dram, FlashControllerIfc flash) (Flash
 		writeDataQ.enq(tuple2(data,tag));
 	endmethod
 	method ActionValue#(Tuple2#(Bit#(64), Bit#(8))) readWord;
-		readResQ.deq;
-		return readResQ.first;
+		serializedReadResQ.deq;
+		return serializedReadResQ.first;
+		//readResQ.deq;
+		//return readResQ.first;
 	endmethod
 	
 endmodule

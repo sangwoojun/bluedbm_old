@@ -7,7 +7,7 @@ CPPFILES=main.cpp rawWordManager.cpp
 Dma = DmaF
 PINS = Std
 
-include ../config/Makefile.flashemul
+include ../config/Makefile.emultest
 
 XBSVDIR=../../xbsv
 BOARD=vc707

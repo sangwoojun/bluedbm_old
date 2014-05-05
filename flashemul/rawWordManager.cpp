@@ -18,7 +18,8 @@ RawWordManager* RawWordManager::getInstance() {
 
 void 
 RawWordManager::writeWord(unsigned long long int data) {
-	printf( "%llx\n", data );
+	printf( "\t\t** %llx\n", data );
+	/*
 	pthread_mutex_lock(&wordMutex);
 	if ( rawWordTail == rawWordHead ) return;
 
@@ -28,6 +29,7 @@ RawWordManager::writeWord(unsigned long long int data) {
 		rawWordTail = 0;
 	}
 	pthread_mutex_unlock(&wordMutex);
+	*/
 }
 
 bool
