@@ -35,10 +35,10 @@ import AuroraImportVC707:: *;
 module mkSynthesizeablePortalTop#(Clock clk, Reset rst, 
 			  Vector#(AuroraPorts, Clock) gtx_clk_p,
 			  Vector#(AuroraPorts, Clock) gtx_clk_n
-		) (PortalTop#(40, 64, BlueDBMTopPins));
+		) (PortalTop#(40, 64, BlueDBMTopPins, 1));
    let top <- mkPortalTop(clk, rst, gtx_clk_p, gtx_clk_n);
-   interface ctrl = top.ctrl;
-   interface m_axi = top.m_axi;
+   interface masters = top.masters;
+   interface slave = top.slave;
    interface interrupt = top.interrupt;
    interface leds = top.leds;
    interface pins = top.pins;

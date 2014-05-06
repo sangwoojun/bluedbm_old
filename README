@@ -37,3 +37,4 @@
 	xbsv/constraints/vc707_ddr3.xdc . Edit vc707_ddr3.xdc such that the
 	contraint names fit pins_* instead of DDR3_*
 
+	Copy aurora related files

@@ -86,8 +86,8 @@ endinterface
 module mkInterfaceRequest#(
 			InterfaceIndication indication,
 			PlatformIndication platformIndication,
-			DmaReadServer#(64) dma_read_server,
-			DmaWriteServer#(64) dma_write_server)(Interface);
+			ObjectReadServer#(64) dma_read_server,
+			ObjectWriteServer#(64) dma_write_server)(Interface);
 
 	Integer pageSize = 8192;
 
@@ -103,7 +103,7 @@ module mkInterfaceRequest#(
 	MemreadEngine#(64) re <- mkMemreadEngine(1, readFifo);
 	MemwriteEngine#(64) we <- mkMemwriteEngine(4, writeFifo);
 
-	Reg#(DmaPointer) hostDmaHandle <- mkReg(0);
+	Reg#(ObjectPointer) hostDmaHandle <- mkReg(0);
 
 	mkConnection(re.dmaClient,dma_read_server);
 	mkConnection(we.dmaClient,dma_write_server);
@@ -131,7 +131,7 @@ module mkInterfaceRequest#(
 	Vector#(64, Reg#(Bit#(8))) bufferedWriteCount <- replicateM(mkReg(0)); // per tag
 	//Vector#(64, FIFO#(Bool)) bufferedWriteToken <- replicateM(mkReg(0)); // per tag
 	Vector#(64, FIFO#(Bit#(64))) writeBuffer <- replicateM(mkSizedFIFO(24));
-	Vector#(64, Reg#(Bit#(DmaOffsetSize))) writeBufferOffset <- replicateM(mkReg(0));
+	Vector#(64, Reg#(Bit#(ObjectOffsetSize))) writeBufferOffset <- replicateM(mkReg(0));
 
 	Reg#(Bit#(8)) writeFlushCounter <- mkReg(0);
 	Reg#(Bit#(8)) writeFlushTag <- mkReg(0);
@@ -142,8 +142,8 @@ module mkInterfaceRequest#(
 		//bufferedWriteToken[nextTag].deq;
 		writeFlushTag <= nextTag;
 		writeFlushCounter <= 16;
-		Bit#(DmaOffsetSize) offset = writeBufferOffset[nextTag];
-		Bit#(DmaOffsetSize) absoffset = offset + fromInteger(pageSize)*extend(nextTag);
+		Bit#(ObjectOffsetSize) offset = writeBufferOffset[nextTag];
+		Bit#(ObjectOffsetSize) absoffset = offset + fromInteger(pageSize)*extend(nextTag);
 		//indication.hexdump(0,nextTag);
 		
 		we.start(hostDmaHandle, absoffset, 32*4, 32*4); //FIXME <- expecting 16 * 64bit bursts.
@@ -229,7 +229,7 @@ module mkInterfaceRequest#(
 		end
 	endmethod
 	method Action readPage(Bit#(8) tag);
-		Bit#(DmaOffsetSize) absoffset = fromInteger(pageSize)*extend(tag);
+		Bit#(ObjectOffsetSize) absoffset = fromInteger(pageSize)*extend(tag);
 		if ( tag < 64 ) begin
 			re.start(hostDmaHandle, absoffset, fromInteger(pageSize), 16*4);
 			writeTagQ.enq(truncate(bluedbmCommand.first.tag));

@@ -31,13 +31,16 @@ import Leds              :: *;
 import Top               :: *;
 import AxiSlaveEngine    :: *;
 import AxiMasterEngine   :: *;
+import AxiMasterSlave    :: *;
+import AxiDma            :: *;
+import AxiCsr            :: *;
 
 import AuroraImportVC707 :: *;
 
-typedef (function Module#(PortalTop#(40, dsz, ipins)) mkPortalTop(Clock clk, Reset rst, 
+typedef (function Module#(PortalTop#(40, dsz, ipins, nMasters)) mkPortalTop(Clock clk, Reset rst, 
 			  Vector#(AuroraPorts, Clock) gtx_clk_p,
 			  Vector#(AuroraPorts, Clock) gtx_clk_n
-		)) MkPortalTop#(numeric type dsz, type ipins);
+		)) MkPortalTop#(numeric type dsz, type ipins, numeric type nMasters);
 
 `ifdef Artix7
 typedef 4 PcieLanes;
@@ -61,14 +64,16 @@ module [Module] mkPcieTopFromPortal #(Clock pci_sys_clk_p, Clock pci_sys_clk_n,
 				      Reset pci_sys_reset_n,
 					  Vector#(AuroraPorts, Clock) gtx_clk_p,
 					  Vector#(AuroraPorts, Clock) gtx_clk_n,
-				      MkPortalTop#(dsz, ipins) mkPortalTop)
+				      MkPortalTop#(dsz, ipins, nMasters) mkPortalTop)
    (PcieTop#(ipins))
    provisos (Mul#(TDiv#(dsz, 32), 32, dsz),
 	     Add#(b__, 32, dsz),
 	     Add#(c__, dsz, 256),
 	     Add#(d__, TMul#(8, TDiv#(dsz, 32)), 64),
 	     Add#(e__, TMul#(32, TDiv#(dsz, 32)), 256),
-	     Add#(f__, TDiv#(dsz, 32), 8)
+	     Add#(f__, TDiv#(dsz, 32), 8),
+	     Mul#(TDiv#(dsz, 8), 8, dsz),
+	     Add#(g__, nMasters, 1)
       );
 
    let contentId = 0;
@@ -84,13 +89,17 @@ module [Module] mkPcieTopFromPortal #(Clock pci_sys_clk_p, Clock pci_sys_clk_n,
 
    mkConnection(tpl_1(x7pcie.slave), tpl_2(axiSlaveEngine.tlps), clocked_by x7pcie.clock125, reset_by x7pcie.reset125);
    mkConnection(tpl_1(axiSlaveEngine.tlps), tpl_2(x7pcie.slave), clocked_by x7pcie.clock125, reset_by x7pcie.reset125);
-
-   mkConnection(portalTop.m_axi, axiSlaveEngine.slave, clocked_by x7pcie.clock125, reset_by x7pcie.reset125);
+   Vector#(nMasters,Axi3Master#(40,dsz,6)) m_axis;   
+   if(valueOf(nMasters) > 0) begin
+      m_axis[0] <- mkAxiDmaMaster(portalTop.masters[0],clocked_by x7pcie.clock125, reset_by x7pcie.portalReset);
+      mkConnection(m_axis[0], axiSlaveEngine.slave, clocked_by x7pcie.clock125, reset_by x7pcie.reset125);
+   end
 
    mkConnection(tpl_1(x7pcie.master), axiMasterEngine.tlp_in);
    mkConnection(axiMasterEngine.tlp_out, tpl_2(x7pcie.master));
 
-   mkConnection(axiMasterEngine.master, portalTop.ctrl, clocked_by x7pcie.clock125, reset_by x7pcie.reset125);
+   Axi3Slave#(32,32,12) ctrl <- mkAxiDmaSlave(portalTop.slave, clocked_by x7pcie.clock125, reset_by x7pcie.reset125);
+   mkConnection(axiMasterEngine.master, ctrl, clocked_by x7pcie.clock125, reset_by x7pcie.reset125);
 
    // going from level to edge-triggered interrupt
    Vector#(15, Reg#(Bool)) interruptRequested <- replicateM(mkReg(False, clocked_by x7pcie.clock125, reset_by x7pcie.reset125));

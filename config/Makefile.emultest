@@ -11,6 +11,7 @@ emultest: XBSVFLAGS=--verilog ../../../xbsv/xilinx/ddr3_v1_7/ \
 	--verilog ../../../xbsv/xilinx/aurora_64b66b_v7/ \
 	--constraint ../../xbsv/xilinx/constraints/vc707_aurora.xdc \
 	--constraint ../../xbsv/xilinx/constraints/vc707_ddr3.xdc \
+	--xci ../../../xbsv/xilinx/aurora_64b66b_v7/aurora_64b66b_0.xci \
 	--clib rt
 emultest: CPPFILES_ALL = $(CPPFILES) $(BLUEDBM_PLATFORMDIR)/platform.cpp
 

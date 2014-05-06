@@ -3,5 +3,7 @@
 *.sched
 parser.out
 parsetab.py
+vivado.jou
+vivado.log
 
 flashemul/vc707/
