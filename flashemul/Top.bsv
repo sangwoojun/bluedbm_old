@@ -33,15 +33,19 @@ import Clocks          :: *;
 import DefaultValue    :: *;
 import XilinxVC707DDR3::*;
 import Xilinx       :: *;
+import XilinxCells :: *;
 
 import AuroraImportVC707::*;
-
+import AuroraImportVC707_625::*;
+import I2CSimple::*;
 
 typedef enum {InterfaceIndication, InterfaceRequest, DmaIndication, DmaConfig, PlatformIndication, PlatformRequest} IfcNames deriving (Eq,Bits);
 
 interface BlueDBMTopPins;
 	interface DDR3_Pins_VC707 ddr3;
-	interface Aurora_Pins_VC707 aurora;
+	interface Aurora_Pins_VC707 aurora0;
+	interface Aurora_Pins_VC707 aurora1_0;
+	interface I2C_Pins i2c;
 endinterface
 
 typedef 1 NumMasters;
@@ -110,15 +114,29 @@ module mkPortalTop#(Clock sys_clk, Reset pci_sys_reset_n,
 	Reset cur_rst_n <- exposeCurrentReset;
 
 	//////////////////////////// Aurora Start
+	MakeResetIfc auroraRst <- mkReset(1, False, cur_clk);
+	Reset auroraRstE <- mkResetEither(auroraRst.new_rst, cur_rst_n);
+	Vector#(AuroraPorts, Clock) gtx_clks;
+	gtx_clks[0] <- mkClockIBUFDS_GTE2(True, gtx_clk_p[0], gtx_clk_n[0]);
+	gtx_clks[1] <- mkClockIBUFDS_GTE2(True, gtx_clk_p[1], gtx_clk_n[1]);
+
 	Vector#(AuroraPorts, AuroraIfc) auroras;
-	Aurora_V7 auroraImport <- mkAuroraImport(gtx_clk_p[0], gtx_clk_n[0], cur_clk, cur_rst_n);
-	AuroraIfc aurora0 <- mkAurora(auroraImport);
+	Aurora_V7 auroraImport0 <- mkAuroraWrapper(gtx_clks[0], cur_clk, auroraRstE);//cur_rst_n);
+	AuroraIfc aurora0 <- mkAurora(auroraImport0, auroraRst);
 	auroras[0] = aurora0;
+	
+	Aurora_V7 auroraImport1_0 <- mkAuroraWrapper625(gtx_clks[1], cur_clk, auroraRstE);//cur_rst_n);
+	AuroraIfc aurora1_0 <- mkAurora(auroraImport1_0, auroraRst);
+	auroras[1] = aurora1_0;
 
 	//////////////////////////// Aurora End
 
+	/////FIXME: Change it to use BSV's vanilla distributed I2C
+	Vector#(I2C_Count,I2C_User) i2c;
+	I2C i2c0 <- mkI2C(416); //125/417 = 299khz/3 = 100khz i2c clk
+	i2c[0] = i2c0.user;
 	
-	BlueDBMPlatformIfc bluedbm <- mkBlueDBMPlatform(interfaceRequest.flash, interfaceRequest.host, dramController, auroras);
+	BlueDBMPlatformIfc bluedbm <- mkBlueDBMPlatform(interfaceRequest.flash, interfaceRequest.host, dramController, auroras, i2c);
    
    PlatformRequestWrapper platformRequestWrapper <- mkPlatformRequestWrapper(PlatformRequest, bluedbm.request);
    
@@ -142,7 +160,10 @@ module mkPortalTop#(Clock sys_clk, Reset pci_sys_reset_n,
    //interface DDR3_Pins_VC707 pins = ddr3_ctrl.ddr3;
    interface BlueDBMTopPins pins;
 	   interface DDR3_Pins_VC707 ddr3 = ddr3_ctrl.ddr3;
-	   interface Aurora_Pins_VC707 aurora = auroraImport.aurora;
+	   interface Aurora_Pins_VC707 aurora0 = auroraImport0.aurora;
+	   interface Aurora_Pins_VC707 aurora1_0 = auroraImport1_0.aurora;
+
+	   interface I2C_Pins i2c = i2c0.i2c;
    endinterface
 
 endmodule

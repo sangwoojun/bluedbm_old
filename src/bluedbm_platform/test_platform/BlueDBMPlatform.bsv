@@ -5,18 +5,37 @@ import Vector::*;
 import PlatformInterfaces::*;
 import Interface::*;
 
+import I2CSimple::*;
+
 import DRAMController::*;
 import PageCache::*;
 import EmulatedFlash::*;
 import AuroraImportVC707::*;
+
 
 interface BlueDBMPlatformIfc;
 	method Action readPage(Bit#(64) pageIdx);
 	interface PlatformRequest request;
 endinterface
 
-module mkBlueDBMPlatform#(FlashControllerIfc flash, BlueDBMHostIfc host, DRAMControllerIfc dram, Vector#(AuroraPorts, AuroraIfc) auroras)
-	(BlueDBMPlatformIfc);
+module mkBlueDBMPlatform#(
+	FlashControllerIfc flash, 
+	BlueDBMHostIfc host, 
+	DRAMControllerIfc dram, 
+	Vector#(AuroraPorts, AuroraIfc) auroras, 
+	Vector#(I2C_Count, I2C_User) i2cs
+	) (BlueDBMPlatformIfc);
+	
+	PlatformIndication indication = host.indication;
+
+	FIFO#(Bool) platformStartQ <- mkFIFO();
+	Reg#(Bool) platformStarted <- mkReg(False);
+	rule platformStart;
+		platformStarted <= True;
+		platformStartQ.deq;
+
+		//auroras[1].auroraRst.assertReset;
+	endrule
 	
 	/*
 	Reg#(Bit#(32)) repeatCount <- mkReg(0);
@@ -38,6 +57,11 @@ module mkBlueDBMPlatform#(FlashControllerIfc flash, BlueDBMHostIfc host, DRAMCon
 	endrule
 	*/
 
+	rule flushI2CResult;
+		Bit#(8) response <- i2cs[0].response;
+		indication.i2cResult(zeroExtend(response));
+	endrule
+
 	Clock aurora_clk = auroras[0].clk;
 	Reset aurora_rst = auroras[0].rst;
 
@@ -53,7 +77,7 @@ module mkBlueDBMPlatform#(FlashControllerIfc flash, BlueDBMHostIfc host, DRAMCon
 	endrule
 	*/
 
-	rule sendAuroraTx (txCount < 2048 && host.started /*&& txThr == 0*/);
+	rule sendAuroraTx (txCount < 2048 && platformStarted /*&& txThr == 0*/);
 		txCount <= txCount + 1;
 
 		//txThr <= 128;
@@ -95,6 +119,34 @@ module mkBlueDBMPlatform#(FlashControllerIfc flash, BlueDBMHostIfc host, DRAMCon
 		auroraRx.deq;
 
 		host.putRawWord(auroraRx.first);
+	endrule
+
+	SyncFIFOIfc#(Bit#(64)) auroraRxQ1 <- mkSyncFIFOToCC(32, auroras[1].clk, auroras[1].rst);
+	SyncFIFOIfc#(Bit#(64)) auroraTxQ1 <- mkSyncFIFOFromCC(32, auroras[1].clk);
+	Reg#(Bit#(16)) aurora1_0_counter <- mkReg(0);
+	rule sendaurora1_0(aurora1_0_counter < 256 && platformStarted);
+		auroraTxQ1.enq(zeroExtend(aurora1_0_counter));
+		aurora1_0_counter <= aurora1_0_counter + 1;
+		
+		//host.putRawWord({32'hcafef00d,zeroExtend(aurora1_0_counter)});
+	endrule
+	FIFO#(Bool) aurora1Throttle <- mkSizedFIFO(1, clocked_by auroras[1].clk, reset_by auroras[1].rst);
+	rule sendaurora1_0f;
+		auroraTxQ1.deq;
+		auroras[1].send(auroraTxQ1.first);
+
+		aurora1Throttle.enq(True);
+	endrule
+	rule dumpAurora1_0;
+		let d <- auroras[1].receive;
+		auroraRxQ1.enq(d);
+		
+		aurora1Throttle.deq;
+	endrule
+	rule flushaurora1_Rx;
+		auroraRxQ1.deq;
+
+		indication.rawWordTest({32'hdeadbeef,0,auroraRx.first[15:0]});
 	endrule
 
 
@@ -217,6 +269,26 @@ module mkBlueDBMPlatform#(FlashControllerIfc flash, BlueDBMHostIfc host, DRAMCon
 
 	interface PlatformRequest request;
 		method Action rawWordRequest(Bit#(64) data);
+		endmethod
+		method Action i2cRequest(Bit#(32) request);
+			Bit#(8) datain = request[7:0];
+			Bit#(8) addr = request[15:8];
+			Bit#(7) slave = request[22:16];
+			Bool write = request[23] == 0 ? False : True;
+
+			i2cs[0].request(write, slave, addr, datain);
+		endmethod
+		method Action start(Bit#(32) dummy);
+			platformStartQ.enq(True);
+		endmethod
+		method Action resetAurora(Bit#(32) dummy);
+			auroras[1].auroraRst.assertReset;
+		endmethod
+		method Action auroraStatus(Bit#(32) dummy);
+			Bit#(4) aurora0err = {auroras[0].channel_up, auroras[0].lane_up, auroras[0].hard_err, auroras[0].soft_err};
+			Bit#(4) aurora1err = {auroras[1].channel_up, auroras[1].lane_up, auroras[1].hard_err, auroras[1].soft_err};
+
+			indication.rawWordTest({0, aurora0err, aurora1err});
 		endmethod
 	endinterface
 endmodule

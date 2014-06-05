@@ -33,6 +33,7 @@
 #include "GeneratedTypes.h"
 #include "InterfaceIndicationWrapper.h"
 #include "InterfaceRequestProxy.h"
+#include "PlatformRequestProxy.h"
 
 #include "rawWordManager.h"
 #include "../src/bluedbm_platform/test_platform/platform.hpp"
@@ -47,6 +48,7 @@ pthread_cond_t readTagCond;
 
 int readTagStatus[TAG_COUNT];
 InterfaceRequestProxy *device;
+PlatformRequestProxy* platformRequest;
 
 PortalAlloc *hostBufferAlloc;
 unsigned int *hostBuffer;
@@ -191,6 +193,7 @@ int main(int argc, const char **argv)
 
   device = new InterfaceRequestProxy(IfcNames_InterfaceRequest);
   dma = new DmaConfigProxy(IfcNames_DmaConfig);
+  platformRequest = new PlatformRequestProxy(IfcNames_PlatformRequest);
 
   deviceIndication = new InterfaceIndication(IfcNames_InterfaceIndication);
   dmaIndication = new DmaIndication(dma, IfcNames_DmaIndication);
@@ -232,7 +235,7 @@ int main(int argc, const char **argv)
 	printf( "Main started server\n" ); fflush(stdout);
 	start_timer(0);
 	//portalTrace_start();
-	platform();
+	platform(platformRequest);
 	//portalTrace_stop();
 
   uint64_t cycles = lap_timer(0);

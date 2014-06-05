@@ -47,14 +47,17 @@ endmodule
 module mkPcieTop #(Clock pci_sys_clk_p, Clock pci_sys_clk_n,
    Clock sys_clk_p,     Clock sys_clk_n,
    Reset pci_sys_reset_n,
-   Clock gtx_clk_0_p, Clock gtx_clk_0_n
+   Clock gtx_clk_0_p, Clock gtx_clk_0_n,
+   Clock gtx_clk_1_0_p, Clock gtx_clk_1_0_n
    )
    (PcieTop#(BlueDBMTopPins));
 
    Vector#(AuroraPorts,Clock) gtx_clk_p;
    gtx_clk_p[0] = gtx_clk_0_p;
+   gtx_clk_p[1] = gtx_clk_1_0_p;
    Vector#(AuroraPorts,Clock) gtx_clk_n;
    gtx_clk_n[0] = gtx_clk_0_n;
+   gtx_clk_n[1] = gtx_clk_1_0_n;
 
    let top <- mkPcieTopFromPortal(pci_sys_clk_p, pci_sys_clk_n, sys_clk_p, sys_clk_n, pci_sys_reset_n, gtx_clk_p, gtx_clk_n,
 				  mkSynthesizeablePortalTop);

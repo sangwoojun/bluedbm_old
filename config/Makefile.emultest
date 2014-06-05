@@ -9,9 +9,13 @@ emultest: BSVFILES_ALL = $(BSVFILES) $(BLUEDBM_PLATFORMDIR)/BlueDBMPlatform.bsv 
 	$(BLUEDBM_DRAMDIR)/DRAMController.bsv
 emultest: XBSVFLAGS=--verilog ../../../xbsv/xilinx/ddr3_v1_7/ \
 	--verilog ../../../xbsv/xilinx/aurora_64b66b_v7/ \
-	--constraint ../../xbsv/xilinx/constraints/vc707_aurora.xdc \
+	--verilog ../../xilinx/aurora_64b66b_625/ \
 	--constraint ../../xbsv/xilinx/constraints/vc707_ddr3.xdc \
 	--xci ../../../xbsv/xilinx/aurora_64b66b_v7/aurora_64b66b_0.xci \
+	--constraint ../../xbsv/xilinx/constraints/vc707_aurora.xdc \
+	--xci ../../xilinx/aurora_64b66b_625/aurora_64b66b_625.xci \
+	--constraint ../xilinx/constraints/vc707_aurora_625.xdc \
+	--constraint ../xilinx/constraints/vc707_i2c.xdc \
 	--clib rt
 emultest: CPPFILES_ALL = $(CPPFILES) $(BLUEDBM_PLATFORMDIR)/platform.cpp
 

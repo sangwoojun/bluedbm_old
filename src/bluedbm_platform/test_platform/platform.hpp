@@ -9,8 +9,9 @@
 #include <stdint.h>
 
 #include "PlatformIndicationWrapper.h"
+#include "PlatformRequestProxy.h"
 
-void platform();
+void platform(PlatformRequestProxy* device);
 void platformIndicationSetup();
 
 #endif

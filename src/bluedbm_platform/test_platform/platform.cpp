@@ -8,12 +8,43 @@ extern int maxTagUsed;
 extern unsigned int pageReadTotal;
 extern unsigned int pageWriteTotal;
 
+unsigned int i2cBuffer = 0;
+int i2cReadCount = 0;
+
+bool i2cReadDone;
+unsigned char i2cReadData;
+
+unsigned char i2cRead(PlatformRequestProxy* device, unsigned char slave, unsigned char addr) {
+	i2cReadDone = false;
+	unsigned int c = (addr<<8) + (slave<<16);
+	device->i2cRequest(c);
+	usleep(1000);
+	while ( i2cReadDone == false ) usleep(1000);
+	return i2cReadData;
+}
+void i2cWrite(PlatformRequestProxy* device, unsigned char slave, unsigned char addr, unsigned char data) {
+	unsigned int c = data + (addr<<8) + (slave<<16) + (1<<23);
+	device->i2cRequest(c);
+	usleep(1000);
+}
+
 class PlatformIndication : public PlatformIndicationWrapper 
 {
 	public:
 	PlatformIndication(unsigned int id) : PlatformIndicationWrapper(id){}
 
 	virtual void rawWordTest(uint64_t d) {
+		printf( "[rawWord] %llx\n",d );
+		fflush(stdout);
+	}
+	virtual void i2cResult(unsigned int ret) {
+		//printf( "[i2c0] : %x\n", ret );
+		//fflush(stdout);
+
+		i2cReadData = (unsigned char)ret;
+		i2cReadDone = true;
+		//i2cBuffer = (i2cBuffer << 8) + ret;
+		//i2cReadCount ++;
 	}
 };
 
@@ -30,7 +61,89 @@ double timespec_diff_sec( timespec start, timespec end ) {
 	return t;
 }
 
-void platform() {
+void platform(PlatformRequestProxy* device) {
+
+	unsigned int i2c_switch_addr = 0x74;
+	unsigned int i2c_fmc1_data = 0x1;
+	i2cWrite(device, i2c_switch_addr, 0, i2c_fmc1_data);
+	unsigned int i2c_si570_addr = 0x5D;
+	unsigned int si570_configs = 0;
+
+/*
+	i2cReadCount = 0;
+	i2cBuffer = 0;
+	for ( unsigned int i = 7; i < 13; i++ ) {
+		device->i2cRequest((i<<8) + (i2c_si570_addr<<16));
+	}
+	while ( i2cReadCount < 6 ) ;
+*/
+
+/*
+	for ( int i = 0; i < 4; i++ ) {
+		i2cWrite(device, 0x70+i, 0, 1);
+	}
+	*/
+	/*
+	for ( int i = 0; i < 0x7f; i++ ) {
+		if ( i == i2c_si570_addr ) continue;
+
+		i2cWrite(device, i, 0, 1);
+		//unsigned char d = i2cRead(device, i, 0);
+		//printf( "%x %x\n", i, d );
+	}
+	*/
+
+/*
+	printf( "---\n" ); fflush(stdout);
+
+	for ( int i = 7; i < 13; i++ ) {
+		unsigned char d = i2cRead(device, i2c_si570_addr, i);
+		printf( "%2d %x\n", i, d );
+	}
+	printf( "---\n" ); fflush(stdout);
+	//i2cWrite(device, i2c_si570_addr, 135, 1);
+
+	i2cWrite(device, i2c_si570_addr, 137, 1<<4);
+	usleep(2000);
+	*/
+	/*
+	i2cWrite(device, i2c_si570_addr, 7, 0x21);
+	i2cWrite(device, i2c_si570_addr, 8, 0xc2);
+	i2cWrite(device, i2c_si570_addr, 9, 0xBB);
+	i2cWrite(device, i2c_si570_addr, 10, 0xFF);
+	i2cWrite(device, i2c_si570_addr, 11, 0xe4);
+	i2cWrite(device, i2c_si570_addr, 12, 0x14);
+	*/
+
+/*
+	// 625 MHz
+	i2cWrite(device, i2c_si570_addr, 7, 0x00);
+	i2cWrite(device, i2c_si570_addr, 8, 0x42);
+	i2cWrite(device, i2c_si570_addr, 9, 0xBB);
+	i2cWrite(device, i2c_si570_addr, 10, 0xFF);
+	i2cWrite(device, i2c_si570_addr, 11, 0xe4);
+	i2cWrite(device, i2c_si570_addr, 12, 0x14);
+	usleep(2000);
+	*/
+	/*
+	i2cWrite(device, i2c_si570_addr, 137, 0);
+	usleep(2000);
+	i2cWrite(device, i2c_si570_addr, 135, 1<<6);
+	usleep(2000);
+	device->resetAurora(0);
+	usleep(2000);
+	*/
+	device->start(0);
+	for ( int i = 7; i < 13; i++ ) {
+		unsigned char d = i2cRead(device, i2c_si570_addr, i);
+		printf( "%2d %x\n", i, d );
+	}
+
+	for ( int i = 0; i < 5; i++ ) {
+		device->auroraStatus(0);
+		sleep(1);
+	}
+	
 	for ( int i = 0; i < 1024*2*64; i++ ) {
 		hostBuffer[i] = i;
 	}
