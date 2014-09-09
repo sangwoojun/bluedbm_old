@@ -1,0 +1,310 @@
+Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2014.1 (lin64) Build 881834 Fri Apr  4 14:00:25 MDT 2014
+| Date         : Fri Sep  5 05:04:41 2014
+| Host         : umma running 64-bit Ubuntu 12.04.5 LTS
+| Command      : report_clock_utilization -file ./hw/mkcontrollertop_clock_util.rpt
+| Design       : mkControllerTop
+| Device       : xc7a200t
+------------------------------------------------------------------------------------
+
+Clock Utilization Report
+
+Table of Contents
+-----------------
+1. Clock Primitive Utilization
+2. Details of Global Clocks
+3. Details of Regional Clocks
+4. Details of Multi-Regional Clocks
+5. Details of I/O Clocks
+6. Details of Local Clocks
+7. Clock Regions : Key Resource Utilization
+8. Net wise resources used in clock region X0Y0
+9. Net wise resources used in clock region X0Y1
+10. Net wise resources used in clock region X1Y1
+11. Net wise resources used in clock region X0Y2
+12. Net wise resources used in clock region X1Y2
+13. Net wise resources used in clock region X0Y3
+14. Net wise resources used in clock region X1Y3
+15. Net wise resources used in clock region X0Y4
+16. Net wise resources used in clock region X1Y4
+
+1. Clock Primitive Utilization
+------------------------------
+
++-------+------+-----------+------------+
+| Type  | Used | Available | Num Locked |
++-------+------+-----------+------------+
+| BUFG  |    7 |        32 |          0 |
+| BUFH  |    0 |       120 |          0 |
+| BUFIO |    0 |        40 |          0 |
+| MMCM  |    2 |        10 |          0 |
+| PLL   |    0 |        10 |          0 |
+| BUFR  |    0 |        40 |          0 |
+| BUFMR |    0 |        20 |          0 |
++-------+------+-----------+------------+
+
+
+2. Details of Global Clocks
+---------------------------
+
++-------+------------------------------------------------------------------------+-----------------------------------------------------------------------+--------------+--------+---------------+-----------+
+|       |                                                                        |                                                                       |   Num Loads  |        |               |           |
++-------+------------------------------------------------------------------------+-----------------------------------------------------------------------+------+-------+--------+---------------+-----------+
+| Index | BUFG Cell                                                              | Net Name                                                              | BELs | Sites | Locked | MaxDelay (ns) | Skew (ns) |
++-------+------------------------------------------------------------------------+-----------------------------------------------------------------------+------+-------+--------+---------------+-----------+
+|     1 | auroraIfc/auroraIntraClockDiv2_clkdiv/clkfbout_2_clkfbin               | auroraIfc/auroraIntraClockDiv2_clkdiv/new_clock_ML_buffer_sig_I       |    1 |     1 |     no |         1.674 |     0.109 |
+|     2 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkin1_buf  | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkin1     |    1 |     1 |     no |         1.520 |     0.103 |
+|     3 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout1_buf | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/sync_clk_i |    4 |     8 |     no |         1.792 |     0.125 |
+|     4 | sys_clk_buf                                                            | sys_clk_buf_O                                                         |  128 |    39 |     no |         1.791 |     0.464 |
+|     5 | dbg_hub/inst/u_bufg_icon                                               | dbg_hub/inst/idrck                                                    |  267 |    65 |     no |         1.785 |     0.321 |
+|     6 | auroraIfc/auroraIntraClockDiv2_slowbuf                                 | auroraIfc/auroraIntraClockDiv2_slowbuf_O                              | 2227 |   933 |     no |         1.843 |     0.557 |
+|     7 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout0_buf | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1         | 2730 |   877 |     no |         1.792 |     0.504 |
++-------+------------------------------------------------------------------------+-----------------------------------------------------------------------+------+-------+--------+---------------+-----------+
+
+
++-------+--------------------------------------------------------------------------+---------------------------------------------------------------------+--------------+--------+---------------+-----------+
+|       |                                                                          |                                                                     |   Num Loads  |        |               |           |
++-------+--------------------------------------------------------------------------+---------------------------------------------------------------------+------+-------+--------+---------------+-----------+
+| Index | MMCM Cell                                                                | Net Name                                                            | BELs | Sites | Locked | MaxDelay (ns) | Skew (ns) |
++-------+--------------------------------------------------------------------------+---------------------------------------------------------------------+------+-------+--------+---------------+-----------+
+|     1 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKFBOUTB       |    0 |     0 |     no |         0.000 |     0.000 |
+|     2 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKOUT0         |    0 |     0 |     no |         0.000 |     0.000 |
+|     3 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKOUT0B        |    0 |     0 |     no |         0.000 |     0.000 |
+|     4 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKOUT1         |    0 |     0 |     no |         0.000 |     0.000 |
+|     5 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKOUT1B        |    0 |     0 |     no |         0.000 |     0.000 |
+|     6 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKOUT2         |    0 |     0 |     no |         0.000 |     0.000 |
+|     7 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKOUT2B        |    0 |     0 |     no |         0.000 |     0.000 |
+|     8 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKOUT3         |    0 |     0 |     no |         0.000 |     0.000 |
+|     9 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKOUT3B        |    0 |     0 |     no |         0.000 |     0.000 |
+|    10 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKOUT5         |    0 |     0 |     no |         0.000 |     0.000 |
+|    11 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKOUT6         |    0 |     0 |     no |         0.000 |     0.000 |
+|    12 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKFBOUT        |    1 |     1 |     no |         1.766 |     0.087 |
+|    13 | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1                | auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/CLKOUT4         |    1 |     1 |     no |         1.766 |     0.087 |
+|    14 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/mmcm_adv_inst | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkfbout |    1 |     1 |     no |         0.012 |     0.001 |
+|    15 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/mmcm_adv_inst | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout0  |    1 |     1 |     no |         1.559 |     0.071 |
+|    16 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/mmcm_adv_inst | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout1  |    1 |     1 |     no |         1.559 |     0.071 |
++-------+--------------------------------------------------------------------------+---------------------------------------------------------------------+------+-------+--------+---------------+-----------+
+
+
+3. Details of Regional Clocks
+-----------------------------
+
+4. Details of Multi-Regional Clocks
+-----------------------------------
+
+5. Details of I/O Clocks
+------------------------
+
+6. Details of Local Clocks
+--------------------------
+
++-------+--------------------------------------------------+--------------------------------+--------------+--------+---------------+-----------+
+|       |                                                  |                                |   Num Loads  |        |               |           |
++-------+--------------------------------------------------+--------------------------------+------+-------+--------+---------------+-----------+
+| Index | Local Clk Src                                    | Net Name                       | BELs | Sites | Locked | MaxDelay (ns) | Skew (ns) |
++-------+--------------------------------------------------+--------------------------------+------+-------+--------+---------------+-----------+
+|     1 | dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst | dbg_hub/inst/bscan_inst/UPDATE |    1 |     1 |    yes |         2.795 |     0.477 |
++-------+--------------------------------------------------+--------------------------------+------+-------+--------+---------------+-----------+
+
+
+7. Clock Regions : Key Resource Utilization
+-------------------------------------------
+
++-------------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+
+|                   | Global Clock |     BUFRs    |    BUFMRs    |    BUFIOs    |     MMCM     |      PLL     |      GT      |      PCI     |    ILOGIC    |    OLOGIC    |      FF      |     LUTM     |    RAMB18    |    RAMB36    |    DSP48E1   |
++-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
+| Clock Region Name | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail |
++-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
+| X0Y0              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     5 |    0 |     0 |    0 |    50 |    0 |    50 |    0 | 21600 |    0 |  3200 |    0 |    60 |    1 |    30 |    0 |    60 |
+| X1Y0              |    0 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     5 |    0 |     0 |    0 |    50 |    0 |    50 |    0 | 20000 |    0 |  3200 |    0 |    40 |    0 |    20 |    0 |    40 |
+| X0Y1              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |  187 | 33600 |    0 |  5600 |    0 |   100 |   42 |    50 |    0 |   100 |
+| X1Y1              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |    0 | 32000 |    0 |  5600 |    0 |    80 |   14 |    40 |    0 |    80 |
+| X0Y2              |    3 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |   96 | 28800 |   16 |  5600 |    0 |   100 |   50 |    50 |    0 |   100 |
+| X1Y2              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |    1 | 32000 |    0 |  5600 |    0 |    80 |   27 |    40 |    0 |    80 |
+| X0Y3              |    4 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |  154 | 28800 |   10 |  5600 |    1 |   100 |   49 |    50 |    0 |   100 |
+| X1Y3              |    3 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |   28 | 32000 |    0 |  5600 |    0 |    80 |   31 |    40 |    0 |    80 |
+| X0Y4              |    6 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    5 |     5 |    0 |     1 |    0 |    50 |    0 |    50 | 4081 | 20400 |  289 |  3000 |    1 |    50 |   23 |    25 |    0 |    60 |
+| X1Y4              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     5 |    0 |     0 |    0 |    50 |    0 |    50 |    0 | 20000 |    0 |  3200 |    0 |    40 |    1 |    20 |    0 |    40 |
++-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
+* RAMB36 site can be used as two RAMB18/FIFO18 sites
+
+
+8. Net wise resources used in clock region X0Y0
+-----------------------------------------------
+
++-------------+-------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| Source Type | BUFHCE Site | Locked | MMCM Pins | PLL Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs | FFs | LUTMs | DSP48E1s |                         Clock Net Name                        |
++-------------+-------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| BUFG        | BUFHCE_X0Y8 |   no   |         0 |        0 |       0 |         1 |       0 |       0 |   0 |     0 |        0 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1 |
+| BUFG        | BUFHCE_X0Y9 |   no   |         0 |        0 |       0 |         1 |       0 |       0 |   0 |     0 |        0 | auroraIfc/auroraIntraClockDiv2_slowbuf_O                      |
++-------------+-------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+
+
+9. Net wise resources used in clock region X0Y1
+-----------------------------------------------
+
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| Source Type | BUFHCE Site  | Locked | MMCM Pins | PLL Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs | FFs | LUTMs | DSP48E1s |                         Clock Net Name                        |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| BUFG        | BUFHCE_X0Y20 |   no   |         0 |        0 |       0 |        42 |       0 |       0 |   0 |     0 |        0 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1 |
+| BUFG        | BUFHCE_X0Y21 |   no   |         0 |        0 |       0 |        42 |       0 |       0 | 187 |     0 |        0 | auroraIfc/auroraIntraClockDiv2_slowbuf_O                      |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+
+
+10. Net wise resources used in clock region X1Y1
+------------------------------------------------
+
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| Source Type | BUFHCE Site  | Locked | MMCM Pins | PLL Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs | FFs | LUTMs | DSP48E1s |                         Clock Net Name                        |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| BUFG        | BUFHCE_X1Y20 |   no   |         0 |        0 |       0 |        14 |       0 |       0 |   0 |     0 |        0 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1 |
+| BUFG        | BUFHCE_X1Y21 |   no   |         0 |        0 |       0 |        14 |       0 |       0 |   0 |     0 |        0 | auroraIfc/auroraIntraClockDiv2_slowbuf_O                      |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+
+
+11. Net wise resources used in clock region X0Y2
+------------------------------------------------
+
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+-------------------------------------------------------------------+
+| Source Type | BUFHCE Site  | Locked | MMCM Pins | PLL Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs | FFs | LUTMs | DSP48E1s |                           Clock Net Name                          |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+-------------------------------------------------------------------+
+| BUFG        | BUFHCE_X0Y24 |   no   |         1 |        0 |       0 |         0 |       0 |       0 |   0 |     0 |        0 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkin1 |
+| BUFG        | BUFHCE_X0Y32 |   no   |         0 |        0 |       0 |        50 |       0 |       0 |  16 |    16 |        0 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1     |
+| BUFG        | BUFHCE_X0Y33 |   no   |         0 |        0 |       0 |        50 |       0 |       0 |  80 |     0 |        0 | auroraIfc/auroraIntraClockDiv2_slowbuf_O                          |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+-------------------------------------------------------------------+
+
+
+12. Net wise resources used in clock region X1Y2
+------------------------------------------------
+
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| Source Type | BUFHCE Site  | Locked | MMCM Pins | PLL Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs | FFs | LUTMs | DSP48E1s |                         Clock Net Name                        |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| BUFG        | BUFHCE_X1Y32 |   no   |         0 |        0 |       0 |        27 |       0 |       0 |   0 |     0 |        0 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1 |
+| BUFG        | BUFHCE_X1Y33 |   no   |         0 |        0 |       0 |        27 |       0 |       0 |   1 |     0 |        0 | auroraIfc/auroraIntraClockDiv2_slowbuf_O                      |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+
+
+13. Net wise resources used in clock region X0Y3
+------------------------------------------------
+
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| Source Type | BUFHCE Site  | Locked | MMCM Pins | PLL Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs | FFs | LUTMs | DSP48E1s |                         Clock Net Name                        |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| BUFG        | BUFHCE_X0Y47 |   no   |         0 |        0 |       0 |         1 |       0 |       0 |   0 |     0 |        0 | sys_clk_buf_O                                                 |
+| BUFG        | BUFHCE_X0Y44 |   no   |         0 |        0 |       0 |         0 |       0 |       0 |   8 |     0 |        0 | dbg_hub/inst/idrck                                            |
+| BUFG        | BUFHCE_X0Y45 |   no   |         0 |        0 |       0 |        50 |       0 |       0 |  26 |     8 |        0 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1 |
+| BUFG        | BUFHCE_X0Y46 |   no   |         0 |        0 |       0 |        49 |       0 |       0 | 120 |     2 |        0 | auroraIfc/auroraIntraClockDiv2_slowbuf_O                      |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+
+
+14. Net wise resources used in clock region X1Y3
+------------------------------------------------
+
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| Source Type | BUFHCE Site  | Locked | MMCM Pins | PLL Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs | FFs | LUTMs | DSP48E1s |                         Clock Net Name                        |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| BUFG        | BUFHCE_X1Y44 |   no   |         0 |        0 |       0 |        31 |       0 |       0 |   0 |     0 |        0 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1 |
+| BUFG        | BUFHCE_X1Y45 |   no   |         0 |        0 |       0 |        31 |       0 |       0 |   0 |     0 |        0 | auroraIfc/auroraIntraClockDiv2_slowbuf_O                      |
+| BUFG        | BUFHCE_X1Y46 |   no   |         0 |        0 |       0 |         0 |       0 |       0 |  28 |     0 |        0 | sys_clk_buf_O                                                 |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+
+
+15. Net wise resources used in clock region X0Y4
+------------------------------------------------
+
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+------+-------+----------+-----------------------------------------------------------------------+
+| Source Type | BUFHCE Site  | Locked | MMCM Pins | PLL Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs |  FFs | LUTMs | DSP48E1s |                             Clock Net Name                            |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+------+-------+----------+-----------------------------------------------------------------------+
+| BUFG        | BUFHCE_X0Y59 |   no   |         0 |        0 |       8 |         0 |       0 |       0 |    0 |     0 |        0 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/sync_clk_i |
+| BUFG        | BUFHCE_X0Y48 |   no   |         1 |        0 |       0 |         0 |       0 |       0 |    0 |     0 |        0 | auroraIfc/auroraIntraClockDiv2_clkdiv/new_clock_ML_buffer_sig_I       |
+| BUFG        | BUFHCE_X0Y49 |   no   |         1 |        0 |       0 |         7 |       0 |       0 |   91 |     0 |        0 | sys_clk_buf_O                                                         |
+| BUFG        | BUFHCE_X0Y56 |   no   |         0 |        0 |       0 |         0 |       0 |       0 |  235 |    24 |        0 | dbg_hub/inst/idrck                                                    |
+| BUFG        | BUFHCE_X0Y58 |   no   |         0 |        0 |       5 |        17 |       0 |       0 | 1405 |   194 |        0 | auroraIfc/auroraIntraClockDiv2_slowbuf_O                              |
+| BUFG        | BUFHCE_X0Y57 |   no   |         0 |        0 |       8 |        24 |       0 |       0 | 2349 |    71 |        0 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1         |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+------+-------+----------+-----------------------------------------------------------------------+
+
+
+16. Net wise resources used in clock region X1Y4
+------------------------------------------------
+
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| Source Type | BUFHCE Site  | Locked | MMCM Pins | PLL Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs | FFs | LUTMs | DSP48E1s |                         Clock Net Name                        |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+| BUFG        | BUFHCE_X1Y56 |   no   |         0 |        0 |       0 |         1 |       0 |       0 |   0 |     0 |        0 | auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1 |
+| BUFG        | BUFHCE_X1Y57 |   no   |         0 |        0 |       0 |         1 |       0 |       0 |   0 |     0 |        0 | auroraIfc/auroraIntraClockDiv2_slowbuf_O                      |
++-------------+--------------+--------+-----------+----------+---------+-----------+---------+---------+-----+-------+----------+---------------------------------------------------------------+
+
+
+
+# Location of BUFG Primitives 
+set_property LOC BUFGCTRL_X0Y17 [get_cells auroraIfc/auroraIntraClockDiv2_clkdiv]
+set_property LOC BUFGCTRL_X0Y18 [get_cells auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkin1_buf]
+set_property LOC BUFGCTRL_X0Y1 [get_cells auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout1_buf]
+set_property LOC BUFGCTRL_X0Y3 [get_cells sys_clk_buf]
+set_property LOC BUFGCTRL_X0Y2 [get_cells dbg_hub/inst/u_bufg_icon]
+set_property LOC BUFGCTRL_X0Y16 [get_cells auroraIfc/auroraIntraClockDiv2_slowbuf]
+set_property LOC BUFGCTRL_X0Y0 [get_cells auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout0_buf]
+
+# Location of IO Clock Primitives
+
+# Location of MMCM Clock Primitives
+set_property LOC MMCME2_ADV_X0Y2 [get_cells auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/mmcm_adv_inst]
+set_property LOC MMCME2_ADV_X0Y4 [get_cells auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST]
+
+# Location of BUFH Clock Primitives
+
+# Location of BUFR Clock Primitives
+
+# Location of BUFMR Clock Primitives
+
+# Location of PLL Clock Primitives
+
+# Location of IO Primitives which is load of clock spine
+
+# Location of clock ports
+set_property LOC IOB_X1Y73 [get_ports CLK_sys_clk_n]
+set_property LOC IOB_X1Y74 [get_ports CLK_sys_clk_p]
+
+# Clock net "auroraIfc/auroraIntraClockDiv2_slowbuf_O" driven by instance "auroraIfc/auroraIntraClockDiv2_slowbuf" located at site "BUFGCTRL_X0Y16"
+#startgroup
+create_pblock CLKAG_auroraIfc/auroraIntraClockDiv2_slowbuf_O
+add_cells_to_pblock [get_pblocks  CLKAG_auroraIfc/auroraIntraClockDiv2_slowbuf_O] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="auroraIfc/auroraIntraClockDiv2_slowbuf_O"}]]]
+resize_pblock [get_pblocks CLKAG_auroraIfc/auroraIntraClockDiv2_slowbuf_O] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0 CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X0Y3:CLOCKREGION_X0Y3 CLOCKREGION_X0Y4:CLOCKREGION_X0Y4 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2 CLOCKREGION_X1Y3:CLOCKREGION_X1Y3 CLOCKREGION_X1Y4:CLOCKREGION_X1Y4}
+#endgroup
+
+# Clock net "auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1" driven by instance "auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout0_buf" located at site "BUFGCTRL_X0Y0"
+#startgroup
+create_pblock CLKAG_auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1
+add_cells_to_pblock [get_pblocks  CLKAG_auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1"}]]]
+resize_pblock [get_pblocks CLKAG_auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/O1] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0 CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X0Y3:CLOCKREGION_X0Y3 CLOCKREGION_X0Y4:CLOCKREGION_X0Y4 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2 CLOCKREGION_X1Y3:CLOCKREGION_X1Y3 CLOCKREGION_X1Y4:CLOCKREGION_X1Y4}
+#endgroup
+
+# Clock net "auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/sync_clk_i" driven by instance "auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout1_buf" located at site "BUFGCTRL_X0Y1"
+#startgroup
+create_pblock CLKAG_auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/sync_clk_i
+add_cells_to_pblock [get_pblocks  CLKAG_auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/sync_clk_i] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/sync_clk_i"}]]]
+resize_pblock [get_pblocks CLKAG_auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/sync_clk_i] -add {CLOCKREGION_X0Y4:CLOCKREGION_X0Y4}
+#endgroup
+
+# Clock net "dbg_hub/inst/idrck" driven by instance "dbg_hub/inst/u_bufg_icon" located at site "BUFGCTRL_X0Y2"
+#startgroup
+create_pblock CLKAG_dbg_hub/inst/idrck
+add_cells_to_pblock [get_pblocks  CLKAG_dbg_hub/inst/idrck] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="dbg_hub/inst/idrck"}]]]
+resize_pblock [get_pblocks CLKAG_dbg_hub/inst/idrck] -add {CLOCKREGION_X0Y3:CLOCKREGION_X0Y3 CLOCKREGION_X0Y4:CLOCKREGION_X0Y4}
+#endgroup
+
+# Clock net "sys_clk_buf_O" driven by instance "sys_clk_buf" located at site "BUFGCTRL_X0Y3"
+#startgroup
+create_pblock CLKAG_sys_clk_buf_O
+add_cells_to_pblock [get_pblocks  CLKAG_sys_clk_buf_O] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL && NAME!=auroraIfc/auroraIntraClockDiv2_clkdiv/MMCM_ADV_INST/INST1} -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="sys_clk_buf_O"}]]]
+resize_pblock [get_pblocks CLKAG_sys_clk_buf_O] -add {CLOCKREGION_X0Y3:CLOCKREGION_X0Y3 CLOCKREGION_X0Y4:CLOCKREGION_X0Y4 CLOCKREGION_X1Y3:CLOCKREGION_X1Y3}
+#endgroup
+
+# Clock net "dbg_hub/inst/bscan_inst/UPDATE" driven by instance "dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst" located at site "BSCAN_X0Y0"
+#startgroup
+create_pblock CLKAG_dbg_hub/inst/bscan_inst/UPDATE
+add_cells_to_pblock [get_pblocks  CLKAG_dbg_hub/inst/bscan_inst/UPDATE] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="dbg_hub/inst/bscan_inst/UPDATE"}]]]
+resize_pblock [get_pblocks CLKAG_dbg_hub/inst/bscan_inst/UPDATE] -add {CLOCKREGION_X0Y4:CLOCKREGION_X0Y4}
+#endgroup

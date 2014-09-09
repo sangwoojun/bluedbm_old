@@ -38,8 +38,8 @@ import AxiCsr            :: *;
 import AuroraImportVC707 :: *;
 
 typedef (function Module#(PortalTop#(40, dsz, ipins, nMasters)) mkPortalTop(Clock clk, Reset rst, 
-			  Vector#(AuroraPorts, Clock) gtx_clk_p,
-			  Vector#(AuroraPorts, Clock) gtx_clk_n
+			  Vector#(QuadCount, Clock) gtx_clk_p,
+			  Vector#(QuadCount, Clock) gtx_clk_n
 		)) MkPortalTop#(numeric type dsz, type ipins, numeric type nMasters);
 
 `ifdef Artix7
@@ -62,8 +62,8 @@ endinterface
 module [Module] mkPcieTopFromPortal #(Clock pci_sys_clk_p, Clock pci_sys_clk_n,
 				      Clock sys_clk_p,     Clock sys_clk_n,
 				      Reset pci_sys_reset_n,
-					  Vector#(AuroraPorts, Clock) gtx_clk_p,
-					  Vector#(AuroraPorts, Clock) gtx_clk_n,
+					  Vector#(QuadCount, Clock) gtx_clk_p,
+					  Vector#(QuadCount, Clock) gtx_clk_n,
 				      MkPortalTop#(dsz, ipins, nMasters) mkPortalTop)
    (PcieTop#(ipins))
    provisos (Mul#(TDiv#(dsz, 32), 32, dsz),

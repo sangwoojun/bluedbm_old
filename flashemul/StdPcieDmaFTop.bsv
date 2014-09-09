@@ -33,8 +33,8 @@ import AuroraImportVC707:: *;
 
 (* synthesize *)
 module mkSynthesizeablePortalTop#(Clock clk, Reset rst, 
-			  Vector#(AuroraPorts, Clock) gtx_clk_p,
-			  Vector#(AuroraPorts, Clock) gtx_clk_n
+			  Vector#(QuadCount, Clock) gtx_clk_p,
+			  Vector#(QuadCount, Clock) gtx_clk_n
 		) (PortalTop#(40, 64, BlueDBMTopPins, 1));
    let top <- mkPortalTop(clk, rst, gtx_clk_p, gtx_clk_n);
    interface masters = top.masters;
@@ -48,16 +48,19 @@ module mkPcieTop #(Clock pci_sys_clk_p, Clock pci_sys_clk_n,
    Clock sys_clk_p,     Clock sys_clk_n,
    Reset pci_sys_reset_n,
    Clock gtx_clk_0_p, Clock gtx_clk_0_n,
-   Clock gtx_clk_1_0_p, Clock gtx_clk_1_0_n
+   Clock gtx_clk_1_0_p, Clock gtx_clk_1_0_n/*,
+   Clock gtx_clk_116_p, Clock gtx_clk_116_n*/
    )
    (PcieTop#(BlueDBMTopPins));
 
-   Vector#(AuroraPorts,Clock) gtx_clk_p;
+   Vector#(QuadCount,Clock) gtx_clk_p;
    gtx_clk_p[0] = gtx_clk_0_p;
    gtx_clk_p[1] = gtx_clk_1_0_p;
-   Vector#(AuroraPorts,Clock) gtx_clk_n;
+   //gtx_clk_p[2] = gtx_clk_116_p;
+   Vector#(QuadCount,Clock) gtx_clk_n;
    gtx_clk_n[0] = gtx_clk_0_n;
    gtx_clk_n[1] = gtx_clk_1_0_n;
+   //gtx_clk_n[2] = gtx_clk_116_n;
 
    let top <- mkPcieTopFromPortal(pci_sys_clk_p, pci_sys_clk_n, sys_clk_p, sys_clk_n, pci_sys_reset_n, gtx_clk_p, gtx_clk_n,
 				  mkSynthesizeablePortalTop);

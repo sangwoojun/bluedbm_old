@@ -1,0 +1,11 @@
+set_property SRC_FILE_INFO {cfile:/home/wjun/bluedbm_work/bluedbm/controller/xilinx/aurora_8b10b/aurora_8b10b_exdes.xdc rfile:../../../xilinx/aurora_8b10b/aurora_8b10b_exdes.xdc id:1} [current_design]
+set_property src_info {type:XDC file:1 line:72 export:INPUT save:INPUT read:READ} [current_design]
+set_max_delay -from [get_clocks init_clk_i] -to [get_clocks user_clk_i] -datapath_only 9.091
+set_property src_info {type:XDC file:1 line:78 export:INPUT save:INPUT read:READ} [current_design]
+set_property LOC GTPE2_CHANNEL_X0Y4 [get_cells */auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt0_aurora_8b10b_i/gtpe2_i]
+set_property src_info {type:XDC file:1 line:79 export:INPUT save:INPUT read:READ} [current_design]
+set_property LOC GTPE2_CHANNEL_X0Y5 [get_cells */auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt1_aurora_8b10b_i/gtpe2_i]
+set_property src_info {type:XDC file:1 line:80 export:INPUT save:INPUT read:READ} [current_design]
+set_property LOC GTPE2_CHANNEL_X0Y6 [get_cells */auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt2_aurora_8b10b_i/gtpe2_i]
+set_property src_info {type:XDC file:1 line:81 export:INPUT save:INPUT read:READ} [current_design]
+set_property LOC GTPE2_CHANNEL_X0Y7 [get_cells */auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt3_aurora_8b10b_i/gtpe2_i]

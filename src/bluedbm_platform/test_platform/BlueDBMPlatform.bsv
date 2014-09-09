@@ -16,6 +16,7 @@ import AuroraImportVC707::*;
 interface BlueDBMPlatformIfc;
 	method Action readPage(Bit#(64) pageIdx);
 	interface PlatformRequest request;
+	method Action auroraDbgData(Bit#(32) data);
 endinterface
 
 module mkBlueDBMPlatform#(
@@ -23,6 +24,7 @@ module mkBlueDBMPlatform#(
 	BlueDBMHostIfc host, 
 	DRAMControllerIfc dram, 
 	Vector#(AuroraPorts, AuroraIfc) auroras, 
+	Vector#(AuroraIntraPorts, AuroraIfc32) auroraIntras, 
 	Vector#(I2C_Count, I2C_User) i2cs
 	) (BlueDBMPlatformIfc);
 	
@@ -66,23 +68,30 @@ module mkBlueDBMPlatform#(
 	Reset aurora_rst = auroras[0].rst;
 
 	AuroraIfc aurora = auroras[0];
+	rule driveAuroraRx;
+		Bit#(64) data <- aurora.receive;
+		//auroraRxQ.enq(data);
+		//auroraTQ.deq;
+	endrule
+/*
 
 	//Reg#(Bit#(8)) txThr <- mkReg(0);
 
 	SyncFIFOIfc#(Bit#(64)) auroraTx <- mkSyncFIFOFromCC(16, aurora_clk);
 	Reg#(Bit#(16)) txCount <- mkReg(0);
-	/*
-	rule agsgsfd(txThr > 0);
-		txThr <= txThr - 1;
-	endrule
-	*/
 
-	rule sendAuroraTx (txCount < 2048 && platformStarted /*&& txThr == 0*/);
+	rule sendAuroraTx (txCount < 2048 && platformStarted );
 		txCount <= txCount + 1;
 
 		//txThr <= 128;
 
 		auroraTx.enq(zeroExtend(txCount));
+//		if ( txCount == 2047 ) begin
+//			indication.rawWordTest({32'hcafef00d,0});
+//		end
+		if ( txCount == 32 ) begin
+			indication.rawWordTest({32'hcafef00d,1});
+		end
 	endrule
 
 
@@ -120,7 +129,9 @@ module mkBlueDBMPlatform#(
 
 		host.putRawWord(auroraRx.first);
 	endrule
+	*/
 
+/*
 	SyncFIFOIfc#(Bit#(64)) auroraRxQ1 <- mkSyncFIFOToCC(32, auroras[1].clk, auroras[1].rst);
 	SyncFIFOIfc#(Bit#(64)) auroraTxQ1 <- mkSyncFIFOFromCC(32, auroras[1].clk);
 	Reg#(Bit#(16)) aurora1_0_counter <- mkReg(0);
@@ -130,25 +141,94 @@ module mkBlueDBMPlatform#(
 		
 		//host.putRawWord({32'hcafef00d,zeroExtend(aurora1_0_counter)});
 	endrule
-	FIFO#(Bool) aurora1Throttle <- mkSizedFIFO(1, clocked_by auroras[1].clk, reset_by auroras[1].rst);
+
+	//FIFO#(Bool) aurora1Throttle <- mkSizedFIFO(1, clocked_by auroras[1].clk, reset_by auroras[1].rst);
 	rule sendaurora1_0f;
 		auroraTxQ1.deq;
 		auroras[1].send(auroraTxQ1.first);
 
-		aurora1Throttle.enq(True);
+		//aurora1Throttle.enq(True);
 	endrule
 	rule dumpAurora1_0;
 		let d <- auroras[1].receive;
-		auroraRxQ1.enq(d);
-		
-		aurora1Throttle.deq;
+		if ( d > 250 ) begin
+			auroraRxQ1.enq(d);
+		end
+	
+		//aurora1Throttle.deq;
 	endrule
 	rule flushaurora1_Rx;
 		auroraRxQ1.deq;
 
-		indication.rawWordTest({32'hdeadbeef,0,auroraRx.first[15:0]});
+		indication.rawWordTest({32'hdeadbeef,0,auroraRxQ1.first[15:0]});
 	endrule
 
+	rule dumpAurora1_2;
+		let d <- auroras[2].receive;
+	endrule
+	SyncFIFOIfc#(Bit#(64)) auroraTxQ2 <- mkSyncFIFOFromCC(32, auroras[2].clk);
+	SyncFIFOIfc#(Bit#(64)) auroraRxQ3 <- mkSyncFIFOToCC(32, auroras[3].clk, auroras[3].rst);
+	Reg#(Bit#(16)) aurora1_2_counter <- mkReg(0);
+	rule sendaurora1_2(aurora1_2_counter < 60032 && platformStarted);
+		auroraTxQ2.enq(zeroExtend(aurora1_2_counter));
+		aurora1_2_counter <= aurora1_2_counter + 1;
+		
+		//host.putRawWord({32'hcafef00d,zeroExtend(aurora1_0_counter)});
+	endrule
+
+	//FIFO#(Bool) aurora1Throttle <- mkSizedFIFO(1, clocked_by auroras[1].clk, reset_by auroras[1].rst);
+	rule sendaurora1_2f;
+		auroraTxQ2.deq;
+		auroras[2].send(auroraTxQ2.first);
+		//aurora1Throttle.enq(True);
+	endrule
+	
+	rule dumpAurora1_3;
+		let d <- auroras[3].receive;
+		if ( d > 60000 ) begin
+			auroraRxQ3.enq(d);
+		end
+	
+		//aurora1Throttle.deq;
+	endrule
+	rule flushaurora1_3Rx;
+		auroraRxQ3.deq;
+
+		indication.rawWordTest({32'hdeadbeef,0,auroraRxQ3.first[15:0]});
+	endrule
+*/
+	Reg#(Bit#(32)) aurora2_0_counter <- mkReg(0);
+	SyncFIFOIfc#(Bit#(32)) aurora2_0_TQ <- mkSyncFIFOFromCC(2, auroraIntras[0].clk);
+	rule sendAurora2_0 (aurora2_0_counter < 32 && platformStarted);
+		aurora2_0_counter <= aurora2_0_counter + 1;
+		aurora2_0_TQ.enq(aurora2_0_counter);
+	endrule
+	rule sendAurora2_0T;
+		aurora2_0_TQ.deq;
+		auroraIntras[0].send(aurora2_0_TQ.first);
+	endrule
+	
+	
+	Reg#(Bit#(32)) aurora2_0_utr <- mkReg(0, clocked_by auroraIntras[0].clk, reset_by auroraIntras[0].rst);
+	SyncFIFOIfc#(Bit#(32)) aurora2_0_ut <- mkSyncFIFOToCC(32, auroraIntras[0].clk, auroraIntras[0].rst);
+	rule asagdsfgasdfg ( aurora2_0_utr < 4 );
+		aurora2_0_utr <= aurora2_0_utr + 1;
+		aurora2_0_ut.enq(aurora2_0_utr);
+	endrule
+	rule dunomasfasfdg;
+		aurora2_0_ut.deq;
+		//indication.rawWordTest({32'h12345678,aurora2_0_ut.first});
+	endrule
+
+	SyncFIFOIfc#(Bit#(32)) aurora2_0_RQ <- mkSyncFIFOToCC(32, auroraIntras[0].clk, auroraIntras[0].rst);
+	rule rxAurora2_0;
+		let d <- auroraIntras[0].receive;
+		aurora2_0_RQ.enq(d);
+	endrule
+	rule dumpAurora2_0;
+		indication.rawWordTest({32'hf00dbeef,aurora2_0_RQ.first});
+		aurora2_0_RQ.deq;
+	endrule
 
 	Clock clk <- exposeCurrentClock;
 	Reset rst_n <- exposeCurrentReset;
@@ -264,8 +344,30 @@ module mkBlueDBMPlatform#(
 		flashInterface.writeWord(tpl_1(q), tag);
 	endrule
 
+	Reg#(Bit#(1)) channelever <- mkReg(0);
+	Reg#(Bit#(1)) laneever <- mkReg(0);
+	rule auroraEverUp;
+		if ( auroraIntras[0].channel_up == 1 ) channelever <= 1;
+		if ( auroraIntras[0].lane_up == 1 ) laneever <= 1;
+	endrule
+
+	Reg#(Bit#(32)) lastAuroraDbgData <- mkReg(0);
+	FIFO#(Bit#(32)) auroraDbgQ <- mkSizedFIFO(32);
+	rule auroraDbgdd( platformStarted );
+		let data = auroraDbgQ.first;
+		auroraDbgQ.deq;
+		indication.rawWordTest({32'hbeefbeef,data});
+	endrule
+
 	method Action readPage(Bit#(64) pageIdx);
 	endmethod
+	method Action auroraDbgData(Bit#(32) data);
+		lastAuroraDbgData <= data;
+		if ( lastAuroraDbgData != data ) begin
+			auroraDbgQ.enq(data);
+		end
+	endmethod
+
 
 	interface PlatformRequest request;
 		method Action rawWordRequest(Bit#(64) data);
@@ -282,13 +384,16 @@ module mkBlueDBMPlatform#(
 			platformStartQ.enq(True);
 		endmethod
 		method Action resetAurora(Bit#(32) dummy);
-			auroras[1].auroraRst.assertReset;
+			//auroras[1].auroraRst.assertReset;
 		endmethod
 		method Action auroraStatus(Bit#(32) dummy);
-			Bit#(4) aurora0err = {auroras[0].channel_up, auroras[0].lane_up, auroras[0].hard_err, auroras[0].soft_err};
-			Bit#(4) aurora1err = {auroras[1].channel_up, auroras[1].lane_up, auroras[1].hard_err, auroras[1].soft_err};
+			//Bit#(4) aurora0err = {auroras[0].channel_up, auroras[0].lane_up, auroras[0].hard_err, auroras[0].soft_err};
+			Bit#(4) aurora0err = 0;//{auroras[0].channel_up, auroras[0].lane_up, auroras[0].hard_err, auroras[0].soft_err};
+			//Bit#(4) aurora1err = {auroras[1].channel_up, auroras[1].lane_up, auroras[1].hard_err, auroras[1].soft_err};
+			Bit#(4) aurora1err = {auroraIntras[0].channel_up, auroraIntras[0].lane_up, auroraIntras[0].hard_err, auroraIntras[0].soft_err};
+			Bit#(4) auroraIntraEver = {0,channelever, laneever};
 
-			indication.rawWordTest({0, aurora0err, aurora1err});
+			indication.rawWordTest({0, auroraIntraEver, aurora0err, aurora1err});
 		endmethod
 	endinterface
 endmodule

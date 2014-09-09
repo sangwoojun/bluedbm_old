@@ -8,6 +8,7 @@ Dma = DmaF
 PINS = Std
 
 include ../config/Makefile.emultest
+include ../config/Makefile.boardtest
 
 XBSVDIR=../../xbsv
 BOARD=vc707

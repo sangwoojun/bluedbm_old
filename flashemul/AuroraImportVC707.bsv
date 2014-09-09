@@ -3,7 +3,9 @@ package AuroraImportVC707;
 
 import Clocks :: *;
 
-typedef 2 AuroraPorts;
+typedef 2 QuadCount;
+typedef 1 AuroraPorts;
+typedef 1 AuroraIntraPorts;
 
 interface AuroraIfc;
 	method Action send(Bit#(64) data);
@@ -36,6 +38,65 @@ module mkAurora#(Aurora_V7 aurora, MakeResetIfc auroraRst) (AuroraIfc);
 	interface MakeResetIfc auroraRst = auroraRst;
 endmodule
 
+interface AuroraIfc32;
+	method Action send(Bit#(32) data);
+	method ActionValue#(Bit#(32)) receive;
+
+	interface Clock clk;
+	interface Reset rst;
+
+	method Bit#(1) channel_up;
+	method Bit#(1) lane_up;
+	method Bit#(1) hard_err;
+	method Bit#(1) soft_err;
+	method Bit#(8) data_err_count;
+	
+	interface MakeResetIfc auroraRst;
+endinterface
+
+interface AuroraIfc16;
+	method Action send(Bit#(16) data);
+	method ActionValue#(Bit#(16)) receive;
+
+	interface Clock clk;
+	interface Reset rst;
+
+	method Bit#(1) channel_up;
+	method Bit#(1) lane_up;
+	method Bit#(1) hard_err;
+	method Bit#(1) soft_err;
+	method Bit#(8) data_err_count;
+	
+	interface MakeResetIfc auroraRst;
+endinterface
+module mkAurora32#(Aurora_V7_32 aurora, MakeResetIfc auroraRst) (AuroraIfc32);
+	method send = aurora.user.send;
+	method receive = aurora.user.receive;
+
+	method channel_up = aurora.user.channel_up;
+	method lane_up = aurora.user.lane_up;
+	method hard_err = aurora.user.hard_err;
+	method soft_err = aurora.user.soft_err;
+	method data_err_count = aurora.user.data_err_count;
+
+	interface Clock clk = aurora.aurora_clk;
+	interface Reset rst = aurora.aurora_rst;
+	interface MakeResetIfc auroraRst = auroraRst;
+endmodule
+module mkAurora16#(Aurora_V7_16 aurora, MakeResetIfc auroraRst) (AuroraIfc16);
+	method send = aurora.user.send;
+	method receive = aurora.user.receive;
+
+	method channel_up = aurora.user.channel_up;
+	method lane_up = aurora.user.lane_up;
+	method hard_err = aurora.user.hard_err;
+	method soft_err = aurora.user.soft_err;
+	method data_err_count = aurora.user.data_err_count;
+
+	interface Clock clk = aurora.aurora_clk;
+	interface Reset rst = aurora.aurora_rst;
+	interface MakeResetIfc auroraRst = auroraRst;
+endmodule
 
 (* always_enabled, always_ready *)
 interface Aurora_Pins_VC707;
@@ -63,6 +124,32 @@ interface AuroraControllerIfc;
 	method ActionValue#(Bit#(64)) receive();
 endinterface
 
+interface AuroraControllerIfc32;
+	interface Reset aurora_rst_n;
+		
+	method Bit#(1) channel_up;
+	method Bit#(1) lane_up;
+	method Bit#(1) hard_err;
+	method Bit#(1) soft_err;
+	method Bit#(8) data_err_count;
+
+	method Action send(Bit#(32) tx);
+	method ActionValue#(Bit#(32)) receive();
+endinterface
+
+interface AuroraControllerIfc16;
+	interface Reset aurora_rst_n;
+		
+	method Bit#(1) channel_up;
+	method Bit#(1) lane_up;
+	method Bit#(1) hard_err;
+	method Bit#(1) soft_err;
+	method Bit#(8) data_err_count;
+
+	method Action send(Bit#(16) tx);
+	method ActionValue#(Bit#(16)) receive();
+endinterface
+
 interface Aurora_V7;
 	interface Clock aurora_clk;
 	interface Reset aurora_rst;
@@ -70,6 +157,24 @@ interface Aurora_V7;
 	interface Aurora_Pins_VC707 aurora;
 	(* prefix = "" *)
 	interface AuroraControllerIfc user;
+endinterface
+
+interface Aurora_V7_32;
+	interface Clock aurora_clk;
+	interface Reset aurora_rst;
+	(* prefix = "" *)
+	interface Aurora_Pins_VC707 aurora;
+	(* prefix = "" *)
+	interface AuroraControllerIfc32 user;
+endinterface
+
+interface Aurora_V7_16;
+	interface Clock aurora_clk;
+	interface Reset aurora_rst;
+	(* prefix = "" *)
+	interface Aurora_Pins_VC707 aurora;
+	(* prefix = "" *)
+	interface AuroraControllerIfc16 user;
 endinterface
 
 import "BVI" aurora_64b66b_0_exdes =

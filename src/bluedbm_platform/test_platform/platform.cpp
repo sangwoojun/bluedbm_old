@@ -65,81 +65,86 @@ void platform(PlatformRequestProxy* device) {
 
 	unsigned int i2c_switch_addr = 0x74;
 	unsigned int i2c_fmc1_data = 0x1;
+	unsigned int i2c_fmc2_data = 0x2;
 	i2cWrite(device, i2c_switch_addr, 0, i2c_fmc1_data);
+	//i2cWrite(device, i2c_switch_addr, 0, i2c_fmc1_data);
 	unsigned int i2c_si570_addr = 0x5D;
 	unsigned int si570_configs = 0;
-
-/*
-	i2cReadCount = 0;
-	i2cBuffer = 0;
-	for ( unsigned int i = 7; i < 13; i++ ) {
-		device->i2cRequest((i<<8) + (i2c_si570_addr<<16));
-	}
-	while ( i2cReadCount < 6 ) ;
-*/
-
-/*
 	for ( int i = 0; i < 4; i++ ) {
 		i2cWrite(device, 0x70+i, 0, 1);
 	}
-	*/
-	/*
-	for ( int i = 0; i < 0x7f; i++ ) {
-		if ( i == i2c_si570_addr ) continue;
 
-		i2cWrite(device, i, 0, 1);
-		//unsigned char d = i2cRead(device, i, 0);
-		//printf( "%x %x\n", i, d );
-	}
-	*/
-
+	// i2cWrite(device, i2c_si570_addr, 135, 1); // reset Si570
 /*
-	printf( "---\n" ); fflush(stdout);
-
 	for ( int i = 7; i < 13; i++ ) {
 		unsigned char d = i2cRead(device, i2c_si570_addr, i);
 		printf( "%2d %x\n", i, d );
 	}
+*/
 	printf( "---\n" ); fflush(stdout);
-	//i2cWrite(device, i2c_si570_addr, 135, 1);
+	
+	for ( int i = 7; i < 13; i++ ) {
+		unsigned char d = 0xff;
+		int c = 0;
+		while ( d == 0xff && c < 16) {
+			d = i2cRead(device, i2c_si570_addr, i);
+			c++;
+		}
+		printf( "%2d %x\n", i, d );
+	}
 
 	i2cWrite(device, i2c_si570_addr, 137, 1<<4);
 	usleep(2000);
-	*/
-	/*
+
+	// 125 MHz
 	i2cWrite(device, i2c_si570_addr, 7, 0x21);
 	i2cWrite(device, i2c_si570_addr, 8, 0xc2);
 	i2cWrite(device, i2c_si570_addr, 9, 0xBB);
 	i2cWrite(device, i2c_si570_addr, 10, 0xFF);
 	i2cWrite(device, i2c_si570_addr, 11, 0xe4);
 	i2cWrite(device, i2c_si570_addr, 12, 0x14);
-	*/
-
-/*
+	
 	// 625 MHz
+	/*
 	i2cWrite(device, i2c_si570_addr, 7, 0x00);
 	i2cWrite(device, i2c_si570_addr, 8, 0x42);
 	i2cWrite(device, i2c_si570_addr, 9, 0xBB);
 	i2cWrite(device, i2c_si570_addr, 10, 0xFF);
 	i2cWrite(device, i2c_si570_addr, 11, 0xe4);
 	i2cWrite(device, i2c_si570_addr, 12, 0x14);
-	usleep(2000);
 	*/
+	
 	/*
+	// 275
+	i2cWrite(device, i2c_si570_addr, 7, 0x01);
+	i2cWrite(device, i2c_si570_addr, 8, 0x03);
+	i2cWrite(device, i2c_si570_addr, 9, 0x01);
+	i2cWrite(device, i2c_si570_addr, 10, 0xFF);
+	i2cWrite(device, i2c_si570_addr, 11, 0xE1);
+	i2cWrite(device, i2c_si570_addr, 12, 0x49);
+	*/
+
+	usleep(2000);
 	i2cWrite(device, i2c_si570_addr, 137, 0);
 	usleep(2000);
 	i2cWrite(device, i2c_si570_addr, 135, 1<<6);
 	usleep(2000);
 	device->resetAurora(0);
 	usleep(2000);
-	*/
+
 	device->start(0);
 	for ( int i = 7; i < 13; i++ ) {
-		unsigned char d = i2cRead(device, i2c_si570_addr, i);
+		unsigned char d = 0xff;
+		int c = 0;
+		while ( d == 0xff && c < 16) {
+			d = i2cRead(device, i2c_si570_addr, i);
+			c++;
+		}
 		printf( "%2d %x\n", i, d );
 	}
 
-	for ( int i = 0; i < 5; i++ ) {
+	//for ( int i = 0; i < 5; i++ ) {
+	while (1) {
 		device->auroraStatus(0);
 		sleep(1);
 	}
