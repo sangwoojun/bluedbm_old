@@ -103,7 +103,7 @@
         <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
       </probeOptions>
       <nets>
-        <net name="auroraIfc/auroraIntraImport/O10"/>
+        <net name="auroraIfc/auroraIntraImport/tx_src_rdy_n_i"/>
       </nets>
     </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
@@ -121,14 +121,21 @@
     </probe>
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq15&apos;hXXXX"/>
         <Option Id="CORE_LOCATION" value="1:1"/>
         <Option Id="HW_ILA" value="auroraIfc/auroraIntraImport/chipscope1.i_ila"/>
         <Option Id="PROBE_PORT" value="0"/>
         <Option Id="PROBE_PORT_BITS" value="2"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="8"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="15"/>
       </probeOptions>
       <nets>
+        <net name="auroraIfc/auroraIntraImport/in0[126]"/>
+        <net name="auroraIfc/auroraIntraImport/in0[125]"/>
+        <net name="auroraIfc/auroraIntraImport/in0[124]"/>
+        <net name="auroraIfc/auroraIntraImport/in0[123]"/>
+        <net name="auroraIfc/auroraIntraImport/in0[122]"/>
+        <net name="auroraIfc/auroraIntraImport/in0[121]"/>
+        <net name="auroraIfc/auroraIntraImport/in0[120]"/>
         <net name="auroraIfc/auroraIntraImport/in0[119]"/>
         <net name="auroraIfc/auroraIntraImport/in0[118]"/>
         <net name="auroraIfc/auroraIntraImport/in0[117]"/>
@@ -139,36 +146,17 @@
         <net name="auroraIfc/auroraIntraImport/in0[112]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
         <Option Id="CORE_LOCATION" value="1:1"/>
         <Option Id="HW_ILA" value="auroraIfc/auroraIntraImport/chipscope1.i_ila"/>
         <Option Id="PROBE_PORT" value="0"/>
-        <Option Id="PROBE_PORT_BITS" value="10"/>
+        <Option Id="PROBE_PORT_BITS" value="17"/>
         <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
       </probeOptions>
       <nets>
-        <net name="auroraIfc/auroraIntraImport/packetSendBuffer[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq7&apos;hXX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="auroraIfc/auroraIntraImport/chipscope1.i_ila"/>
-        <Option Id="PROBE_PORT" value="0"/>
-        <Option Id="PROBE_PORT_BITS" value="11"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="7"/>
-      </probeOptions>
-      <nets>
-        <net name="auroraIfc/auroraIntraImport/tx_d_i[0]"/>
-        <net name="auroraIfc/auroraIntraImport/tx_d_i[1]"/>
-        <net name="auroraIfc/auroraIntraImport/tx_d_i[2]"/>
-        <net name="auroraIfc/auroraIntraImport/tx_d_i[3]"/>
-        <net name="auroraIfc/auroraIntraImport/tx_d_i[4]"/>
-        <net name="auroraIfc/auroraIntraImport/tx_d_i[5]"/>
-        <net name="auroraIfc/auroraIntraImport/tx_d_i[6]"/>
+        <net name="auroraIfc/auroraIntraImport/p_0_in"/>
       </nets>
     </probe>
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">

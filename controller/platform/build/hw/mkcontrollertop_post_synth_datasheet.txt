@@ -1,7 +1,7 @@
 Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2014.1 (lin64) Build 881834 Fri Apr  4 14:00:25 MDT 2014
-| Date         : Fri Sep  5 05:01:56 2014
+| Date         : Tue Sep  9 16:47:31 2014
 | Host         : umma running 64-bit Ubuntu 12.04.5 LTS
 | Command      : report_datasheet -file ./hw/mkcontrollertop_post_synth_datasheet.txt
 | Design       : mkControllerTop
@@ -26,7 +26,7 @@ user_clk_i | init_clk_i  |     2.020 | SLOW    |           |         |          
 sync_clk_i | sync_clk_i  |     2.711 | SLOW    |           |         |           |         |           |         | 
 drp_clk_i  | user_clk_i  |     1.233 | SLOW    |           |         |           |         |           |         | 
 init_clk_i | user_clk_i  |     1.233 | SLOW    |           |         |           |         |           |         | 
-user_clk_i | user_clk_i  |     4.483 | SLOW    |           |         |           |         |           |         | 
+user_clk_i | user_clk_i  |     4.874 | SLOW    |           |         |           |         |           |         | 
 -----------+-------------+-----------+---------+-----------+---------+-----------+---------+-----------+---------+
 
 

@@ -1,7 +1,7 @@
 Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2014.1 (lin64) Build 881834 Fri Apr  4 14:00:25 MDT 2014
-| Date         : Fri Sep  5 05:03:28 2014
+| Date         : Tue Sep  9 16:49:56 2014
 | Host         : umma running 64-bit Ubuntu 12.04.5 LTS
 | Command      : report_timing_summary -file ./hw/mkcontrollertop_post_place_timing_summary.rpt
 | Design       : mkControllerTop
@@ -51,7 +51,7 @@ Table of Contents
 
 1. checking no_clock
 --------------------
- There are 123 register/latch pins with no clock driven by root clock pin: CLK_sys_clk_p (HIGH)
+ There are 103 register/latch pins with no clock driven by root clock pin: CLK_sys_clk_p (HIGH)
 
 
 2. checking constant clock
@@ -66,7 +66,7 @@ Table of Contents
 
 4. checking unconstrained_internal_endpoints
 --------------------------------------------
- There are 562 pins that are not constrained for maximum delay. (HIGH)
+ There are 509 pins that are not constrained for maximum delay. (HIGH)
 
  There are 0 pins that are not constrained for maximum delay due to constant clock.
 
@@ -130,7 +130,7 @@ Table of Contents
 
     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-      1.826        0.000                      0                16519       -0.018       -0.018                      1                 9700        1.515        0.000                       0                  5238  
+      1.826        0.000                      0                16516       -0.210       -1.305                     21                 9697        1.515        0.000                       0                  5225  
 
 
 Timing constraints are not met.
@@ -161,12 +161,12 @@ user_clk_i                                                             {0.000 4.
 Clock                                                        WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
 -----                                                        -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
 GT_REFCLK1                                                                                                                                                                                                 2.098        0.000                       0                     1  
-dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK         25.736        0.000                      0                  527        0.113        0.000                      0                  527       13.845        0.000                       0                   268  
-dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE       59.284        0.000                      0                    1        0.224        0.000                      0                    1       29.500        0.000                       0                     1  
-drp_clk_i                                                     11.709        0.000                      0                 6797                                                                              8.843        0.000                       0                  2226  
-init_clk_i                                                    11.709        0.000                      0                 6797                                                                              8.843        0.000                       0                  2226  
+dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK         25.551        0.000                      0                  527       -0.026       -0.026                      1                  527       13.842        0.000                       0                   268  
+dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE       59.126        0.000                      0                    1        0.298        0.000                      0                    1       29.500        0.000                       0                     1  
+drp_clk_i                                                     11.083        0.000                      0                 6797                                                                              8.842        0.000                       0                  2226  
+init_clk_i                                                    11.083        0.000                      0                 6797                                                                              8.842        0.000                       0                  2226  
 sync_clk_i                                                     1.826        0.000                      0                   12        0.795        0.000                      0                   12        1.515        0.000                       0                     8  
-user_clk_i                                                     2.314        0.000                      0                 9010       -0.018       -0.018                      1                 9010        3.031        0.000                       0                  2734  
+user_clk_i                                                     2.855        0.000                      0                 9015       -0.210       -1.278                     20                 9015        3.031        0.000                       0                  2721  
 
 
 ------------------------------------------------------------------------------------------------
@@ -176,13 +176,13 @@ user_clk_i                                                     2.314        0.00
 
 From Clock                                               To Clock                                                     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
 ----------                                               --------                                                     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
-dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK         59.571        0.000                      0                   18       29.078        0.000                      0                   18  
-init_clk_i                                               drp_clk_i                                                     11.709        0.000                      0                 6797                                                                        
-user_clk_i                                               drp_clk_i                                                      6.572        0.000                      0                   12                                                                        
-drp_clk_i                                                init_clk_i                                                    11.709        0.000                      0                 6797                                                                        
-user_clk_i                                               init_clk_i                                                     6.572        0.000                      0                   12                                                                        
-drp_clk_i                                                user_clk_i                                                     3.487        0.000                      0                   12                                                                        
-init_clk_i                                               user_clk_i                                                     3.487        0.000                      0                   12                                                                        
+dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK         59.737        0.000                      0                   18       29.153        0.000                      0                   18  
+init_clk_i                                               drp_clk_i                                                     11.083        0.000                      0                 6797                                                                        
+user_clk_i                                               drp_clk_i                                                      5.894        0.000                      0                   12                                                                        
+drp_clk_i                                                init_clk_i                                                    11.083        0.000                      0                 6797                                                                        
+user_clk_i                                               init_clk_i                                                     5.894        0.000                      0                   12                                                                        
+drp_clk_i                                                user_clk_i                                                     3.992        0.000                      0                   12                                                                        
+init_clk_i                                               user_clk_i                                                     3.992        0.000                      0                   12                                                                        
 
 
 ------------------------------------------------------------------------------------------------
@@ -192,8 +192,8 @@ init_clk_i                                               user_clk_i             
 
 Path Group                                             From Clock                                             To Clock                                                   WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
 ----------                                             ----------                                             --------                                                   -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
-**async_default**                                      dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK       26.389        0.000                      0                   98        0.373        0.000                      0                   98  
-**async_default**                                      user_clk_i                                             user_clk_i                                                   6.030        0.000                      0                   35        0.423        0.000                      0                   35  
+**async_default**                                      dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK       26.181        0.000                      0                   98        0.385        0.000                      0                   98  
+**async_default**                                      user_clk_i                                             user_clk_i                                                   5.062        0.000                      0                   27        0.474        0.000                      0                   27  
 
 
 ------------------------------------------------------------------------------------------------
@@ -228,28 +228,28 @@ Min Period  n/a     GTPE2_COMMON/GTREFCLK0  n/a            1.538     3.636   2.0
 From Clock:  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
   To Clock:  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
 
-Setup :            0  Failing Endpoints,  Worst Slack       25.736ns,  Total Violation        0.000ns
-Hold  :            0  Failing Endpoints,  Worst Slack        0.113ns,  Total Violation        0.000ns
-PW    :            0  Failing Endpoints,  Worst Slack       13.845ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack       25.551ns,  Total Violation        0.000ns
+Hold  :            1  Failing Endpoint ,  Worst Slack       -0.026ns,  Total Violation       -0.026ns
+PW    :            0  Failing Endpoints,  Worst Slack       13.842ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             25.736ns  (required time - arrival time)
-  Source:                 dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[13]/C
+Slack (MET) :             25.551ns  (required time - arrival time)
+  Source:                 dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[7]/C
                             (rising edge-triggered cell FDCE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  {rise@0.000ns fall@15.000ns period=30.000ns})
-  Destination:            dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_bit_count_reg[0]/R
+  Destination:            dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/gpr1.dout_i_reg[11]/CE
                             (rising edge-triggered cell FDRE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  {rise@0.000ns fall@15.000ns period=30.000ns})
   Path Group:             dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            30.000ns  (dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise@30.000ns - dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise@0.000ns)
-  Data Path Delay:        3.674ns  (logic 0.817ns (22.237%)  route 2.857ns (77.763%))
-  Logic Levels:           4  (LUT1=1 LUT2=1 LUT6=2)
-  Clock Path Skew:        -0.034ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    1.614ns = ( 31.614 - 30.000 ) 
-    Source Clock Delay      (SCD):    1.726ns
-    Clock Pessimism Removal (CPR):    0.078ns
+  Data Path Delay:        4.075ns  (logic 0.970ns (23.804%)  route 3.105ns (76.196%))
+  Logic Levels:           4  (LUT3=1 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.041ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.452ns = ( 31.452 - 30.000 ) 
+    Source Clock Delay      (SCD):    1.562ns
+    Clock Pessimism Removal (CPR):    0.069ns
   Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Total Input Jitter      (TIJ):    0.000ns
@@ -263,20 +263,20 @@ Slack (MET) :             25.736ns  (required time - arrival time)
     BSCAN_X0Y0           BSCANE2                      0.000     0.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
                          net (fo=1, estimated)        0.000     0.000    dbg_hub/inst/DRCK
     BUFGCTRL_X0Y2        BUFG (Prop_bufg_I_O)         0.081     0.081 r  dbg_hub/inst/u_bufg_icon/O
-                         net (fo=267, estimated)      1.645     1.726    dbg_hub/inst/U_ICON/U_CMD/idrck
-    SLICE_X30Y238                                                     r  dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[13]/C
+                         net (fo=267, estimated)      1.481     1.562    dbg_hub/inst/U_ICON/U_CMD/idrck
+    SLICE_X17Y190                                                     r  dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[7]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X30Y238        FDCE (Prop_fdce_C_Q)         0.379     2.105 r  dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[13]/Q
-                         net (fo=4, estimated)        0.717     2.822    dbg_hub/inst/U_ICON/U_CMD/iCORE_ID[1]
-    SLICE_X31Y238        LUT6 (Prop_lut6_I4_O)        0.105     2.927 f  dbg_hub/inst/U_ICON/U_CMD/shift_en_i_2/O
-                         net (fo=11, estimated)       0.383     3.310    dbg_hub/inst/U_ICON/U_CMD/n_0_shift_en_i_2
-    SLICE_X31Y237        LUT6 (Prop_lut6_I0_O)        0.105     3.415 f  dbg_hub/inst/U_ICON/U_CMD/shift_reg_in[15]_i_2/O
-                         net (fo=9, estimated)        0.478     3.893    dbg_hub/inst/U_ICON/U_CMD/O4
-    SLICE_X27Y238        LUT2 (Prop_lut2_I0_O)        0.105     3.998 f  dbg_hub/inst/U_ICON/U_CMD/shift_reg_in[15]_i_1/O
-                         net (fo=18, estimated)       0.958     4.956    dbg_hub/inst/U_ICON/U_CMD/E[0]
-    SLICE_X21Y240        LUT1 (Prop_lut1_I0_O)        0.123     5.079 r  dbg_hub/inst/U_ICON/U_CMD/shift_bit_count[3]_i_1/O
-                         net (fo=4, estimated)        0.321     5.400    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/I15[0]
-    SLICE_X21Y240        FDRE                                         r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_bit_count_reg[0]/R
+    SLICE_X17Y190        FDCE (Prop_fdce_C_Q)         0.379     1.941 f  dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[7]/Q
+                         net (fo=3, estimated)        0.818     2.759    dbg_hub/inst/U_ICON/U_CMD/iCOMMAND_GRP[1]
+    SLICE_X17Y190        LUT6 (Prop_lut6_I0_O)        0.105     2.864 r  dbg_hub/inst/U_ICON/U_CMD/shift_en_i_2/O
+                         net (fo=11, estimated)       0.393     3.257    dbg_hub/inst/U_ICON/U_CMD/n_0_shift_en_i_2
+    SLICE_X16Y192        LUT6 (Prop_lut6_I0_O)        0.105     3.362 r  dbg_hub/inst/U_ICON/U_CMD/shift_reg_in[15]_i_2/O
+                         net (fo=9, estimated)        0.494     3.856    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD5/I1[0]
+    SLICE_X13Y193        LUT3 (Prop_lut3_I1_O)        0.110     3.966 r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD5/gpr1.dout_i[15]_i_2/O
+                         net (fo=22, estimated)       0.773     4.739    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.rfwft/fifo_rd_en
+    SLICE_X5Y196         LUT4 (Prop_lut4_I2_O)        0.271     5.010 r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.rfwft/gpr1.dout_i[15]_i_1/O
+                         net (fo=16, estimated)       0.627     5.637    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/I1
+    SLICE_X8Y194         FDRE                                         r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/gpr1.dout_i_reg[11]/CE
   -------------------------------------------------------------------    -------------------
 
                          (clock dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise edge)
@@ -284,16 +284,16 @@ Slack (MET) :             25.736ns  (required time - arrival time)
     BSCAN_X0Y0           BSCANE2                      0.000    30.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
                          net (fo=1, estimated)        0.000    30.000    dbg_hub/inst/DRCK
     BUFGCTRL_X0Y2        BUFG (Prop_bufg_I_O)         0.077    30.077 r  dbg_hub/inst/u_bufg_icon/O
-                         net (fo=267, estimated)      1.537    31.614    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/idrck
-    SLICE_X21Y240                                                     r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_bit_count_reg[0]/C
-                         clock pessimism              0.078    31.692    
-                         clock uncertainty           -0.035    31.657    
-    SLICE_X21Y240        FDRE (Setup_fdre_C_R)       -0.521    31.136    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_bit_count_reg[0]
+                         net (fo=267, estimated)      1.375    31.452    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/idrck
+    SLICE_X8Y194                                                      r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/gpr1.dout_i_reg[11]/C
+                         clock pessimism              0.069    31.521    
+                         clock uncertainty           -0.035    31.486    
+    SLICE_X8Y194         FDRE (Setup_fdre_C_CE)      -0.298    31.188    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/gpr1.dout_i_reg[11]
   -------------------------------------------------------------------
-                         required time                         31.136    
-                         arrival time                          -5.400    
+                         required time                         31.188    
+                         arrival time                          -5.637    
   -------------------------------------------------------------------
-                         slack                                 25.736    
+                         slack                                 25.551    
 
 
 
@@ -301,20 +301,20 @@ Slack (MET) :             25.736ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             0.113ns  (arrival time - required time)
-  Source:                 dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[1]/C
-                            (rising edge-triggered cell FDCE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  {rise@0.000ns fall@15.000ns period=30.000ns})
-  Destination:            dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/RAMA/I
-                            (rising edge-triggered cell RAMD32 clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  {rise@0.000ns fall@15.000ns period=30.000ns})
+Slack (VIOLATED) :        -0.026ns  (arrival time - required time)
+  Source:                 dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_asreg_reg/C
+                            (rising edge-triggered cell FDPE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  {rise@0.000ns fall@15.000ns period=30.000ns})
+  Destination:            dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_asreg_d1_reg/D
+                            (rising edge-triggered cell FDRE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  {rise@0.000ns fall@15.000ns period=30.000ns})
   Path Group:             dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise@0.000ns - dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise@0.000ns)
-  Data Path Delay:        0.273ns  (logic 0.141ns (51.665%)  route 0.132ns (48.335%))
+  Data Path Delay:        0.358ns  (logic 0.128ns (35.794%)  route 0.230ns (64.206%))
   Logic Levels:           0  
-  Clock Path Skew:        0.013ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    1.005ns
-    Source Clock Delay      (SCD):    0.728ns
-    Clock Pessimism Removal (CPR):    0.264ns
+  Clock Path Skew:        0.363ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.048ns
+    Source Clock Delay      (SCD):    0.677ns
+    Clock Pessimism Removal (CPR):    0.008ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
@@ -323,12 +323,12 @@ Slack (MET) :             0.113ns  (arrival time - required time)
     BSCAN_X0Y0           BSCANE2                      0.000     0.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
                          net (fo=1, estimated)        0.000     0.000    dbg_hub/inst/DRCK
     BUFGCTRL_X0Y2        BUFG (Prop_bufg_I_O)         0.026     0.026 r  dbg_hub/inst/u_bufg_icon/O
-                         net (fo=267, estimated)      0.702     0.728    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/idrck
-    SLICE_X21Y232                                                     r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[1]/C
+                         net (fo=267, estimated)      0.651     0.677    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/idrck
+    SLICE_X3Y199                                                      r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_asreg_reg/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X21Y232        FDCE (Prop_fdce_C_Q)         0.141     0.869 r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[1]/Q
-                         net (fo=2, estimated)        0.132     1.001    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/DIA0
-    SLICE_X20Y231        RAMD32                                       r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/RAMA/I
+    SLICE_X3Y199         FDPE (Prop_fdpe_C_Q)         0.128     0.805 r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_asreg_reg/Q
+                         net (fo=2, estimated)        0.230     1.035    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/rd_rst_asreg
+    SLICE_X3Y200         FDRE                                         r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_asreg_d1_reg/D
   -------------------------------------------------------------------    -------------------
 
                          (clock dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise edge)
@@ -336,16 +336,15 @@ Slack (MET) :             0.113ns  (arrival time - required time)
     BSCAN_X0Y0           BSCANE2                      0.000     0.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
                          net (fo=1, estimated)        0.000     0.000    dbg_hub/inst/DRCK
     BUFGCTRL_X0Y2        BUFG (Prop_bufg_I_O)         0.029     0.029 r  dbg_hub/inst/u_bufg_icon/O
-                         net (fo=267, estimated)      0.976     1.005    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/WCLK
-    SLICE_X20Y231                                                     r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/RAMA/CLK
-                         clock pessimism             -0.264     0.741    
-    SLICE_X20Y231        RAMD32 (Hold_ramd32_CLK_I)
-                                                      0.147     0.888    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/RAMA
+                         net (fo=267, estimated)      1.019     1.048    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/idrck
+    SLICE_X3Y200                                                      r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_asreg_d1_reg/C
+                         clock pessimism             -0.008     1.040    
+    SLICE_X3Y200         FDRE (Hold_fdre_C_D)         0.021     1.061    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_asreg_d1_reg
   -------------------------------------------------------------------
-                         required time                         -0.888    
-                         arrival time                           1.001    
+                         required time                         -1.061    
+                         arrival time                           1.035    
   -------------------------------------------------------------------
-                         slack                                  0.113    
+                         slack                                 -0.026    
 
 
 
@@ -360,8 +359,8 @@ Sources:            { dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK }
 
 Check Type        Corner  Lib Pin     Reference Pin  Required  Actual  Slack   Location       Pin
 Min Period        n/a     BUFG/I      n/a            1.592     30.000  28.408  BUFGCTRL_X0Y2  dbg_hub/inst/u_bufg_icon/I
-Low Pulse Width   Slow    RAMD32/CLK  n/a            1.130     14.975  13.845  SLICE_X20Y231  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/RAMA/CLK
-High Pulse Width  Slow    RAMD32/CLK  n/a            1.130     14.975  13.845  SLICE_X20Y231  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/RAMA/CLK
+Low Pulse Width   Slow    RAMD32/CLK  n/a            1.130     14.972  13.842  SLICE_X2Y198   dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/RAMA/CLK
+High Pulse Width  Slow    RAMD32/CLK  n/a            1.130     14.972  13.842  SLICE_X2Y198   dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/RAMA/CLK
 
 
 
@@ -369,15 +368,15 @@ High Pulse Width  Slow    RAMD32/CLK  n/a            1.130     14.975  13.845  S
 From Clock:  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE
   To Clock:  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE
 
-Setup :            0  Failing Endpoints,  Worst Slack       59.284ns,  Total Violation        0.000ns
-Hold  :            0  Failing Endpoints,  Worst Slack        0.224ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack       59.126ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.298ns,  Total Violation        0.000ns
 PW    :            0  Failing Endpoints,  Worst Slack       29.500ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             59.284ns  (required time - arrival time)
+Slack (MET) :             59.126ns  (required time - arrival time)
   Source:                 dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
                             (rising edge-triggered cell FDCE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE  {rise@0.000ns fall@30.000ns period=60.000ns})
   Destination:            dbg_hub/inst/U_ICON/iDATA_CMD_reg/D
@@ -385,7 +384,7 @@ Slack (MET) :             59.284ns  (required time - arrival time)
   Path Group:             dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            60.000ns  (dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE rise@60.000ns - dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE rise@0.000ns)
-  Data Path Delay:        0.636ns  (logic 0.390ns (61.321%)  route 0.246ns (38.679%))
+  Data Path Delay:        0.807ns  (logic 0.408ns (50.558%)  route 0.399ns (49.442%))
   Logic Levels:           1  (LUT1=1)
   Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
@@ -399,28 +398,28 @@ Slack (MET) :             59.284ns  (required time - arrival time)
                                                       0.000     0.000 r  
     BSCAN_X0Y0           BSCANE2                      0.000     0.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE
                          net (fo=1, estimated)        0.000     0.000    dbg_hub/inst/U_ICON/UPDATE
-    SLICE_X29Y232                                                     r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
+    SLICE_X18Y185                                                     r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X29Y232        FDCE (Prop_fdce_C_Q)         0.285     0.285 f  dbg_hub/inst/U_ICON/iDATA_CMD_reg/Q
-                         net (fo=3, estimated)        0.246     0.531    dbg_hub/inst/U_ICON/U_SYNC/iDATA_CMD
-    SLICE_X29Y232        LUT1 (Prop_lut1_I0_O)        0.105     0.636 r  dbg_hub/inst/U_ICON/U_SYNC/iSYNC_WORD[6]_i_1/O
-                         net (fo=8, routed)           0.000     0.636    dbg_hub/inst/U_ICON/iDATA_CMD_n
-    SLICE_X29Y232        FDCE                                         r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/D
+    SLICE_X18Y185        FDCE (Prop_fdce_C_Q)         0.303     0.303 f  dbg_hub/inst/U_ICON/iDATA_CMD_reg/Q
+                         net (fo=3, estimated)        0.399     0.702    dbg_hub/inst/U_ICON/U_SYNC/iDATA_CMD
+    SLICE_X18Y185        LUT1 (Prop_lut1_I0_O)        0.105     0.807 r  dbg_hub/inst/U_ICON/U_SYNC/iSYNC_WORD[6]_i_1/O
+                         net (fo=8, routed)           0.000     0.807    dbg_hub/inst/U_ICON/iDATA_CMD_n
+    SLICE_X18Y185        FDCE                                         r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/D
   -------------------------------------------------------------------    -------------------
 
                          (clock dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE rise edge)
                                                      60.000    60.000 r  
     BSCAN_X0Y0           BSCANE2                      0.000    60.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE
                          net (fo=1, estimated)        0.000    60.000    dbg_hub/inst/U_ICON/UPDATE
-    SLICE_X29Y232                                                     r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
+    SLICE_X18Y185                                                     r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
                          clock pessimism              0.000    60.000    
                          clock uncertainty           -0.035    59.965    
-    SLICE_X29Y232        FDCE (Setup_fdce_C_D)       -0.045    59.920    dbg_hub/inst/U_ICON/iDATA_CMD_reg
+    SLICE_X18Y185        FDCE (Setup_fdce_C_D)       -0.032    59.933    dbg_hub/inst/U_ICON/iDATA_CMD_reg
   -------------------------------------------------------------------
-                         required time                         59.920    
-                         arrival time                          -0.636    
+                         required time                         59.933    
+                         arrival time                          -0.807    
   -------------------------------------------------------------------
-                         slack                                 59.284    
+                         slack                                 59.126    
 
 
 
@@ -428,7 +427,7 @@ Slack (MET) :             59.284ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             0.224ns  (arrival time - required time)
+Slack (MET) :             0.298ns  (arrival time - required time)
   Source:                 dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
                             (rising edge-triggered cell FDCE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE  {rise@0.000ns fall@30.000ns period=60.000ns})
   Destination:            dbg_hub/inst/U_ICON/iDATA_CMD_reg/D
@@ -436,7 +435,7 @@ Slack (MET) :             0.224ns  (arrival time - required time)
   Path Group:             dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE rise@0.000ns - dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE rise@0.000ns)
-  Data Path Delay:        0.279ns  (logic 0.157ns (56.274%)  route 0.122ns (43.726%))
+  Data Path Delay:        0.361ns  (logic 0.163ns (45.169%)  route 0.198ns (54.831%))
   Logic Levels:           1  (LUT1=1)
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
@@ -445,27 +444,27 @@ Slack (MET) :             0.224ns  (arrival time - required time)
                                                       0.000     0.000 r  
     BSCAN_X0Y0           BSCANE2                      0.000     0.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE
                          net (fo=1, estimated)        0.000     0.000    dbg_hub/inst/U_ICON/UPDATE
-    SLICE_X29Y232                                                     r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
+    SLICE_X18Y185                                                     r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X29Y232        FDCE (Prop_fdce_C_Q)         0.112     0.112 f  dbg_hub/inst/U_ICON/iDATA_CMD_reg/Q
-                         net (fo=3, estimated)        0.122     0.234    dbg_hub/inst/U_ICON/U_SYNC/iDATA_CMD
-    SLICE_X29Y232        LUT1 (Prop_lut1_I0_O)        0.045     0.279 r  dbg_hub/inst/U_ICON/U_SYNC/iSYNC_WORD[6]_i_1/O
-                         net (fo=8, routed)           0.000     0.279    dbg_hub/inst/U_ICON/iDATA_CMD_n
-    SLICE_X29Y232        FDCE                                         r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/D
+    SLICE_X18Y185        FDCE (Prop_fdce_C_Q)         0.118     0.118 f  dbg_hub/inst/U_ICON/iDATA_CMD_reg/Q
+                         net (fo=3, estimated)        0.198     0.316    dbg_hub/inst/U_ICON/U_SYNC/iDATA_CMD
+    SLICE_X18Y185        LUT1 (Prop_lut1_I0_O)        0.045     0.361 r  dbg_hub/inst/U_ICON/U_SYNC/iSYNC_WORD[6]_i_1/O
+                         net (fo=8, routed)           0.000     0.361    dbg_hub/inst/U_ICON/iDATA_CMD_n
+    SLICE_X18Y185        FDCE                                         r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/D
   -------------------------------------------------------------------    -------------------
 
                          (clock dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE rise edge)
                                                       0.000     0.000 r  
     BSCAN_X0Y0           BSCANE2                      0.000     0.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE
                          net (fo=1, estimated)        0.000     0.000    dbg_hub/inst/U_ICON/UPDATE
-    SLICE_X29Y232                                                     r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
+    SLICE_X18Y185                                                     r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
                          clock pessimism              0.000     0.000    
-    SLICE_X29Y232        FDCE (Hold_fdce_C_D)         0.055     0.055    dbg_hub/inst/U_ICON/iDATA_CMD_reg
+    SLICE_X18Y185        FDCE (Hold_fdce_C_D)         0.063     0.063    dbg_hub/inst/U_ICON/iDATA_CMD_reg
   -------------------------------------------------------------------
-                         required time                         -0.055    
-                         arrival time                           0.279    
+                         required time                         -0.063    
+                         arrival time                           0.361    
   -------------------------------------------------------------------
-                         slack                                  0.224    
+                         slack                                  0.298    
 
 
 
@@ -479,9 +478,9 @@ Period:             60.000
 Sources:            { dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE }
 
 Check Type        Corner  Lib Pin  Reference Pin  Required  Actual  Slack   Location       Pin
-Min Period        n/a     FDCE/C   n/a            1.000     60.000  59.000  SLICE_X29Y232  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
-Low Pulse Width   Slow    FDCE/C   n/a            0.500     30.000  29.500  SLICE_X29Y232  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
-High Pulse Width  Slow    FDCE/C   n/a            0.500     30.000  29.500  SLICE_X29Y232  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
+Min Period        n/a     FDCE/C   n/a            1.000     60.000  59.000  SLICE_X18Y185  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
+Low Pulse Width   Slow    FDCE/C   n/a            0.500     30.000  29.500  SLICE_X18Y185  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
+High Pulse Width  Slow    FDCE/C   n/a            0.500     30.000  29.500  SLICE_X18Y185  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
 
 
 
@@ -489,54 +488,54 @@ High Pulse Width  Slow    FDCE/C   n/a            0.500     30.000  29.500  SLIC
 From Clock:  drp_clk_i
   To Clock:  drp_clk_i
 
-Setup :            0  Failing Endpoints,  Worst Slack       11.709ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack       11.083ns,  Total Violation        0.000ns
 Hold  :               Failing Endpoints,  Worst Slack               ,  Total Violation             
-PW    :            0  Failing Endpoints,  Worst Slack        8.843ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack        8.842ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             11.709ns  (required time - arrival time)
+Slack (MET) :             11.083ns  (required time - arrival time)
   Source:                 auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/C
                             (rising edge-triggered cell FDRE clocked by drp_clk_i)
-  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
+  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
                             (rising edge-triggered cell RAMB36E1 clocked by drp_clk_i)
   Path Group:             drp_clk_i
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            20.000ns  (MaxDelay Path 20.000ns)
-  Data Path Delay:        8.004ns  (logic 1.380ns (17.241%)  route 6.624ns (82.759%))
+  Data Path Delay:        8.630ns  (logic 1.418ns (16.431%)  route 7.212ns (83.569%))
   Logic Levels:           6  (LUT2=1 LUT4=2 LUT5=1 LUT6=2)
   Timing Exception:       MaxDelay Path 20.000ns -datapath_only
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
-    SLICE_X26Y228                                     0.000     0.000 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/C
-    SLICE_X26Y228        FDRE (Prop_fdre_C_Q)         0.379     0.379 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/Q
-                         net (fo=297, estimated)      1.256     1.635    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/den
-    SLICE_X30Y217        LUT4 (Prop_lut4_I3_O)        0.115     1.750 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/current_state[1]_i_3/O
-                         net (fo=1, estimated)        0.812     2.562    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/I3
-    SLICE_X31Y203        LUT6 (Prop_lut6_I1_O)        0.267     2.829 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/current_state[1]_i_1__2/O
-                         net (fo=3, estimated)        0.598     3.427    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/next_state[1]
-    SLICE_X32Y202        LUT6 (Prop_lut6_I5_O)        0.105     3.532 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_2/O
-                         net (fo=3, estimated)        1.095     4.627    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/n_0_curr_read_block[2]_i_2
-    SLICE_X40Y186        LUT5 (Prop_lut5_I3_O)        0.126     4.753 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_1/O
-                         net (fo=2, estimated)        0.282     5.035    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/pwropt_2
-    SLICE_X40Y186        LUT4 (Prop_lut4_I0_O)        0.283     5.318 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_275/O
-                         net (fo=2, estimated)        1.991     7.309    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/pwropt
-    SLICE_X42Y124        LUT2 (Prop_lut2_I1_O)        0.105     7.414 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_278/O
-                         net (fo=2, estimated)        0.590     8.004    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_sig_254
-    RAMB36_X2Y23         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
+    SLICE_X12Y194                                     0.000     0.000 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/C
+    SLICE_X12Y194        FDRE (Prop_fdre_C_Q)         0.433     0.433 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/Q
+                         net (fo=297, estimated)      1.272     1.705    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/den
+    SLICE_X11Y184        LUT4 (Prop_lut4_I3_O)        0.118     1.823 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/current_state[1]_i_3/O
+                         net (fo=1, estimated)        0.879     2.702    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/I3
+    SLICE_X11Y172        LUT6 (Prop_lut6_I1_O)        0.268     2.970 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/current_state[1]_i_1__2/O
+                         net (fo=3, estimated)        0.333     3.303    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/next_state[1]
+    SLICE_X11Y171        LUT6 (Prop_lut6_I5_O)        0.105     3.408 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_2/O
+                         net (fo=3, estimated)        0.495     3.903    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/n_0_curr_read_block[2]_i_2
+    SLICE_X12Y170        LUT5 (Prop_lut5_I3_O)        0.106     4.009 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_1/O
+                         net (fo=2, estimated)        0.282     4.291    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/pwropt_2
+    SLICE_X12Y170        LUT4 (Prop_lut4_I0_O)        0.283     4.574 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_273/O
+                         net (fo=2, estimated)        1.879     6.453    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_sig_251
+    SLICE_X66Y154        LUT2 (Prop_lut2_I1_O)        0.105     6.558 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_274/O
+                         net (fo=2, estimated)        2.072     8.630    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_sig_252
+    RAMB36_X7Y29         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
   -------------------------------------------------------------------    -------------------
 
                          max delay                   20.000    20.000    
-    RAMB36_X2Y23         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_REGCEB)
-                                                     -0.287    19.713    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
+    RAMB36_X7Y29         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_REGCEB)
+                                                     -0.287    19.713    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
   -------------------------------------------------------------------
                          required time                         19.713    
-                         arrival time                          -8.004    
+                         arrival time                          -8.630    
   -------------------------------------------------------------------
-                         slack                                 11.709    
+                         slack                                 11.083    
 
 
 
@@ -551,8 +550,8 @@ Sources:            { auroraIfc/auroraIntraClockDiv2_slowbuf/O }
 
 Check Type        Corner  Lib Pin               Reference Pin  Required  Actual  Slack   Location            Pin
 Min Period        n/a     GTPE2_CHANNEL/DRPCLK  n/a            5.714     20.000  14.286  GTPE2_CHANNEL_X0Y4  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt0_aurora_8b10b_i/gtpe2_i/DRPCLK
-Low Pulse Width   Slow    RAMD32/CLK            n/a            1.130     9.973   8.843   SLICE_X22Y236       dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_12_15/RAMA/CLK
-High Pulse Width  Slow    RAMD32/CLK            n/a            1.130     9.973   8.843   SLICE_X22Y236       dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_12_15/RAMA/CLK
+Low Pulse Width   Slow    RAMD32/CLK            n/a            1.130     9.972   8.842   SLICE_X6Y194        dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/RAMA/CLK
+High Pulse Width  Slow    RAMD32/CLK            n/a            1.130     9.972   8.842   SLICE_X6Y194        dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/RAMA/CLK
 
 
 
@@ -560,54 +559,54 @@ High Pulse Width  Slow    RAMD32/CLK            n/a            1.130     9.973  
 From Clock:  init_clk_i
   To Clock:  init_clk_i
 
-Setup :            0  Failing Endpoints,  Worst Slack       11.709ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack       11.083ns,  Total Violation        0.000ns
 Hold  :               Failing Endpoints,  Worst Slack               ,  Total Violation             
-PW    :            0  Failing Endpoints,  Worst Slack        8.843ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack        8.842ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             11.709ns  (required time - arrival time)
+Slack (MET) :             11.083ns  (required time - arrival time)
   Source:                 auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/C
                             (rising edge-triggered cell FDRE clocked by init_clk_i)
-  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
+  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
                             (rising edge-triggered cell RAMB36E1 clocked by init_clk_i)
   Path Group:             init_clk_i
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            20.000ns  (MaxDelay Path 20.000ns)
-  Data Path Delay:        8.004ns  (logic 1.380ns (17.241%)  route 6.624ns (82.759%))
+  Data Path Delay:        8.630ns  (logic 1.418ns (16.431%)  route 7.212ns (83.569%))
   Logic Levels:           6  (LUT2=1 LUT4=2 LUT5=1 LUT6=2)
   Timing Exception:       MaxDelay Path 20.000ns -datapath_only
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
-    SLICE_X26Y228                                     0.000     0.000 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/C
-    SLICE_X26Y228        FDRE (Prop_fdre_C_Q)         0.379     0.379 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/Q
-                         net (fo=297, estimated)      1.256     1.635    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/den
-    SLICE_X30Y217        LUT4 (Prop_lut4_I3_O)        0.115     1.750 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/current_state[1]_i_3/O
-                         net (fo=1, estimated)        0.812     2.562    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/I3
-    SLICE_X31Y203        LUT6 (Prop_lut6_I1_O)        0.267     2.829 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/current_state[1]_i_1__2/O
-                         net (fo=3, estimated)        0.598     3.427    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/next_state[1]
-    SLICE_X32Y202        LUT6 (Prop_lut6_I5_O)        0.105     3.532 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_2/O
-                         net (fo=3, estimated)        1.095     4.627    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/n_0_curr_read_block[2]_i_2
-    SLICE_X40Y186        LUT5 (Prop_lut5_I3_O)        0.126     4.753 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_1/O
-                         net (fo=2, estimated)        0.282     5.035    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/pwropt_2
-    SLICE_X40Y186        LUT4 (Prop_lut4_I0_O)        0.283     5.318 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_275/O
-                         net (fo=2, estimated)        1.991     7.309    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/pwropt
-    SLICE_X42Y124        LUT2 (Prop_lut2_I1_O)        0.105     7.414 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_278/O
-                         net (fo=2, estimated)        0.590     8.004    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_sig_254
-    RAMB36_X2Y23         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
+    SLICE_X12Y194                                     0.000     0.000 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/C
+    SLICE_X12Y194        FDRE (Prop_fdre_C_Q)         0.433     0.433 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/Q
+                         net (fo=297, estimated)      1.272     1.705    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/den
+    SLICE_X11Y184        LUT4 (Prop_lut4_I3_O)        0.118     1.823 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/current_state[1]_i_3/O
+                         net (fo=1, estimated)        0.879     2.702    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/I3
+    SLICE_X11Y172        LUT6 (Prop_lut6_I1_O)        0.268     2.970 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/current_state[1]_i_1__2/O
+                         net (fo=3, estimated)        0.333     3.303    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/next_state[1]
+    SLICE_X11Y171        LUT6 (Prop_lut6_I5_O)        0.105     3.408 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_2/O
+                         net (fo=3, estimated)        0.495     3.903    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/n_0_curr_read_block[2]_i_2
+    SLICE_X12Y170        LUT5 (Prop_lut5_I3_O)        0.106     4.009 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_1/O
+                         net (fo=2, estimated)        0.282     4.291    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/pwropt_2
+    SLICE_X12Y170        LUT4 (Prop_lut4_I0_O)        0.283     4.574 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_273/O
+                         net (fo=2, estimated)        1.879     6.453    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_sig_251
+    SLICE_X66Y154        LUT2 (Prop_lut2_I1_O)        0.105     6.558 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_274/O
+                         net (fo=2, estimated)        2.072     8.630    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_sig_252
+    RAMB36_X7Y29         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
   -------------------------------------------------------------------    -------------------
 
                          max delay                   20.000    20.000    
-    RAMB36_X2Y23         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_REGCEB)
-                                                     -0.287    19.713    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
+    RAMB36_X7Y29         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_REGCEB)
+                                                     -0.287    19.713    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
   -------------------------------------------------------------------
                          required time                         19.713    
-                         arrival time                          -8.004    
+                         arrival time                          -8.630    
   -------------------------------------------------------------------
-                         slack                                 11.709    
+                         slack                                 11.083    
 
 
 
@@ -622,8 +621,8 @@ Sources:            { auroraIfc/auroraIntraClockDiv2_slowbuf/O }
 
 Check Type        Corner  Lib Pin               Reference Pin  Required  Actual  Slack   Location            Pin
 Min Period        n/a     GTPE2_CHANNEL/DRPCLK  n/a            5.714     20.000  14.286  GTPE2_CHANNEL_X0Y4  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt0_aurora_8b10b_i/gtpe2_i/DRPCLK
-Low Pulse Width   Slow    RAMD32/CLK            n/a            1.130     9.973   8.843   SLICE_X22Y236       dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_12_15/RAMA/CLK
-High Pulse Width  Slow    RAMD32/CLK            n/a            1.130     9.973   8.843   SLICE_X22Y236       dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_12_15/RAMA/CLK
+Low Pulse Width   Slow    RAMD32/CLK            n/a            1.130     9.972   8.842   SLICE_X6Y194        dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/RAMA/CLK
+High Pulse Width  Slow    RAMD32/CLK            n/a            1.130     9.972   8.842   SLICE_X6Y194        dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm/RAM_reg_0_15_0_5/RAMA/CLK
 
 
 
@@ -756,27 +755,27 @@ Min Period  n/a     GTPE2_CHANNEL/RXUSRCLK  n/a            3.030     4.545   1.5
 From Clock:  user_clk_i
   To Clock:  user_clk_i
 
-Setup :            0  Failing Endpoints,  Worst Slack        2.314ns,  Total Violation        0.000ns
-Hold  :            1  Failing Endpoint ,  Worst Slack       -0.018ns,  Total Violation       -0.018ns
+Setup :            0  Failing Endpoints,  Worst Slack        2.855ns,  Total Violation        0.000ns
+Hold  :           20  Failing Endpoints,  Worst Slack       -0.210ns,  Total Violation       -1.278ns
 PW    :            0  Failing Endpoints,  Worst Slack        3.031ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             2.314ns  (required time - arrival time)
-  Source:                 auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/CAP_WR_EN_O_reg/C
+Slack (MET) :             2.855ns  (required time - arrival time)
+  Source:                 auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/i_intcap.CAP_ADDR_O_reg[15]/C
                             (rising edge-triggered cell FDRE clocked by user_clk_i  {rise@0.000ns fall@4.545ns period=9.091ns})
-  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/ENARDEN
+  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[172].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram/ENARDEN
                             (rising edge-triggered cell RAMB36E1 clocked by user_clk_i  {rise@0.000ns fall@4.545ns period=9.091ns})
   Path Group:             user_clk_i
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            9.091ns  (user_clk_i rise@9.091ns - user_clk_i rise@0.000ns)
-  Data Path Delay:        6.147ns  (logic 0.589ns (9.582%)  route 5.558ns (90.418%))
-  Logic Levels:           2  (LUT2=2)
-  Clock Path Skew:        -0.182ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    1.463ns = ( 10.554 - 9.091 ) 
-    Source Clock Delay      (SCD):    1.645ns
+  Data Path Delay:        5.769ns  (logic 0.590ns (10.227%)  route 5.179ns (89.773%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        -0.019ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.447ns = ( 10.538 - 9.091 ) 
+    Source Clock Delay      (SCD):    1.466ns
     Clock Pessimism Removal (CPR):    0.000ns
   Clock Uncertainty:      0.061ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
@@ -788,32 +787,30 @@ Slack (MET) :             2.314ns  (required time - arrival time)
                          (clock user_clk_i rise edge)
                                                       0.000     0.000 r  
     BUFGCTRL_X0Y0        BUFG                         0.000     0.000 r  auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout0_buf/O
-                         net (fo=2734, estimated)     1.645     1.645    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/clk
-    SLICE_X32Y209                                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/CAP_WR_EN_O_reg/C
+                         net (fo=2721, estimated)     1.466     1.466    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/clk
+    SLICE_X13Y176                                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/i_intcap.CAP_ADDR_O_reg[15]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X32Y209        FDRE (Prop_fdre_C_Q)         0.379     2.024 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/CAP_WR_EN_O_reg/Q
-                         net (fo=34, estimated)       1.681     3.705    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/CAP_WR_EN_O
-    SLICE_X58Y174        LUT2 (Prop_lut2_I0_O)        0.105     3.810 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_T_i_1/O
-                         net (fo=4, estimated)        3.400     7.210    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/ENA
-    SLICE_X104Y74        LUT2 (Prop_lut2_I1_O)        0.105     7.315 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_ENARDEN_cooolgate_en_gate_19/O
-                         net (fo=1, estimated)        0.477     7.792    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_ENARDEN_cooolgate_en_sig_6
-    RAMB36_X6Y14         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/ENARDEN
+    SLICE_X13Y176        FDRE (Prop_fdre_C_Q)         0.348     1.814 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/i_intcap.CAP_ADDR_O_reg[15]/Q
+                         net (fo=48, estimated)       2.165     3.979    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/O3[15]
+    SLICE_X76Y174        LUT6 (Prop_lut6_I5_O)        0.242     4.221 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_i_1__11/O
+                         net (fo=7, estimated)        3.014     7.235    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[172].ram.r/prim_noinit.ram/I26
+    RAMB36_X5Y14         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[172].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram/ENARDEN
   -------------------------------------------------------------------    -------------------
 
                          (clock user_clk_i rise edge)
                                                       9.091     9.091 r  
     BUFGCTRL_X0Y0        BUFG                         0.000     9.091 r  auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout0_buf/O
-                         net (fo=2734, estimated)     1.463    10.554    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/clk
-    RAMB36_X6Y14                                                      r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/CLKARDCLK
-                         clock pessimism              0.000    10.554    
-                         clock uncertainty           -0.061    10.493    
-    RAMB36_X6Y14         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_ENARDEN)
-                                                     -0.387    10.106    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
+                         net (fo=2721, estimated)     1.447    10.538    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[172].ram.r/prim_noinit.ram/clk
+    RAMB36_X5Y14                                                      r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[172].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram/CLKARDCLK
+                         clock pessimism              0.000    10.538    
+                         clock uncertainty           -0.061    10.477    
+    RAMB36_X5Y14         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_ENARDEN)
+                                                     -0.387    10.090    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[172].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram
   -------------------------------------------------------------------
-                         required time                         10.106    
-                         arrival time                          -7.792    
+                         required time                         10.090    
+                         arrival time                          -7.235    
   -------------------------------------------------------------------
-                         slack                                  2.314    
+                         slack                                  2.855    
 
 
 
@@ -821,47 +818,47 @@ Slack (MET) :             2.314ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (VIOLATED) :        -0.018ns  (arrival time - required time)
-  Source:                 auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_2_i/aurora_8b10b_sym_gen_4byte_i/TX_DATA_reg[5]/C
+Slack (VIOLATED) :        -0.210ns  (arrival time - required time)
+  Source:                 auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/shifted_data_in_reg[8][51]/C
                             (rising edge-triggered cell FDRE clocked by user_clk_i  {rise@0.000ns fall@4.545ns period=9.091ns})
-  Destination:            auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt2_aurora_8b10b_i/gtpe2_i/TXDATA[29]
-                            (rising edge-triggered cell GTPE2_CHANNEL clocked by user_clk_i  {rise@0.000ns fall@4.545ns period=9.091ns})
+  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[165].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram/DIADI[6]
+                            (rising edge-triggered cell RAMB36E1 clocked by user_clk_i  {rise@0.000ns fall@4.545ns period=9.091ns})
   Path Group:             user_clk_i
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (user_clk_i rise@0.000ns - user_clk_i rise@0.000ns)
-  Data Path Delay:        0.350ns  (logic 0.141ns (40.254%)  route 0.209ns (59.746%))
+  Data Path Delay:        0.322ns  (logic 0.164ns (50.901%)  route 0.158ns (49.099%))
   Logic Levels:           0  
-  Clock Path Skew:        0.260ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    1.158ns
-    Source Clock Delay      (SCD):    0.660ns
-    Clock Pessimism Removal (CPR):    0.238ns
+  Clock Path Skew:        0.237ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.884ns
+    Source Clock Delay      (SCD):    0.642ns
+    Clock Pessimism Removal (CPR):    0.005ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
                          (clock user_clk_i rise edge)
                                                       0.000     0.000 r  
     BUFGCTRL_X0Y0        BUFG                         0.000     0.000 r  auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout0_buf/O
-                         net (fo=2734, estimated)     0.660     0.660    auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_2_i/aurora_8b10b_sym_gen_4byte_i/user_clk
-    SLICE_X49Y229                                                     r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_2_i/aurora_8b10b_sym_gen_4byte_i/TX_DATA_reg[5]/C
+                         net (fo=2721, estimated)     0.642     0.642    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/clk
+    SLICE_X76Y99                                                      r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/shifted_data_in_reg[8][51]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X49Y229        FDRE (Prop_fdre_C_Q)         0.141     0.801 r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_2_i/aurora_8b10b_sym_gen_4byte_i/TX_DATA_reg[5]/Q
-                         net (fo=1, estimated)        0.209     1.010    auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt2_aurora_8b10b_i/I10[29]
-    GTPE2_CHANNEL_X0Y6   GTPE2_CHANNEL                                r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt2_aurora_8b10b_i/gtpe2_i/TXDATA[29]
+    SLICE_X76Y99         FDRE (Prop_fdre_C_Q)         0.164     0.806 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/shifted_data_in_reg[8][51]/Q
+                         net (fo=32, estimated)       0.158     0.964    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[165].ram.r/prim_noinit.ram/I74[6]
+    RAMB36_X4Y20         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[165].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram/DIADI[6]
   -------------------------------------------------------------------    -------------------
 
                          (clock user_clk_i rise edge)
                                                       0.000     0.000 r  
     BUFGCTRL_X0Y0        BUFG                         0.000     0.000 r  auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout0_buf/O
-                         net (fo=2734, estimated)     1.158     1.158    auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt2_aurora_8b10b_i/user_clk
-    GTPE2_CHANNEL_X0Y6                                                r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt2_aurora_8b10b_i/gtpe2_i/TXUSRCLK2
-                         clock pessimism             -0.238     0.920    
-    GTPE2_CHANNEL_X0Y6   GTPE2_CHANNEL (Hold_gtpe2_channel_TXUSRCLK2_TXDATA[29])
-                                                      0.108     1.028    auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt2_aurora_8b10b_i/gtpe2_i
+                         net (fo=2721, estimated)     0.884     0.884    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[165].ram.r/prim_noinit.ram/clk
+    RAMB36_X4Y20                                                      r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[165].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram/CLKARDCLK
+                         clock pessimism             -0.005     0.879    
+    RAMB36_X4Y20         RAMB36E1 (Hold_ramb36e1_CLKARDCLK_DIADI[6])
+                                                      0.296     1.175    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[165].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram
   -------------------------------------------------------------------
-                         required time                         -1.028    
-                         arrival time                           1.010    
+                         required time                         -1.175    
+                         arrival time                           0.964    
   -------------------------------------------------------------------
-                         slack                                 -0.018    
+                         slack                                 -0.210    
 
 
 
@@ -876,7 +873,7 @@ Sources:            { auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i
 
 Check Type        Corner  Lib Pin                  Reference Pin  Required  Actual  Slack  Location            Pin
 Min Period        n/a     GTPE2_CHANNEL/RXUSRCLK2  n/a            6.060     9.091   3.031  GTPE2_CHANNEL_X0Y4  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/gt_wrapper_i/aurora_8b10b_multi_gt_i/gt0_aurora_8b10b_i/gtpe2_i/RXUSRCLK2
-Low Pulse Width   Slow    SRL16E/CLK               n/a            0.854     4.517   3.663  SLICE_X48Y201       auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_0_i/aurora_8b10b_lane_init_sm_4byte_i/counter2_r_reg[14]_srl14/CLK
+Low Pulse Width   Slow    SRL16E/CLK               n/a            0.854     4.517   3.663  SLICE_X22Y200       auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/shifted_data_in_reg[7][16]_srl8/CLK
 High Pulse Width  Slow    SRL16E/CLK               n/a            0.854     4.517   3.663  SLICE_X44Y245       auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_3_i/aurora_8b10b_lane_init_sm_4byte_i/counter2_r_reg[14]_srl14/CLK
 
 
@@ -885,25 +882,25 @@ High Pulse Width  Slow    SRL16E/CLK               n/a            0.854     4.51
 From Clock:  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE
   To Clock:  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
 
-Setup :            0  Failing Endpoints,  Worst Slack       59.571ns,  Total Violation        0.000ns
-Hold  :            0  Failing Endpoints,  Worst Slack       29.078ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack       59.737ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack       29.153ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             59.571ns  (required time - arrival time)
+Slack (MET) :             59.737ns  (required time - arrival time)
   Source:                 dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
                             (rising edge-triggered cell FDCE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE  {rise@0.000ns fall@30.000ns period=60.000ns})
-  Destination:            dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[10]/CE
-                            (rising edge-triggered cell FDCE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  {rise@0.000ns fall@15.000ns period=30.000ns})
+  Destination:            dbg_hub/inst/U_ICON/U_SYNC/iSYNC_WORD_reg[0]/R
+                            (rising edge-triggered cell FDRE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  {rise@0.000ns fall@15.000ns period=30.000ns})
   Path Group:             dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            60.000ns  (dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise@60.000ns - dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE rise@0.000ns)
-  Data Path Delay:        1.664ns  (logic 0.408ns (24.519%)  route 1.256ns (75.481%))
-  Logic Levels:           1  (LUT2=1)
-  Clock Path Skew:        1.607ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    1.607ns = ( 31.607 - 30.000 ) 
+  Data Path Delay:        1.251ns  (logic 0.408ns (32.614%)  route 0.843ns (67.386%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        1.446ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.446ns = ( 31.446 - 30.000 ) 
     Source Clock Delay      (SCD):    0.000ns
     Clock Pessimism Removal (CPR):    0.000ns
   Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
@@ -920,13 +917,13 @@ Slack (MET) :             59.571ns  (required time - arrival time)
                                                       0.000     0.000 r  
     BSCAN_X0Y0           BSCANE2                      0.000     0.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE
                          net (fo=1, estimated)        0.000     0.000    dbg_hub/inst/U_ICON/UPDATE
-    SLICE_X29Y232                                                     r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
+    SLICE_X18Y185                                                     r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X29Y232        FDCE (Prop_fdce_C_Q)         0.285     0.285 f  dbg_hub/inst/U_ICON/iDATA_CMD_reg/Q
-                         net (fo=3, estimated)        0.800     1.085    dbg_hub/inst/bscan_inst/iDATA_CMD
-    SLICE_X30Y236        LUT2 (Prop_lut2_I1_O)        0.123     1.208 r  dbg_hub/inst/bscan_inst/iTARGET[15]_i_1/O
-                         net (fo=10, estimated)       0.456     1.664    dbg_hub/inst/U_ICON/U_CMD/I15[0]
-    SLICE_X30Y238        FDCE                                         r  dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[10]/CE
+    SLICE_X18Y185        FDCE (Prop_fdce_C_Q)         0.303     0.303 f  dbg_hub/inst/U_ICON/iDATA_CMD_reg/Q
+                         net (fo=3, estimated)        0.399     0.702    dbg_hub/inst/U_ICON/U_SYNC/iDATA_CMD
+    SLICE_X18Y185        LUT1 (Prop_lut1_I0_O)        0.105     0.807 r  dbg_hub/inst/U_ICON/U_SYNC/iSYNC_WORD[6]_i_1/O
+                         net (fo=8, estimated)        0.444     1.251    dbg_hub/inst/U_ICON/U_SYNC/iDATA_CMD_n
+    SLICE_X16Y185        FDRE                                         r  dbg_hub/inst/U_ICON/U_SYNC/iSYNC_WORD_reg[0]/R
   -------------------------------------------------------------------    -------------------
 
                          (clock dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise edge)
@@ -934,16 +931,16 @@ Slack (MET) :             59.571ns  (required time - arrival time)
     BSCAN_X0Y0           BSCANE2                      0.000    60.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
                          net (fo=1, estimated)        0.000    60.000    dbg_hub/inst/DRCK
     BUFGCTRL_X0Y2        BUFG (Prop_bufg_I_O)         0.077    60.077 r  dbg_hub/inst/u_bufg_icon/O
-                         net (fo=267, estimated)      1.530    61.607    dbg_hub/inst/U_ICON/U_CMD/idrck
-    SLICE_X30Y238                                                     r  dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[10]/C
-                         clock pessimism              0.000    61.607    
-                         clock uncertainty           -0.035    61.572    
-    SLICE_X30Y238        FDCE (Setup_fdce_C_CE)      -0.337    61.235    dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[10]
+                         net (fo=267, estimated)      1.369    61.446    dbg_hub/inst/U_ICON/U_SYNC/idrck
+    SLICE_X16Y185                                                     r  dbg_hub/inst/U_ICON/U_SYNC/iSYNC_WORD_reg[0]/C
+                         clock pessimism              0.000    61.446    
+                         clock uncertainty           -0.035    61.411    
+    SLICE_X16Y185        FDRE (Setup_fdre_C_R)       -0.423    60.988    dbg_hub/inst/U_ICON/U_SYNC/iSYNC_WORD_reg[0]
   -------------------------------------------------------------------
-                         required time                         61.235    
-                         arrival time                          -1.664    
+                         required time                         60.988    
+                         arrival time                          -1.251    
   -------------------------------------------------------------------
-                         slack                                 59.571    
+                         slack                                 59.737    
 
 
 
@@ -951,7 +948,7 @@ Slack (MET) :             59.571ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             29.078ns  (arrival time - required time)
+Slack (MET) :             29.153ns  (arrival time - required time)
   Source:                 dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
                             (rising edge-triggered cell FDCE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE  {rise@0.000ns fall@30.000ns period=60.000ns})
   Destination:            dbg_hub/inst/U_ICON/U_SYNC/SYNC_reg/D
@@ -959,10 +956,10 @@ Slack (MET) :             29.078ns  (arrival time - required time)
   Path Group:             dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
   Path Type:              Hold (Min at Slow Process Corner)
   Requirement:            -30.000ns  (dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise@30.000ns - dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE rise@60.000ns)
-  Data Path Delay:        1.054ns  (logic 0.313ns (29.696%)  route 0.741ns (70.304%))
+  Data Path Delay:        0.965ns  (logic 0.327ns (33.872%)  route 0.638ns (66.128%))
   Logic Levels:           1  (LUT5=1)
-  Clock Path Skew:        1.721ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    1.721ns
+  Clock Path Skew:        1.557ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.557ns
     Source Clock Delay      (SCD):    0.000ns
     Clock Pessimism Removal (CPR):    -0.000ns
   Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
@@ -979,13 +976,13 @@ Slack (MET) :             29.078ns  (arrival time - required time)
                                                      60.000    60.000 r  
     BSCAN_X0Y0           BSCANE2                      0.000    60.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/UPDATE
                          net (fo=1, estimated)        0.000    60.000    dbg_hub/inst/U_ICON/UPDATE
-    SLICE_X29Y232                                                     r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
+    SLICE_X18Y185                                                     r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X29Y232        FDCE (Prop_fdce_C_Q)         0.229    60.229 r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/Q
-                         net (fo=3, estimated)        0.741    60.970    dbg_hub/inst/U_ICON/U_SYNC/iDATA_CMD
-    SLICE_X29Y233        LUT5 (Prop_lut5_I0_O)        0.084    61.054 r  dbg_hub/inst/U_ICON/U_SYNC/SYNC_i_1/O
-                         net (fo=1, routed)           0.000    61.054    dbg_hub/inst/U_ICON/U_SYNC/n_0_SYNC_i_1
-    SLICE_X29Y233        FDRE                                         r  dbg_hub/inst/U_ICON/U_SYNC/SYNC_reg/D
+    SLICE_X18Y185        FDCE (Prop_fdce_C_Q)         0.243    60.243 r  dbg_hub/inst/U_ICON/iDATA_CMD_reg/Q
+                         net (fo=3, estimated)        0.638    60.881    dbg_hub/inst/U_ICON/U_SYNC/iDATA_CMD
+    SLICE_X17Y185        LUT5 (Prop_lut5_I0_O)        0.084    60.965 r  dbg_hub/inst/U_ICON/U_SYNC/SYNC_i_1/O
+                         net (fo=1, routed)           0.000    60.965    dbg_hub/inst/U_ICON/U_SYNC/n_0_SYNC_i_1
+    SLICE_X17Y185        FDRE                                         r  dbg_hub/inst/U_ICON/U_SYNC/SYNC_reg/D
   -------------------------------------------------------------------    -------------------
 
                          (clock dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise edge)
@@ -993,16 +990,16 @@ Slack (MET) :             29.078ns  (arrival time - required time)
     BSCAN_X0Y0           BSCANE2                      0.000    30.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
                          net (fo=1, estimated)        0.000    30.000    dbg_hub/inst/DRCK
     BUFGCTRL_X0Y2        BUFG (Prop_bufg_I_O)         0.081    30.081 r  dbg_hub/inst/u_bufg_icon/O
-                         net (fo=267, estimated)      1.640    31.721    dbg_hub/inst/U_ICON/U_SYNC/idrck
-    SLICE_X29Y233                                                     r  dbg_hub/inst/U_ICON/U_SYNC/SYNC_reg/C
-                         clock pessimism              0.000    31.721    
-                         clock uncertainty            0.035    31.756    
-    SLICE_X29Y233        FDRE (Hold_fdre_C_D)         0.220    31.976    dbg_hub/inst/U_ICON/U_SYNC/SYNC_reg
+                         net (fo=267, estimated)      1.476    31.557    dbg_hub/inst/U_ICON/U_SYNC/idrck
+    SLICE_X17Y185                                                     r  dbg_hub/inst/U_ICON/U_SYNC/SYNC_reg/C
+                         clock pessimism              0.000    31.557    
+                         clock uncertainty            0.035    31.592    
+    SLICE_X17Y185        FDRE (Hold_fdre_C_D)         0.220    31.812    dbg_hub/inst/U_ICON/U_SYNC/SYNC_reg
   -------------------------------------------------------------------
-                         required time                        -31.976    
-                         arrival time                          61.054    
+                         required time                        -31.812    
+                         arrival time                          60.965    
   -------------------------------------------------------------------
-                         slack                                 29.078    
+                         slack                                 29.153    
 
 
 
@@ -1012,53 +1009,53 @@ Slack (MET) :             29.078ns  (arrival time - required time)
 From Clock:  init_clk_i
   To Clock:  drp_clk_i
 
-Setup :            0  Failing Endpoints,  Worst Slack       11.709ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack       11.083ns,  Total Violation        0.000ns
 Hold  :               Failing Endpoints,  Worst Slack               ,  Total Violation             
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             11.709ns  (required time - arrival time)
+Slack (MET) :             11.083ns  (required time - arrival time)
   Source:                 auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/C
                             (rising edge-triggered cell FDRE clocked by init_clk_i)
-  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
+  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
                             (rising edge-triggered cell RAMB36E1 clocked by drp_clk_i)
   Path Group:             drp_clk_i
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            20.000ns  (MaxDelay Path 20.000ns)
-  Data Path Delay:        8.004ns  (logic 1.380ns (17.241%)  route 6.624ns (82.759%))
+  Data Path Delay:        8.630ns  (logic 1.418ns (16.431%)  route 7.212ns (83.569%))
   Logic Levels:           6  (LUT2=1 LUT4=2 LUT5=1 LUT6=2)
   Timing Exception:       MaxDelay Path 20.000ns -datapath_only
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
-    SLICE_X26Y228                                     0.000     0.000 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/C
-    SLICE_X26Y228        FDRE (Prop_fdre_C_Q)         0.379     0.379 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/Q
-                         net (fo=297, estimated)      1.256     1.635    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/den
-    SLICE_X30Y217        LUT4 (Prop_lut4_I3_O)        0.115     1.750 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/current_state[1]_i_3/O
-                         net (fo=1, estimated)        0.812     2.562    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/I3
-    SLICE_X31Y203        LUT6 (Prop_lut6_I1_O)        0.267     2.829 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/current_state[1]_i_1__2/O
-                         net (fo=3, estimated)        0.598     3.427    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/next_state[1]
-    SLICE_X32Y202        LUT6 (Prop_lut6_I5_O)        0.105     3.532 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_2/O
-                         net (fo=3, estimated)        1.095     4.627    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/n_0_curr_read_block[2]_i_2
-    SLICE_X40Y186        LUT5 (Prop_lut5_I3_O)        0.126     4.753 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_1/O
-                         net (fo=2, estimated)        0.282     5.035    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/pwropt_2
-    SLICE_X40Y186        LUT4 (Prop_lut4_I0_O)        0.283     5.318 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_275/O
-                         net (fo=2, estimated)        1.991     7.309    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/pwropt
-    SLICE_X42Y124        LUT2 (Prop_lut2_I1_O)        0.105     7.414 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_278/O
-                         net (fo=2, estimated)        0.590     8.004    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_sig_254
-    RAMB36_X2Y23         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
+    SLICE_X12Y194                                     0.000     0.000 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/C
+    SLICE_X12Y194        FDRE (Prop_fdre_C_Q)         0.433     0.433 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/Q
+                         net (fo=297, estimated)      1.272     1.705    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/den
+    SLICE_X11Y184        LUT4 (Prop_lut4_I3_O)        0.118     1.823 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/current_state[1]_i_3/O
+                         net (fo=1, estimated)        0.879     2.702    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/I3
+    SLICE_X11Y172        LUT6 (Prop_lut6_I1_O)        0.268     2.970 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/current_state[1]_i_1__2/O
+                         net (fo=3, estimated)        0.333     3.303    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/next_state[1]
+    SLICE_X11Y171        LUT6 (Prop_lut6_I5_O)        0.105     3.408 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_2/O
+                         net (fo=3, estimated)        0.495     3.903    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/n_0_curr_read_block[2]_i_2
+    SLICE_X12Y170        LUT5 (Prop_lut5_I3_O)        0.106     4.009 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_1/O
+                         net (fo=2, estimated)        0.282     4.291    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/pwropt_2
+    SLICE_X12Y170        LUT4 (Prop_lut4_I0_O)        0.283     4.574 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_273/O
+                         net (fo=2, estimated)        1.879     6.453    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_sig_251
+    SLICE_X66Y154        LUT2 (Prop_lut2_I1_O)        0.105     6.558 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_274/O
+                         net (fo=2, estimated)        2.072     8.630    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_sig_252
+    RAMB36_X7Y29         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
   -------------------------------------------------------------------    -------------------
 
                          max delay                   20.000    20.000    
-    RAMB36_X2Y23         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_REGCEB)
-                                                     -0.287    19.713    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
+    RAMB36_X7Y29         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_REGCEB)
+                                                     -0.287    19.713    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
   -------------------------------------------------------------------
                          required time                         19.713    
-                         arrival time                          -8.004    
+                         arrival time                          -8.630    
   -------------------------------------------------------------------
-                         slack                                 11.709    
+                         slack                                 11.083    
 
 
 
@@ -1068,44 +1065,44 @@ Slack (MET) :             11.709ns  (required time - arrival time)
 From Clock:  user_clk_i
   To Clock:  drp_clk_i
 
-Setup :            0  Failing Endpoints,  Worst Slack        6.572ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack        5.894ns,  Total Violation        0.000ns
 Hold  :               Failing Endpoints,  Worst Slack               ,  Total Violation             
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             6.572ns  (required time - arrival time)
-  Source:                 auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_3_i/aurora_8b10b_lane_init_sm_4byte_i/lane_up_flop_i/C
+Slack (MET) :             5.894ns  (required time - arrival time)
+  Source:                 auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_1_i/aurora_8b10b_lane_init_sm_4byte_i/lane_up_flop_i/C
                             (rising edge-triggered cell FDRE clocked by user_clk_i)
   Destination:            auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg_reg[1]/D
                             (rising edge-triggered cell FDRE clocked by drp_clk_i)
   Path Group:             drp_clk_i
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            9.091ns  (MaxDelay Path 9.091ns)
-  Data Path Delay:        2.551ns  (logic 0.643ns (25.206%)  route 1.908ns (74.794%))
+  Data Path Delay:        3.229ns  (logic 0.643ns (19.913%)  route 2.586ns (80.087%))
   Logic Levels:           2  (LUT3=1 LUT4=1)
   Timing Exception:       MaxDelay Path 9.091ns -datapath_only
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
-    SLICE_X46Y244                                     0.000     0.000 r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_3_i/aurora_8b10b_lane_init_sm_4byte_i/lane_up_flop_i/C
-    SLICE_X46Y244        FDRE (Prop_fdre_C_Q)         0.433     0.433 r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_3_i/aurora_8b10b_lane_init_sm_4byte_i/lane_up_flop_i/Q
-                         net (fo=5, estimated)        1.075     1.508    auroraIfc/auroraIntraImport/lane_up_i[3]
-    SLICE_X44Y229        LUT4 (Prop_lut4_I1_O)        0.105     1.613 r  auroraIfc/auroraIntraImport/lane_up_i_i_inferred_i_1/O
-                         net (fo=3, estimated)        0.833     2.446    auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in1[0]
-    SLICE_X32Y225        LUT3 (Prop_lut3_I2_O)        0.105     2.551 r  auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg[1]_i_1/O
-                         net (fo=1, routed)           0.000     2.551    auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/n_0_probe_in_reg[1]_i_1
-    SLICE_X32Y225        FDRE                                         r  auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg_reg[1]/D
+    SLICE_X48Y221                                     0.000     0.000 r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_1_i/aurora_8b10b_lane_init_sm_4byte_i/lane_up_flop_i/C
+    SLICE_X48Y221        FDRE (Prop_fdre_C_Q)         0.433     0.433 r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_1_i/aurora_8b10b_lane_init_sm_4byte_i/lane_up_flop_i/Q
+                         net (fo=5, estimated)        0.963     1.396    auroraIfc/auroraIntraImport/lane_up_i[1]
+    SLICE_X42Y226        LUT4 (Prop_lut4_I2_O)        0.105     1.501 r  auroraIfc/auroraIntraImport/lane_up_i_i_inferred_i_1/O
+                         net (fo=3, estimated)        1.623     3.124    auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in1[0]
+    SLICE_X11Y202        LUT3 (Prop_lut3_I2_O)        0.105     3.229 r  auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg[1]_i_1/O
+                         net (fo=1, routed)           0.000     3.229    auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/n_0_probe_in_reg[1]_i_1
+    SLICE_X11Y202        FDRE                                         r  auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg_reg[1]/D
   -------------------------------------------------------------------    -------------------
 
                          max delay                    9.091     9.091    
-    SLICE_X32Y225        FDRE (Setup_fdre_C_D)        0.032     9.123    auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg_reg[1]
+    SLICE_X11Y202        FDRE (Setup_fdre_C_D)        0.032     9.123    auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg_reg[1]
   -------------------------------------------------------------------
                          required time                          9.123    
-                         arrival time                          -2.551    
+                         arrival time                          -3.229    
   -------------------------------------------------------------------
-                         slack                                  6.572    
+                         slack                                  5.894    
 
 
 
@@ -1115,53 +1112,53 @@ Slack (MET) :             6.572ns  (required time - arrival time)
 From Clock:  drp_clk_i
   To Clock:  init_clk_i
 
-Setup :            0  Failing Endpoints,  Worst Slack       11.709ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack       11.083ns,  Total Violation        0.000ns
 Hold  :               Failing Endpoints,  Worst Slack               ,  Total Violation             
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             11.709ns  (required time - arrival time)
+Slack (MET) :             11.083ns  (required time - arrival time)
   Source:                 auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/C
                             (rising edge-triggered cell FDRE clocked by drp_clk_i)
-  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
+  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
                             (rising edge-triggered cell RAMB36E1 clocked by init_clk_i)
   Path Group:             init_clk_i
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            20.000ns  (MaxDelay Path 20.000ns)
-  Data Path Delay:        8.004ns  (logic 1.380ns (17.241%)  route 6.624ns (82.759%))
+  Data Path Delay:        8.630ns  (logic 1.418ns (16.431%)  route 7.212ns (83.569%))
   Logic Levels:           6  (LUT2=1 LUT4=2 LUT5=1 LUT6=2)
   Timing Exception:       MaxDelay Path 20.000ns -datapath_only
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
-    SLICE_X26Y228                                     0.000     0.000 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/C
-    SLICE_X26Y228        FDRE (Prop_fdre_C_Q)         0.379     0.379 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/Q
-                         net (fo=297, estimated)      1.256     1.635    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/den
-    SLICE_X30Y217        LUT4 (Prop_lut4_I3_O)        0.115     1.750 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/current_state[1]_i_3/O
-                         net (fo=1, estimated)        0.812     2.562    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/I3
-    SLICE_X31Y203        LUT6 (Prop_lut6_I1_O)        0.267     2.829 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/current_state[1]_i_1__2/O
-                         net (fo=3, estimated)        0.598     3.427    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/next_state[1]
-    SLICE_X32Y202        LUT6 (Prop_lut6_I5_O)        0.105     3.532 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_2/O
-                         net (fo=3, estimated)        1.095     4.627    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/n_0_curr_read_block[2]_i_2
-    SLICE_X40Y186        LUT5 (Prop_lut5_I3_O)        0.126     4.753 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_1/O
-                         net (fo=2, estimated)        0.282     5.035    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/pwropt_2
-    SLICE_X40Y186        LUT4 (Prop_lut4_I0_O)        0.283     5.318 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_275/O
-                         net (fo=2, estimated)        1.991     7.309    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/pwropt
-    SLICE_X42Y124        LUT2 (Prop_lut2_I1_O)        0.105     7.414 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_278/O
-                         net (fo=2, estimated)        0.590     8.004    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_sig_254
-    RAMB36_X2Y23         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
+    SLICE_X12Y194                                     0.000     0.000 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/C
+    SLICE_X12Y194        FDRE (Prop_fdre_C_Q)         0.433     0.433 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/U_XSDB_SLAVE/G_1PIPE_IFACE.s_den_r_reg/Q
+                         net (fo=297, estimated)      1.272     1.705    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/den
+    SLICE_X11Y184        LUT4 (Prop_lut4_I3_O)        0.118     1.823 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/u_ila_regs/current_state[1]_i_3/O
+                         net (fo=1, estimated)        0.879     2.702    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/I3
+    SLICE_X11Y172        LUT6 (Prop_lut6_I1_O)        0.268     2.970 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/current_state[1]_i_1__2/O
+                         net (fo=3, estimated)        0.333     3.303    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/next_state[1]
+    SLICE_X11Y171        LUT6 (Prop_lut6_I5_O)        0.105     3.408 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_2/O
+                         net (fo=3, estimated)        0.495     3.903    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/n_0_curr_read_block[2]_i_2
+    SLICE_X12Y170        LUT5 (Prop_lut5_I3_O)        0.106     4.009 f  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/curr_read_block[2]_i_1/O
+                         net (fo=2, estimated)        0.282     4.291    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/pwropt_2
+    SLICE_X12Y170        LUT4 (Prop_lut4_I0_O)        0.283     4.574 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_273/O
+                         net (fo=2, estimated)        1.879     6.453    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_sig_251
+    SLICE_X66Y154        LUT2 (Prop_lut2_I1_O)        0.105     6.558 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_gate_274/O
+                         net (fo=2, estimated)        2.072     8.630    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B_REGCEB_cooolgate_en_sig_252
+    RAMB36_X7Y29         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEB
   -------------------------------------------------------------------    -------------------
 
                          max delay                   20.000    20.000    
-    RAMB36_X2Y23         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_REGCEB)
-                                                     -0.287    19.713    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[225].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
+    RAMB36_X7Y29         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_REGCEB)
+                                                     -0.287    19.713    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
   -------------------------------------------------------------------
                          required time                         19.713    
-                         arrival time                          -8.004    
+                         arrival time                          -8.630    
   -------------------------------------------------------------------
-                         slack                                 11.709    
+                         slack                                 11.083    
 
 
 
@@ -1171,44 +1168,44 @@ Slack (MET) :             11.709ns  (required time - arrival time)
 From Clock:  user_clk_i
   To Clock:  init_clk_i
 
-Setup :            0  Failing Endpoints,  Worst Slack        6.572ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack        5.894ns,  Total Violation        0.000ns
 Hold  :               Failing Endpoints,  Worst Slack               ,  Total Violation             
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             6.572ns  (required time - arrival time)
-  Source:                 auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_3_i/aurora_8b10b_lane_init_sm_4byte_i/lane_up_flop_i/C
+Slack (MET) :             5.894ns  (required time - arrival time)
+  Source:                 auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_1_i/aurora_8b10b_lane_init_sm_4byte_i/lane_up_flop_i/C
                             (rising edge-triggered cell FDRE clocked by user_clk_i)
   Destination:            auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg_reg[1]/D
                             (rising edge-triggered cell FDRE clocked by init_clk_i)
   Path Group:             init_clk_i
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            9.091ns  (MaxDelay Path 9.091ns)
-  Data Path Delay:        2.551ns  (logic 0.643ns (25.206%)  route 1.908ns (74.794%))
+  Data Path Delay:        3.229ns  (logic 0.643ns (19.913%)  route 2.586ns (80.087%))
   Logic Levels:           2  (LUT3=1 LUT4=1)
   Timing Exception:       MaxDelay Path 9.091ns -datapath_only
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
-    SLICE_X46Y244                                     0.000     0.000 r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_3_i/aurora_8b10b_lane_init_sm_4byte_i/lane_up_flop_i/C
-    SLICE_X46Y244        FDRE (Prop_fdre_C_Q)         0.433     0.433 r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_3_i/aurora_8b10b_lane_init_sm_4byte_i/lane_up_flop_i/Q
-                         net (fo=5, estimated)        1.075     1.508    auroraIfc/auroraIntraImport/lane_up_i[3]
-    SLICE_X44Y229        LUT4 (Prop_lut4_I1_O)        0.105     1.613 r  auroraIfc/auroraIntraImport/lane_up_i_i_inferred_i_1/O
-                         net (fo=3, estimated)        0.833     2.446    auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in1[0]
-    SLICE_X32Y225        LUT3 (Prop_lut3_I2_O)        0.105     2.551 r  auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg[1]_i_1/O
-                         net (fo=1, routed)           0.000     2.551    auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/n_0_probe_in_reg[1]_i_1
-    SLICE_X32Y225        FDRE                                         r  auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg_reg[1]/D
+    SLICE_X48Y221                                     0.000     0.000 r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_1_i/aurora_8b10b_lane_init_sm_4byte_i/lane_up_flop_i/C
+    SLICE_X48Y221        FDRE (Prop_fdre_C_Q)         0.433     0.433 r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/aurora_8b10b_aurora_lane_4byte_1_i/aurora_8b10b_lane_init_sm_4byte_i/lane_up_flop_i/Q
+                         net (fo=5, estimated)        0.963     1.396    auroraIfc/auroraIntraImport/lane_up_i[1]
+    SLICE_X42Y226        LUT4 (Prop_lut4_I2_O)        0.105     1.501 r  auroraIfc/auroraIntraImport/lane_up_i_i_inferred_i_1/O
+                         net (fo=3, estimated)        1.623     3.124    auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in1[0]
+    SLICE_X11Y202        LUT3 (Prop_lut3_I2_O)        0.105     3.229 r  auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg[1]_i_1/O
+                         net (fo=1, routed)           0.000     3.229    auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/n_0_probe_in_reg[1]_i_1
+    SLICE_X11Y202        FDRE                                         r  auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg_reg[1]/D
   -------------------------------------------------------------------    -------------------
 
                          max delay                    9.091     9.091    
-    SLICE_X32Y225        FDRE (Setup_fdre_C_D)        0.032     9.123    auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg_reg[1]
+    SLICE_X11Y202        FDRE (Setup_fdre_C_D)        0.032     9.123    auroraIfc/auroraIntraImport/chipscope1.i_vio/inst/PROBE_IN_INST/probe_in_reg_reg[1]
   -------------------------------------------------------------------
                          required time                          9.123    
-                         arrival time                          -2.551    
+                         arrival time                          -3.229    
   -------------------------------------------------------------------
-                         slack                                  6.572    
+                         slack                                  5.894    
 
 
 
@@ -1218,43 +1215,43 @@ Slack (MET) :             6.572ns  (required time - arrival time)
 From Clock:  drp_clk_i
   To Clock:  user_clk_i
 
-Setup :            0  Failing Endpoints,  Worst Slack        3.487ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack        3.992ns,  Total Violation        0.000ns
 Hold  :               Failing Endpoints,  Worst Slack               ,  Total Violation             
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             3.487ns  (required time - arrival time)
-  Source:                 auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/multiple_read_latency.read_enable_out_reg[3]/C
+Slack (MET) :             3.992ns  (required time - arrival time)
+  Source:                 auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/multiple_read_latency.mahesh_temp_reg/C
                             (rising edge-triggered cell FDRE clocked by drp_clk_i)
-  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEAREGCE
+  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEAREGCE
                             (rising edge-triggered cell RAMB36E1 clocked by user_clk_i)
   Path Group:             user_clk_i
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            9.091ns  (MaxDelay Path 9.091ns)
-  Data Path Delay:        5.317ns  (logic 0.538ns (10.118%)  route 4.779ns (89.882%))
+  Data Path Delay:        4.812ns  (logic 0.538ns (11.180%)  route 4.274ns (88.820%))
   Logic Levels:           1  (LUT2=1)
   Timing Exception:       MaxDelay Path 9.091ns -datapath_only
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
-    SLICE_X36Y191                                     0.000     0.000 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/multiple_read_latency.read_enable_out_reg[3]/C
-    SLICE_X36Y191        FDRE (Prop_fdre_C_Q)         0.433     0.433 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/multiple_read_latency.read_enable_out_reg[3]/Q
-                         net (fo=16, estimated)       1.137     1.570    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/p_0_in
-    SLICE_X59Y181        LUT2 (Prop_lut2_I0_O)        0.105     1.675 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_i_3/O
-                         net (fo=260, estimated)      3.642     5.317    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/trace_read_en
-    RAMB36_X6Y14         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEAREGCE
+    SLICE_X36Y165                                     0.000     0.000 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/multiple_read_latency.mahesh_temp_reg/C
+    SLICE_X36Y165        FDRE (Prop_fdre_C_Q)         0.433     0.433 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/multiple_read_latency.mahesh_temp_reg/Q
+                         net (fo=4, estimated)        1.111     1.544    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/mahesh_temp
+    SLICE_X10Y168        LUT2 (Prop_lut2_I1_O)        0.105     1.649 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_i_3/O
+                         net (fo=260, estimated)      3.163     4.812    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/trace_read_en
+    RAMB36_X7Y29         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEAREGCE
   -------------------------------------------------------------------    -------------------
 
                          max delay                    9.091     9.091    
-    RAMB36_X6Y14         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_REGCEAREGCE)
-                                                     -0.287     8.804    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
+    RAMB36_X7Y29         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_REGCEAREGCE)
+                                                     -0.287     8.804    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
   -------------------------------------------------------------------
                          required time                          8.804    
-                         arrival time                          -5.317    
+                         arrival time                          -4.812    
   -------------------------------------------------------------------
-                         slack                                  3.487    
+                         slack                                  3.992    
 
 
 
@@ -1264,43 +1261,43 @@ Slack (MET) :             3.487ns  (required time - arrival time)
 From Clock:  init_clk_i
   To Clock:  user_clk_i
 
-Setup :            0  Failing Endpoints,  Worst Slack        3.487ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack        3.992ns,  Total Violation        0.000ns
 Hold  :               Failing Endpoints,  Worst Slack               ,  Total Violation             
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             3.487ns  (required time - arrival time)
-  Source:                 auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/multiple_read_latency.read_enable_out_reg[3]/C
+Slack (MET) :             3.992ns  (required time - arrival time)
+  Source:                 auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/multiple_read_latency.mahesh_temp_reg/C
                             (rising edge-triggered cell FDRE clocked by init_clk_i)
-  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEAREGCE
+  Destination:            auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEAREGCE
                             (rising edge-triggered cell RAMB36E1 clocked by user_clk_i)
   Path Group:             user_clk_i
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            9.091ns  (MaxDelay Path 9.091ns)
-  Data Path Delay:        5.317ns  (logic 0.538ns (10.118%)  route 4.779ns (89.882%))
+  Data Path Delay:        4.812ns  (logic 0.538ns (11.180%)  route 4.274ns (88.820%))
   Logic Levels:           1  (LUT2=1)
   Timing Exception:       MaxDelay Path 9.091ns -datapath_only
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
-    SLICE_X36Y191                                     0.000     0.000 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/multiple_read_latency.read_enable_out_reg[3]/C
-    SLICE_X36Y191        FDRE (Prop_fdre_C_Q)         0.433     0.433 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/multiple_read_latency.read_enable_out_reg[3]/Q
-                         net (fo=16, estimated)       1.137     1.570    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/p_0_in
-    SLICE_X59Y181        LUT2 (Prop_lut2_I0_O)        0.105     1.675 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_i_3/O
-                         net (fo=260, estimated)      3.642     5.317    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/trace_read_en
-    RAMB36_X6Y14         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEAREGCE
+    SLICE_X36Y165                                     0.000     0.000 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/multiple_read_latency.mahesh_temp_reg/C
+    SLICE_X36Y165        FDRE (Prop_fdre_C_Q)         0.433     0.433 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/multiple_read_latency.mahesh_temp_reg/Q
+                         net (fo=4, estimated)        1.111     1.544    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/mahesh_temp
+    SLICE_X10Y168        LUT2 (Prop_lut2_I1_O)        0.105     1.649 r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/xsdb_memory_read_inst/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_i_3/O
+                         net (fo=260, estimated)      3.163     4.812    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/trace_read_en
+    RAMB36_X7Y29         RAMB36E1                                     r  auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B/REGCEAREGCE
   -------------------------------------------------------------------    -------------------
 
                          max delay                    9.091     9.091    
-    RAMB36_X6Y14         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_REGCEAREGCE)
-                                                     -0.287     8.804    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[226].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
+    RAMB36_X7Y29         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_REGCEAREGCE)
+                                                     -0.287     8.804    auroraIfc/auroraIntraImport/chipscope1.i_ila/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[224].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.CASCADED_PRIM36.ram_B
   -------------------------------------------------------------------
                          required time                          8.804    
-                         arrival time                          -5.317    
+                         arrival time                          -4.812    
   -------------------------------------------------------------------
-                         slack                                  3.487    
+                         slack                                  3.992    
 
 
 
@@ -1311,27 +1308,27 @@ Path Group:  **async_default**
 From Clock:  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
   To Clock:  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
 
-Setup :            0  Failing Endpoints,  Worst Slack       26.389ns,  Total Violation        0.000ns
-Hold  :            0  Failing Endpoints,  Worst Slack        0.373ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack       26.181ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.385ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             26.389ns  (required time - arrival time)
-  Source:                 dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[13]/C
+Slack (MET) :             26.181ns  (required time - arrival time)
+  Source:                 dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[7]/C
                             (rising edge-triggered cell FDCE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  {rise@0.000ns fall@15.000ns period=30.000ns})
-  Destination:            dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[15]/CLR
+  Destination:            dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[3]/CLR
                             (recovery check against rising-edge clock dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  {rise@0.000ns fall@15.000ns period=30.000ns})
   Path Group:             **async_default**
   Path Type:              Recovery (Max at Slow Process Corner)
   Requirement:            30.000ns  (dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise@30.000ns - dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise@0.000ns)
-  Data Path Delay:        3.043ns  (logic 0.697ns (22.905%)  route 2.346ns (77.095%))
+  Data Path Delay:        3.323ns  (logic 0.694ns (20.885%)  route 2.629ns (79.115%))
   Logic Levels:           3  (LUT2=1 LUT6=2)
-  Clock Path Skew:        -0.040ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    1.608ns = ( 31.608 - 30.000 ) 
-    Source Clock Delay      (SCD):    1.726ns
-    Clock Pessimism Removal (CPR):    0.078ns
+  Clock Path Skew:        0.029ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.522ns = ( 31.522 - 30.000 ) 
+    Source Clock Delay      (SCD):    1.562ns
+    Clock Pessimism Removal (CPR):    0.069ns
   Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Total Input Jitter      (TIJ):    0.000ns
@@ -1345,18 +1342,18 @@ Slack (MET) :             26.389ns  (required time - arrival time)
     BSCAN_X0Y0           BSCANE2                      0.000     0.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
                          net (fo=1, estimated)        0.000     0.000    dbg_hub/inst/DRCK
     BUFGCTRL_X0Y2        BUFG (Prop_bufg_I_O)         0.081     0.081 r  dbg_hub/inst/u_bufg_icon/O
-                         net (fo=267, estimated)      1.645     1.726    dbg_hub/inst/U_ICON/U_CMD/idrck
-    SLICE_X30Y238                                                     r  dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[13]/C
+                         net (fo=267, estimated)      1.481     1.562    dbg_hub/inst/U_ICON/U_CMD/idrck
+    SLICE_X17Y190                                                     r  dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[7]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X30Y238        FDCE (Prop_fdce_C_Q)         0.379     2.105 r  dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[13]/Q
-                         net (fo=4, estimated)        0.717     2.822    dbg_hub/inst/U_ICON/U_CMD/iCORE_ID[1]
-    SLICE_X31Y238        LUT6 (Prop_lut6_I4_O)        0.105     2.927 f  dbg_hub/inst/U_ICON/U_CMD/shift_en_i_2/O
-                         net (fo=11, estimated)       0.388     3.315    dbg_hub/inst/U_ICON/U_CMD/n_0_shift_en_i_2
-    SLICE_X29Y236        LUT6 (Prop_lut6_I0_O)        0.105     3.420 f  dbg_hub/inst/U_ICON/U_CMD/shift_reg_in[17]_i_1/O
-                         net (fo=24, estimated)       0.509     3.929    dbg_hub/inst/U_ICON/U_CMD/O6
-    SLICE_X26Y237        LUT2 (Prop_lut2_I0_O)        0.108     4.037 f  dbg_hub/inst/U_ICON/U_CMD/ngwrdrst.grst.g7serrst.wr_rst_asreg_i_1/O
-                         net (fo=36, estimated)       0.732     4.769    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/AR[0]
-    SLICE_X23Y233        FDCE                                         f  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[15]/CLR
+    SLICE_X17Y190        FDCE (Prop_fdce_C_Q)         0.379     1.941 r  dbg_hub/inst/U_ICON/U_CMD/iTARGET_reg[7]/Q
+                         net (fo=3, estimated)        0.818     2.759    dbg_hub/inst/U_ICON/U_CMD/iCOMMAND_GRP[1]
+    SLICE_X17Y190        LUT6 (Prop_lut6_I0_O)        0.105     2.864 f  dbg_hub/inst/U_ICON/U_CMD/shift_en_i_2/O
+                         net (fo=11, estimated)       0.401     3.265    dbg_hub/inst/U_ICON/U_CMD/n_0_shift_en_i_2
+    SLICE_X16Y192        LUT6 (Prop_lut6_I0_O)        0.105     3.370 f  dbg_hub/inst/U_ICON/U_CMD/shift_reg_in[17]_i_1/O
+                         net (fo=24, estimated)       0.572     3.942    dbg_hub/inst/U_ICON/U_CMD/O6
+    SLICE_X14Y199        LUT2 (Prop_lut2_I0_O)        0.105     4.047 f  dbg_hub/inst/U_ICON/U_CMD/ngwrdrst.grst.g7serrst.wr_rst_asreg_i_1/O
+                         net (fo=36, estimated)       0.838     4.885    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/AR[0]
+    SLICE_X1Y197         FDCE                                         f  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[3]/CLR
   -------------------------------------------------------------------    -------------------
 
                          (clock dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise edge)
@@ -1364,16 +1361,16 @@ Slack (MET) :             26.389ns  (required time - arrival time)
     BSCAN_X0Y0           BSCANE2                      0.000    30.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
                          net (fo=1, estimated)        0.000    30.000    dbg_hub/inst/DRCK
     BUFGCTRL_X0Y2        BUFG (Prop_bufg_I_O)         0.077    30.077 r  dbg_hub/inst/u_bufg_icon/O
-                         net (fo=267, estimated)      1.531    31.608    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/idrck
-    SLICE_X23Y233                                                     r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[15]/C
-                         clock pessimism              0.078    31.686    
-                         clock uncertainty           -0.035    31.651    
-    SLICE_X23Y233        FDCE (Recov_fdce_C_CLR)     -0.493    31.158    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[15]
+                         net (fo=267, estimated)      1.445    31.522    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/idrck
+    SLICE_X1Y197                                                      r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[3]/C
+                         clock pessimism              0.069    31.591    
+                         clock uncertainty           -0.035    31.556    
+    SLICE_X1Y197         FDCE (Recov_fdce_C_CLR)     -0.490    31.066    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[3]
   -------------------------------------------------------------------
-                         required time                         31.158    
-                         arrival time                          -4.769    
+                         required time                         31.066    
+                         arrival time                          -4.885    
   -------------------------------------------------------------------
-                         slack                                 26.389    
+                         slack                                 26.181    
 
 
 
@@ -1381,20 +1378,20 @@ Slack (MET) :             26.389ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             0.373ns  (arrival time - required time)
-  Source:                 dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_reg_reg[2]/C
+Slack (MET) :             0.385ns  (arrival time - required time)
+  Source:                 dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.wr_rst_reg_reg[1]/C
                             (rising edge-triggered cell FDPE clocked by dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  {rise@0.000ns fall@15.000ns period=30.000ns})
-  Destination:            dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.rfwft/gpregsm1.curr_fwft_state_reg[0]/CLR
+  Destination:            dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gic0.gc0.count_d1_reg[2]/CLR
                             (removal check against rising-edge clock dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK  {rise@0.000ns fall@15.000ns period=30.000ns})
   Path Group:             **async_default**
   Path Type:              Removal (Min at Fast Process Corner)
   Requirement:            0.000ns  (dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise@0.000ns - dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise@0.000ns)
-  Data Path Delay:        0.297ns  (logic 0.141ns (47.441%)  route 0.156ns (52.559%))
+  Data Path Delay:        0.360ns  (logic 0.141ns (39.200%)  route 0.219ns (60.800%))
   Logic Levels:           0  
-  Clock Path Skew:        0.016ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    1.010ns
-    Source Clock Delay      (SCD):    0.730ns
-    Clock Pessimism Removal (CPR):    0.264ns
+  Clock Path Skew:        0.042ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.048ns
+    Source Clock Delay      (SCD):    0.765ns
+    Clock Pessimism Removal (CPR):    0.241ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
@@ -1403,12 +1400,12 @@ Slack (MET) :             0.373ns  (arrival time - required time)
     BSCAN_X0Y0           BSCANE2                      0.000     0.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
                          net (fo=1, estimated)        0.000     0.000    dbg_hub/inst/DRCK
     BUFGCTRL_X0Y2        BUFG (Prop_bufg_I_O)         0.026     0.026 r  dbg_hub/inst/u_bufg_icon/O
-                         net (fo=267, estimated)      0.704     0.730    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/idrck
-    SLICE_X26Y240                                                     r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_reg_reg[2]/C
+                         net (fo=267, estimated)      0.739     0.765    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/idrck
+    SLICE_X4Y202                                                      r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.wr_rst_reg_reg[1]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X26Y240        FDPE (Prop_fdpe_C_Q)         0.141     0.871 f  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_reg_reg[2]/Q
-                         net (fo=14, estimated)       0.156     1.027    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.rfwft/Q[1]
-    SLICE_X25Y240        FDCE                                         f  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.rfwft/gpregsm1.curr_fwft_state_reg[0]/CLR
+    SLICE_X4Y202         FDPE (Prop_fdpe_C_Q)         0.141     0.906 f  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.wr_rst_reg_reg[1]/Q
+                         net (fo=12, estimated)       0.219     1.125    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/Q[0]
+    SLICE_X2Y201         FDCE                                         f  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gic0.gc0.count_d1_reg[2]/CLR
   -------------------------------------------------------------------    -------------------
 
                          (clock dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK rise edge)
@@ -1416,15 +1413,15 @@ Slack (MET) :             0.373ns  (arrival time - required time)
     BSCAN_X0Y0           BSCANE2                      0.000     0.000 r  dbg_hub/inst/bscan_inst/SERIES7_BSCAN.bscan_inst/DRCK
                          net (fo=1, estimated)        0.000     0.000    dbg_hub/inst/DRCK
     BUFGCTRL_X0Y2        BUFG (Prop_bufg_I_O)         0.029     0.029 r  dbg_hub/inst/u_bufg_icon/O
-                         net (fo=267, estimated)      0.981     1.010    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.rfwft/idrck
-    SLICE_X25Y240                                                     r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.rfwft/gpregsm1.curr_fwft_state_reg[0]/C
-                         clock pessimism             -0.264     0.746    
-    SLICE_X25Y240        FDCE (Remov_fdce_C_CLR)     -0.092     0.654    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdb_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.rfwft/gpregsm1.curr_fwft_state_reg[0]
+                         net (fo=267, estimated)      1.019     1.048    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/idrck
+    SLICE_X2Y201                                                      r  dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gic0.gc0.count_d1_reg[2]/C
+                         clock pessimism             -0.241     0.807    
+    SLICE_X2Y201         FDCE (Remov_fdce_C_CLR)     -0.067     0.740    dbg_hub/inst/UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdb_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gic0.gc0.count_d1_reg[2]
   -------------------------------------------------------------------
-                         required time                         -0.654    
-                         arrival time                           1.027    
+                         required time                         -0.740    
+                         arrival time                           1.125    
   -------------------------------------------------------------------
-                         slack                                  0.373    
+                         slack                                  0.385    
 
 
 
@@ -1435,26 +1432,26 @@ Path Group:  **async_default**
 From Clock:  user_clk_i
   To Clock:  user_clk_i
 
-Setup :            0  Failing Endpoints,  Worst Slack        6.030ns,  Total Violation        0.000ns
-Hold  :            0  Failing Endpoints,  Worst Slack        0.423ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack        5.062ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.474ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             6.030ns  (required time - arrival time)
-  Source:                 auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/core_reset_logic_i/tx_lock_cdc_sync/s_level_out_d3_reg/C
+Slack (MET) :             5.062ns  (required time - arrival time)
+  Source:                 auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/core_reset_logic_i/link_reset_cdc_sync/s_level_out_d3_reg/C
                             (rising edge-triggered cell FDRE clocked by user_clk_i  {rise@0.000ns fall@4.545ns period=9.091ns})
-  Destination:            auroraIfc/recvQ/sGEnqPtr_reg[0]/CLR
+  Destination:            auroraIfc/recvQ/sGEnqPtr_reg[2]/CLR
                             (recovery check against rising-edge clock user_clk_i  {rise@0.000ns fall@4.545ns period=9.091ns})
   Path Group:             **async_default**
   Path Type:              Recovery (Max at Slow Process Corner)
   Requirement:            9.091ns  (user_clk_i rise@9.091ns - user_clk_i rise@0.000ns)
-  Data Path Delay:        2.643ns  (logic 0.695ns (26.296%)  route 1.948ns (73.704%))
+  Data Path Delay:        3.589ns  (logic 0.738ns (20.563%)  route 2.851ns (79.437%))
   Logic Levels:           2  (LUT1=1 LUT6=1)
-  Clock Path Skew:        -0.026ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    1.529ns = ( 10.620 - 9.091 ) 
-    Source Clock Delay      (SCD):    1.629ns
+  Clock Path Skew:        -0.048ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.526ns = ( 10.617 - 9.091 ) 
+    Source Clock Delay      (SCD):    1.648ns
     Clock Pessimism Removal (CPR):    0.074ns
   Clock Uncertainty:      0.061ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
@@ -1466,31 +1463,31 @@ Slack (MET) :             6.030ns  (required time - arrival time)
                          (clock user_clk_i rise edge)
                                                       0.000     0.000 r  
     BUFGCTRL_X0Y0        BUFG                         0.000     0.000 r  auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout0_buf/O
-                         net (fo=2734, estimated)     1.629     1.629    auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/core_reset_logic_i/tx_lock_cdc_sync/user_clk
-    SLICE_X34Y226                                                     r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/core_reset_logic_i/tx_lock_cdc_sync/s_level_out_d3_reg/C
+                         net (fo=2721, estimated)     1.648     1.648    auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/core_reset_logic_i/link_reset_cdc_sync/user_clk
+    SLICE_X10Y218                                                     r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/core_reset_logic_i/link_reset_cdc_sync/s_level_out_d3_reg/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X34Y226        FDRE (Prop_fdre_C_Q)         0.348     1.977 r  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/core_reset_logic_i/tx_lock_cdc_sync/s_level_out_d3_reg/Q
-                         net (fo=1, estimated)        0.768     2.745    auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/core_reset_logic_i/link_reset_cdc_sync/tx_lock_sync
-    SLICE_X34Y227        LUT6 (Prop_lut6_I3_O)        0.242     2.987 f  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/core_reset_logic_i/link_reset_cdc_sync/sys_reset_out_INST_0/O
-                         net (fo=20, estimated)       0.447     3.434    auroraIfc/auroraIntraImport/system_reset_i
-    SLICE_X36Y227        LUT1 (Prop_lut1_I0_O)        0.105     3.539 f  auroraIfc/auroraIntraImport/i_0/O
-                         net (fo=300, estimated)      0.733     4.272    auroraIfc/recvQ/I2
-    SLICE_X28Y236        FDCE                                         f  auroraIfc/recvQ/sGEnqPtr_reg[0]/CLR
+    SLICE_X10Y218        FDRE (Prop_fdre_C_Q)         0.398     2.046 f  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/core_reset_logic_i/link_reset_cdc_sync/s_level_out_d3_reg/Q
+                         net (fo=1, estimated)        0.830     2.876    auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/core_reset_logic_i/link_reset_cdc_sync/s_level_out_d3
+    SLICE_X10Y218        LUT6 (Prop_lut6_I2_O)        0.235     3.111 f  auroraIfc/auroraIntraImport/aurora_module_i/aurora_8b10b_i/inst/core_reset_logic_i/link_reset_cdc_sync/sys_reset_out_INST_0/O
+                         net (fo=21, estimated)       0.884     3.995    auroraIfc/auroraIntraImport/system_reset_i
+    SLICE_X34Y224        LUT1 (Prop_lut1_I0_O)        0.105     4.100 f  auroraIfc/auroraIntraImport/i_0/O
+                         net (fo=287, estimated)      1.137     5.237    auroraIfc/recvQ/I2
+    SLICE_X13Y226        FDCE                                         f  auroraIfc/recvQ/sGEnqPtr_reg[2]/CLR
   -------------------------------------------------------------------    -------------------
 
                          (clock user_clk_i rise edge)
                                                       9.091     9.091 r  
     BUFGCTRL_X0Y0        BUFG                         0.000     9.091 r  auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout0_buf/O
-                         net (fo=2734, estimated)     1.529    10.620    auroraIfc/recvQ/I1
-    SLICE_X28Y236                                                     r  auroraIfc/recvQ/sGEnqPtr_reg[0]/C
-                         clock pessimism              0.074    10.694    
-                         clock uncertainty           -0.061    10.633    
-    SLICE_X28Y236        FDCE (Recov_fdce_C_CLR)     -0.331    10.302    auroraIfc/recvQ/sGEnqPtr_reg[0]
+                         net (fo=2721, estimated)     1.526    10.617    auroraIfc/recvQ/I1
+    SLICE_X13Y226                                                     r  auroraIfc/recvQ/sGEnqPtr_reg[2]/C
+                         clock pessimism              0.074    10.691    
+                         clock uncertainty           -0.061    10.630    
+    SLICE_X13Y226        FDCE (Recov_fdce_C_CLR)     -0.331    10.299    auroraIfc/recvQ/sGEnqPtr_reg[2]
   -------------------------------------------------------------------
-                         required time                         10.302    
-                         arrival time                          -4.272    
+                         required time                         10.299    
+                         arrival time                          -5.237    
   -------------------------------------------------------------------
-                         slack                                  6.030    
+                         slack                                  5.062    
 
 
 
@@ -1498,7 +1495,7 @@ Slack (MET) :             6.030ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             0.423ns  (arrival time - required time)
+Slack (MET) :             0.474ns  (arrival time - required time)
   Source:                 auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/gt_rst_r_cdc_sync/s_level_out_d3_reg/C
                             (rising edge-triggered cell FDRE clocked by user_clk_i  {rise@0.000ns fall@4.545ns period=9.091ns})
   Destination:            auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/reset_debounce_r_reg[0]/PRE
@@ -1506,38 +1503,38 @@ Slack (MET) :             0.423ns  (arrival time - required time)
   Path Group:             **async_default**
   Path Type:              Removal (Min at Fast Process Corner)
   Requirement:            0.000ns  (user_clk_i rise@0.000ns - user_clk_i rise@0.000ns)
-  Data Path Delay:        0.289ns  (logic 0.128ns (44.265%)  route 0.161ns (55.735%))
+  Data Path Delay:        0.341ns  (logic 0.128ns (37.565%)  route 0.213ns (62.435%))
   Logic Levels:           0  
-  Clock Path Skew:        0.014ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    0.967ns
-    Source Clock Delay      (SCD):    0.694ns
-    Clock Pessimism Removal (CPR):    0.259ns
+  Clock Path Skew:        0.015ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.979ns
+    Source Clock Delay      (SCD):    0.704ns
+    Clock Pessimism Removal (CPR):    0.260ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
                          (clock user_clk_i rise edge)
                                                       0.000     0.000 r  
     BUFGCTRL_X0Y0        BUFG                         0.000     0.000 r  auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout0_buf/O
-                         net (fo=2734, estimated)     0.694     0.694    auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/gt_rst_r_cdc_sync/I1
-    SLICE_X33Y229                                                     r  auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/gt_rst_r_cdc_sync/s_level_out_d3_reg/C
+                         net (fo=2721, estimated)     0.704     0.704    auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/gt_rst_r_cdc_sync/I1
+    SLICE_X9Y218                                                      r  auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/gt_rst_r_cdc_sync/s_level_out_d3_reg/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X33Y229        FDRE (Prop_fdre_C_Q)         0.128     0.822 f  auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/gt_rst_r_cdc_sync/s_level_out_d3_reg/Q
-                         net (fo=4, estimated)        0.161     0.983    auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/gt_rst_sync
-    SLICE_X32Y229        FDPE                                         f  auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/reset_debounce_r_reg[0]/PRE
+    SLICE_X9Y218         FDRE (Prop_fdre_C_Q)         0.128     0.832 f  auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/gt_rst_r_cdc_sync/s_level_out_d3_reg/Q
+                         net (fo=4, estimated)        0.213     1.045    auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/gt_rst_sync
+    SLICE_X9Y217         FDPE                                         f  auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/reset_debounce_r_reg[0]/PRE
   -------------------------------------------------------------------    -------------------
 
                          (clock user_clk_i rise edge)
                                                       0.000     0.000 r  
     BUFGCTRL_X0Y0        BUFG                         0.000     0.000 r  auroraIfc/auroraIntraImport/aurora_module_i/clock_module_i/clkout0_buf/O
-                         net (fo=2734, estimated)     0.967     0.967    auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/I1
-    SLICE_X32Y229                                                     r  auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/reset_debounce_r_reg[0]/C
-                         clock pessimism             -0.259     0.708    
-    SLICE_X32Y229        FDPE (Remov_fdpe_C_PRE)     -0.148     0.560    auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/reset_debounce_r_reg[0]
+                         net (fo=2721, estimated)     0.979     0.979    auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/I1
+    SLICE_X9Y217                                                      r  auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/reset_debounce_r_reg[0]/C
+                         clock pessimism             -0.260     0.719    
+    SLICE_X9Y217         FDPE (Remov_fdpe_C_PRE)     -0.148     0.571    auroraIfc/auroraIntraImport/aurora_module_i/support_reset_logic_i/reset_debounce_r_reg[0]
   -------------------------------------------------------------------
-                         required time                         -0.560    
-                         arrival time                           0.983    
+                         required time                         -0.571    
+                         arrival time                           1.045    
   -------------------------------------------------------------------
-                         slack                                  0.423    
+                         slack                                  0.474    
 
 
 

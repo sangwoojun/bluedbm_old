@@ -58,10 +58,11 @@ typedef 8 HeaderSz;
 typedef TSub#(128,8) BodySz;
 typedef TMul#(2,TSub#(128,HeaderSz)) DataIfcSz;
 typedef Bit#(DataIfcSz) DataIfc;
+typedef Bit#(7) PacketType;
 
 interface AuroraIfc;
-	method Action send(DataIfc data);
-	method ActionValue#(DataIfc) receive;
+	method Action send(DataIfc data, PacketType ptype);
+	method ActionValue#(Tuple2#(DataIfc, PacketType)) receive;
 
 	interface Clock clk;
 	interface Reset rst;
@@ -142,18 +143,25 @@ module mkAuroraIntra#(Clock gtx_clk_p, Clock gtx_clk_n, Clock clk250) (AuroraIfc
 	Clock aclk = auroraIntraImport.aurora_clk;
 	Reset arst = auroraIntraImport.aurora_rst;
 
-	SyncFIFOIfc#(DataIfc) sendQ <- mkSyncFIFOFromCC(16, auroraIntraImport.aurora_clk);
-	SyncFIFOIfc#(DataIfc) recvQ <- mkSyncFIFOToCC(16, auroraIntraImport.aurora_clk, auroraIntraImport.aurora_rst);
-	Reg#(Maybe#(Bit#(BodySz))) packetSendBuffer <- mkReg(tagged Invalid, clocked_by aclk, reset_by arst);
+	SyncFIFOIfc#(Tuple2#(DataIfc,PacketType)) sendQ <- mkSyncFIFOFromCC(8, auroraIntraImport.aurora_clk);
+	SyncFIFOIfc#(Tuple2#(DataIfc,PacketType)) recvQ <- mkSyncFIFOToCC(8, auroraIntraImport.aurora_clk, auroraIntraImport.aurora_rst);
+	Reg#(Maybe#(Tuple2#(Bit#(BodySz), PacketType))) packetSendBuffer <- mkReg(tagged Invalid, clocked_by aclk, reset_by arst);
 	rule sendPacketPart;
 		if ( isValid(packetSendBuffer) ) begin
-			auroraIntraImport.user.send({8'h1,fromMaybe(0,packetSendBuffer)});
+			let btpl = fromMaybe(?, packetSendBuffer);
+			auroraIntraImport.user.send({1'h1,
+				tpl_2(btpl), tpl_1(btpl)
+				});
 			packetSendBuffer <= tagged Invalid;
 		end else begin
 			sendQ.deq;
 			let data = sendQ.first;
-			packetSendBuffer <= tagged Valid truncate((data>>valueOf(BodySz)));
-			auroraIntraImport.user.send({8'h0,truncate(data)});
+			packetSendBuffer <= tagged Valid 
+				tuple2(
+					truncate(tpl_1(data)>>valueOf(BodySz)),
+					tpl_2(data)
+				);
+			auroraIntraImport.user.send({1'h0, tpl_2(data),truncate(tpl_1(data))});
 		end
 	endrule
 
@@ -164,27 +172,29 @@ module mkAuroraIntra#(Clock gtx_clk_p, Clock gtx_clk_n, Clock clk250) (AuroraIfc
 		//recvQ.enq(zeroExtend(crdata));
 		Bit#(BodySz) cdata = truncate(crdata);
 		Bit#(8) header = truncate(crdata>>valueOf(BodySz));
+		Bit#(1) idx = header[7];
+		PacketType ptype = truncate(header);
 
 		if ( isValid(packetRecvBuffer) ) begin
 			let pdata = fromMaybe(0, packetRecvBuffer);
-			if ( header == 1 ) begin
+			if ( idx == 1 ) begin
 				packetRecvBuffer <= tagged Invalid;
-				recvQ.enq( {cdata, pdata} );
+				recvQ.enq( tuple2({cdata, pdata}, ptype) );
 			end
 			else begin
 				packetRecvBuffer <= tagged Valid cdata;
 			end
 		end
 		else begin
-			if ( header == 0 ) 
+			if ( idx == 0 ) 
 				packetRecvBuffer <= tagged Valid cdata;
 		end
 	endrule
 
-	method Action send(DataIfc data);
-		sendQ.enq(data);
+	method Action send(DataIfc data, PacketType ptype);
+		sendQ.enq(tuple2(data, ptype));
 	endmethod
-	method ActionValue#(DataIfc) receive;
+	method ActionValue#(Tuple2#(DataIfc, PacketType)) receive;
 		recvQ.deq;
 		return recvQ.first;
 	endmethod

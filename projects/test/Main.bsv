@@ -84,10 +84,12 @@ module mkMain#(FlashIndication indication, Clock clk250, Reset rst250)(MainIfc);
 	*/
 	FIFO#(Bit#(32)) dataQ <- mkSizedFIFO(32);
 	rule recvTestData;
-		let data <- auroraIntra1.receive;
+		let datao <- auroraIntra1.receive;
+		let data = tpl_1(datao);
+		let ptype = tpl_2(datao);
 		//writeBuffer.enq(truncate(data), 16);
 
-		dataQ.enq(truncate(data));
+		dataQ.enq({1'b0,ptype,data[23:0]});
 	endrule
 	rule dumpD;
 		dataQ.deq;
@@ -312,7 +314,7 @@ module mkMain#(FlashIndication indication, Clock clk250, Reset rst250)(MainIfc);
 		flashCmdQ.enq(fcmd);
 	endmethod
 	method Action sendTest(Bit#(32) data);
-		auroraIntra1.send(zeroExtend({16'hc001, data[15:0]}));
+		auroraIntra1.send(zeroExtend({16'hc001, data[15:0]}), 7);
 	endmethod
 	method Action addWriteHostBuffer(Bit#(32) pointer, Bit#(32) idx);
 		writeBufferFreeQ.enq(truncate(idx));
