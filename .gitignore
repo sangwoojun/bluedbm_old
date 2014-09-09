@@ -1,6 +1,8 @@
 *.swp
 *.swo
 *.sched
+*.swm
+*.swn
 parser.out
 parsetab.py
 vivado.jou
