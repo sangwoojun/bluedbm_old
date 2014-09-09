@@ -83,9 +83,6 @@ class FlashIndication : public FlashIndicationWrapper
 public:
   FlashIndication(unsigned int id) : FlashIndicationWrapper(id){}
 
-  virtual void started(){
-    fprintf(stderr, "started\n");
-  }
   virtual void writeDone(unsigned int tag) {
     fprintf(stderr, "write done tag: %d\n", tag);
   }

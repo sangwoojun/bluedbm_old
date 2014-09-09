@@ -41,25 +41,24 @@ import BRAMFIFOVector::*;
 
 
 interface FlashRequest;
-   method Action startCopy(Bit#(32) wrPointer, Bit#(32) rdPointer, Bit#(32) numWords, Bit#(32) burstLen, Bit#(32) iterCnt);
-   method Action readPage(Bit#(32) channel, Bit#(32) chip, Bit#(32) block, Bit#(32) page, Bit#(32) tag);
-   method Action writePage(Bit#(32) channel, Bit#(32) chip, Bit#(32) block, Bit#(32) page, Bit#(32) tag);
-   method Action sendTest(Bit#(32) data);
-   method Action addWriteHostBuffer(Bit#(32) pointer, Bit#(32) idx);
-   method Action addReadHostBuffer(Bit#(32) pointer, Bit#(32) idx);
+	method Action readPage(Bit#(32) channel, Bit#(32) chip, Bit#(32) block, Bit#(32) page, Bit#(32) tag);
+	method Action writePage(Bit#(32) channel, Bit#(32) chip, Bit#(32) block, Bit#(32) page, Bit#(32) tag);
+	method Action erasePage(Bit#(32) channel, Bit#(32) chip, Bit#(32) block);
+	method Action sendTest(Bit#(32) data);
+	method Action addWriteHostBuffer(Bit#(32) pointer, Bit#(32) idx);
+	method Action addReadHostBuffer(Bit#(32) pointer, Bit#(32) idx);
 endinterface
 
 interface FlashIndication;
-   method Action started;
-   method Action readDone(Bit#(32) tag);
-   method Action writeDone(Bit#(32) tag);
-   method Action hexDump(Bit#(32) data);
+	method Action readDone(Bit#(32) tag);
+	method Action writeDone(Bit#(32) tag);
+	method Action hexDump(Bit#(32) data);
 endinterface
 
 interface MainIfc;
-   interface FlashRequest request;
-   interface ObjectReadClient#(128) dmaReadClient;
-   interface ObjectWriteClient#(128) dmaWriteClient;
+	interface FlashRequest request;
+	interface ObjectReadClient#(128) dmaReadClient;
+	interface ObjectWriteClient#(128) dmaWriteClient;
 
 	interface Aurora_Pins#(4) aurora_fmc1;
 	interface Aurora_Clock_Pins aurora_clk_fmc1;
@@ -68,10 +67,6 @@ endinterface
 typedef enum {Read,Write,Erase} CmdType deriving (Bits,Eq);
 typedef struct { Bit#(5) channel; Bit#(5) chip; Bit#(8) block; Bit#(8) page; CmdType cmd; Bit#(8) tag;} FlashCmd deriving (Bits,Eq);
 
-
-// NOTE: this test doesn't rely on mkDma[Read|Write]Buffer to ensure that
-//       speculative read/write requests are not unsafely issued.  As a 
-//       result this must be enforced manually (mdk)
 
 module mkMain#(FlashIndication indication, Clock clk250, Reset rst250)(MainIfc);
 
@@ -119,31 +114,7 @@ module mkMain#(FlashIndication indication, Clock clk250, Reset rst250)(MainIfc);
    Reg#(Bit#(32))    rdBuffer <- mkReg(32);
    Reg#(Bit#(32))    wrBuffer <- mkReg(0); 
    
-   rule start_read(rdIterCnt > 0 && rdBuffer >= burstLen);
-      //$display("start_read %d", rdCnt);
-      //re.readServers[0].request.put(MemengineCmd{pointer:rdPointer, base:extend(rdCnt*4), len:(burstLen*4), burstLen:truncate(burstLen*4)});
-      rdBuffer <= rdBuffer-burstLen;
-      if(rdCnt+burstLen >= numWords) begin
-	 rdCnt <= 0;
-	 rdIterCnt <= rdIterCnt-1;
-      end
-      else begin
-	 rdCnt <= rdCnt+burstLen;
-      end
-   endrule
 
-   rule start_write(wrIterCnt > 0 && wrBuffer >= burstLen);
-      //$display("                    start_write %d", wrCnt);
-      //we.writeServers[0].request.put(MemengineCmd{pointer:wrPointer, base:extend(wrCnt*4), len:burstLen*4, burstLen:truncate(burstLen*4)});
-      wrBuffer <= wrBuffer-burstLen;
-      if(wrCnt+burstLen >= numWords) begin
-	 wrCnt <= 0;
-	 wrIterCnt <= wrIterCnt-1;
-      end
-      else begin
-	 wrCnt <= wrCnt+burstLen;
-      end
-   endrule
    
    rule read_finish;
       //$display("read_finish %d", rdIterCnt);
@@ -154,20 +125,6 @@ module mkMain#(FlashIndication indication, Clock clk250, Reset rst250)(MainIfc);
 	   let rv1 <- we.writeServers[0].response.get;
 	   //$display( "" );
 	 //indication.done(0);
-   endrule
-   /*
-   rule fill_buffer;
-      let v <- toGet(re.dataPipes[0]).get;
-      buffer.enq(v);
-      wrBuffer <= wrBuffer+2;
-      //$display("fill_buffer %h", rdFifo.first);
-   endrule
-   */
-   rule drain_buffer;
-      buffer.deq;
-      //we.dataPipes[0].enq(buffer.first);
-      rdBuffer <= rdBuffer+2;
-      //$display("                    drain_buffer %h", buffer.first);
    endrule
 
    PageCacheIfc#(3) pageCache <- mkPageCache; // 8 pages
@@ -315,18 +272,6 @@ module mkMain#(FlashIndication indication, Clock clk250, Reset rst250)(MainIfc);
    
 
    interface FlashRequest request;
-   method Action startCopy(Bit#(32) wp, Bit#(32) rp, Bit#(32) nw, Bit#(32) bl, Bit#(32) ic);
-      $display("startCopy wrPointer=%d rdPointer=%d numWords=%h burstLen=%d iterCnt=%d", wp, rp, nw, bl, ic);
-      indication.started;
-      // initialized
-      wrPointer <= wp;
-      rdPointer <= rp;
-      numWords  <= nw;
-      wrIterCnt <= ic;
-      rdIterCnt <= ic;
-      burstLen  <= bl;
-   endmethod
-
 	method Action readPage(Bit#(32) channel, Bit#(32) chip, Bit#(32) block, Bit#(32) page, Bit#(32) tag);
 
 		CmdType cmd = Read;
@@ -353,7 +298,19 @@ module mkMain#(FlashIndication indication, Clock clk250, Reset rst250)(MainIfc);
 			tag: truncate(tag)};
 
 		flashCmdQ.enq(fcmd);
-   endmethod
+	endmethod
+	method Action erasePage(Bit#(32) channel, Bit#(32) chip, Bit#(32) block);
+		CmdType cmd = Erase;
+		FlashCmd fcmd = FlashCmd{
+			channel: truncate(channel),
+			chip: truncate(chip),
+			block: truncate(block),
+			page: 0,
+			cmd: cmd,
+			tag: 0};
+
+		flashCmdQ.enq(fcmd);
+	endmethod
 	method Action sendTest(Bit#(32) data);
 		auroraIntra1.send(zeroExtend({16'hc001, data[15:0]}));
 	endmethod
