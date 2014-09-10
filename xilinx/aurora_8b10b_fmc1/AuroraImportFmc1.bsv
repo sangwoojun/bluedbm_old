@@ -58,7 +58,7 @@ typedef 8 HeaderSz;
 typedef TSub#(128,8) BodySz;
 typedef TMul#(2,TSub#(128,HeaderSz)) DataIfcSz;
 typedef Bit#(DataIfcSz) DataIfc;
-typedef Bit#(7) PacketType;
+typedef Bit#(6) PacketType;
 
 interface AuroraIfc;
 	method Action send(DataIfc data, PacketType ptype);
@@ -149,7 +149,7 @@ module mkAuroraIntra#(Clock gtx_clk_p, Clock gtx_clk_n, Clock clk250) (AuroraIfc
 	rule sendPacketPart;
 		if ( isValid(packetSendBuffer) ) begin
 			let btpl = fromMaybe(?, packetSendBuffer);
-			auroraIntraImport.user.send({1'h1,
+			auroraIntraImport.user.send({2'b10,
 				tpl_2(btpl), tpl_1(btpl)
 				});
 			packetSendBuffer <= tagged Invalid;
@@ -161,7 +161,7 @@ module mkAuroraIntra#(Clock gtx_clk_p, Clock gtx_clk_n, Clock clk250) (AuroraIfc
 					truncate(tpl_1(data)>>valueOf(BodySz)),
 					tpl_2(data)
 				);
-			auroraIntraImport.user.send({1'h0, tpl_2(data),truncate(tpl_1(data))});
+			auroraIntraImport.user.send({2'b00, tpl_2(data),truncate(tpl_1(data))});
 		end
 	endrule
 

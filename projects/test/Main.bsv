@@ -73,7 +73,7 @@ module mkMain#(FlashIndication indication, Clock clk250, Reset rst250)(MainIfc);
 	GtxClockImportIfc gtx_clk_fmc1 <- mkGtxClockImport;
 	AuroraIfc auroraIntra1 <- mkAuroraIntra(gtx_clk_fmc1.gtx_clk_p_ifc, gtx_clk_fmc1.gtx_clk_n_ifc, clk250);
    
-   BRAMFIFOVectorIfc#(7, 32, Bit#(128)) writeBuffer <- mkBRAMFIFOVector;
+   BRAMFIFOVectorIfc#(7, 32, Bit#(128)) writeBuffer <- mkBRAMFIFOVector(4);
 
 /*
 	Reg#(Bit#(16)) curTestData <- mkReg(0);
@@ -89,7 +89,7 @@ module mkMain#(FlashIndication indication, Clock clk250, Reset rst250)(MainIfc);
 		let ptype = tpl_2(datao);
 		//writeBuffer.enq(truncate(data), 16);
 
-		dataQ.enq({1'b0,ptype,data[23:0]});
+		dataQ.enq({2'b0,ptype,data[23:0]});
 	endrule
 	rule dumpD;
 		dataQ.deq;
@@ -152,61 +152,55 @@ module mkMain#(FlashIndication indication, Clock clk250, Reset rst250)(MainIfc);
 	endrule
 
 	Reg#(Maybe#(Bit#(8))) curWriteBuf <- mkReg(tagged Invalid);
-	for ( Integer i = 0; i < 128; i = i + 1 ) begin
-		Reg#(Bit#(5)) burstCount <- mkReg(0);
-		Reg#(Bit#(32)) writeCount <- mkReg(0);
-		rule startflushwritetohost (burstCount == 0 && 
-			writeBufferCount[i] >= 4 &&
-			!isValid(curWriteBuf));
-			//writeBuffer.dataCount(fromInteger(i)) >= 16);
-
-			curWriteBuf <= tagged Valid fromInteger(i);
-
+	Reg#(Bit#(5)) burstCount <- mkReg(0);
+	Reg#(Bit#(32)) writeCount <- mkReg(0);
+	rule startFlushDma ( burstCount == 0 && !isValid(curWriteBuf) );
+		let rbuf <- writeBuffer.getReadyIdx;
+		let rcount = writeBuffer.dataCount(rbuf);
+		if ( rcount >= 4 ) begin
+			curWriteBuf <= tagged Valid zeroExtend(rbuf);
+			
+			let s = dmaWriteStatus[rbuf];
+			let tag = tpl_1(s);
+			let offset = tpl_2(s);
+			dmaWriteStatus[rbuf] <= tuple2(tag,offset+(16*4));
+			let wrRef = dmaWriteRefs[rbuf];
 			burstCount <= 1;
-
-			let wrRef = dmaWriteRefs[i];
-
-			let s = dmaWriteStatus[i];
-			let tag = tpl_1(s);
-			let offset = tpl_2(s);
-			dmaWriteStatus[i] <= tuple2(tag,offset+(16*4));
 		  
-			//$display( "%d: starting burst %d", i, offset+(16*4) );
+			//$display( "%d: starting burst %d", rbuf, offset+(16*4) );
 			we.writeServers[0].request.put(MemengineCmd{pointer:wrRef, base:zeroExtend(offset), len:16*4, burstLen:16*4});
-		endrule
+		end
+		
+	endrule
+	rule flushDma ( burstCount > 0 && isValid(curWriteBuf));
+		if ( burstCount >= 4 ) begin
+			burstCount <= 0;
+			curWriteBuf <= tagged Invalid;
+		end else burstCount <= burstCount + 1;
+		let rbuf = fromMaybe(0,curWriteBuf);
+		
+		//writeBufferQ[i].deq;
+		//let d = writeBufferQ[i].first;
+		writeBuffer.deq(truncate(rbuf));
+		let d <- writeBuffer.first(truncate(rbuf));
+		//writeBufferCount[rbuf] <= writeBufferCount[rbuf] - 1;
+		
+		let s = dmaWriteStatus[rbuf];
+		let tag = tpl_1(s);
+		let offset = tpl_2(s);
 
-		rule flushwritetohost( burstCount > 0 ) ;
-			if ( burstCount >= 4 ) begin
-				burstCount <= 0;
-				curWriteBuf <= tagged Invalid;
+		we.dataPipes[0].enq(d);
 
-			end else burstCount <= burstCount + 1;
-			
-			//writeBufferQ[i].deq;
-			//let d = writeBufferQ[i].first;
-			writeBuffer.deq(fromInteger(i));
-			let d <- writeBuffer.first(fromInteger(i));
-			writeBufferCount[i] <= writeBufferCount[i] - 1;
-			
-			let s = dmaWriteStatus[i];
-			let tag = tpl_1(s);
-			let offset = tpl_2(s);
-
-			we.dataPipes[0].enq(d);
-
-			if ( writeCount + 1 >= 8192/16 ) begin
-				writeCount <= 0;
-				indication.readDone(fromInteger(i));
-				dmaWriteStatus[i] <= tuple2(tag,0);
-				readBufferFreeQ.enq(fromInteger(i));
-			end else begin
-				writeCount <= writeCount + 1;
-			end
-			//if ( i > 0 ) $display( "%d: writing burst data %d", i, writeCount );
-
-		endrule
-	end
-
+		if ( writeCount + 1 >= 8192/16 ) begin
+			writeCount <= 0;
+			indication.readDone(zeroExtend(rbuf));
+			dmaWriteStatus[rbuf] <= tuple2(tag,0);
+			readBufferFreeQ.enq(rbuf);
+		end else begin
+			writeCount <= writeCount + 1;
+		end
+		//$display( "%d: writing burst data %d", rbuf, writeCount );
+	endrule
 
 	Reg#(Bit#(32)) dmaReadCount <- mkReg(0);
 	Reg#(Bit#(5)) dmaReadBurstCount <- mkReg(0);

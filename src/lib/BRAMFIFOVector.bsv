@@ -7,9 +7,10 @@ interface BRAMFIFOVectorIfc#(numeric type vlog, numeric type fifosize, type fifo
 	method Action deq(Bit#(vlog) idx);
 	method ActionValue#(fifotype) first(Bit#(vlog) idx);
 	method Bit#(11) dataCount(Bit#(vlog) idx);
+	method ActionValue#(Bit#(vlog)) getReadyIdx;
 endinterface
 
-module mkBRAMFIFOVector (BRAMFIFOVectorIfc#(vlog, fifosize, fifotype))
+module mkBRAMFIFOVector#(Integer thresh) (BRAMFIFOVectorIfc#(vlog, fifosize, fifotype))
 	provisos (
 		Literal#(fifotype), 
 		Bits#(fifotype, fifotypesz),
@@ -56,6 +57,8 @@ module mkBRAMFIFOVector (BRAMFIFOVectorIfc#(vlog, fifosize, fifotype))
 			deqV[idx] <= tagged Valid v;
 		end
 	endrule
+
+	FIFO#(Bit#(vlog)) readyIdxQ <- mkSizedFIFO(32);
 	
 	method Action deq(Bit#(vlog) idx);
 		if ( isEmpty( idx ) ) fakeQ1.deq;
@@ -97,6 +100,11 @@ module mkBRAMFIFOVector (BRAMFIFOVectorIfc#(vlog, fifosize, fifotype))
 		if ( isEmpty( idx ) ) begin
 			deqV[idx] <= tagged Valid data;
 		end
+
+		if ( datacount[idx] + 1 >= fromInteger(thresh) ) begin
+			readyIdxQ.enq(idx);
+		end
+
 	endmethod
 	method ActionValue#(fifotype) first(Bit#(vlog) idx);
 		if ( !isValid(deqV[idx]) ) fakeQ2.deq;  
@@ -106,5 +114,10 @@ module mkBRAMFIFOVector (BRAMFIFOVectorIfc#(vlog, fifosize, fifotype))
 	endmethod
 	method Bit#(11) dataCount(Bit#(vlog) idx);
 		return datacount[idx];
+	endmethod
+
+	method ActionValue#(Bit#(vlog)) getReadyIdx;
+		readyIdxQ.deq;
+		return readyIdxQ.first;
 	endmethod
 endmodule
